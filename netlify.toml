@@ -8,7 +8,7 @@
   HUGO_ENABLEGITINFO = "true"
 
 [context.production.environment]
-  HUGO_BASEURL = "https://lik-uspeh.ru"
+  HUGO_BASEURL = "https://matskevichanthony.github.io/lik-uspeh-website"
 
 [context.deploy-preview]
   command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
@@ -21,6 +21,13 @@
 
 [context.branch-deploy.environment]
   HUGO_VERSION = "0.147.9"
+
+# Enable Netlify Identity for Decap CMS
+[context.production]
+  command = "hugo --gc --minify"
+
+[context.production.environment]
+  HUGO_BASEURL = "https://matskevichanthony.github.io/lik-uspeh-website"
 
 [[headers]]
   for = "/*"

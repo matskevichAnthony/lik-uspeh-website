@@ -1,0 +1,101 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+# Media files will be stored in the repo under static/images/uploads
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+# Russian localization
+locale: 'ru'
+
+# Site URL for preview
+site_url: https://matskevichanthony.github.io/lik-uspeh-website/
+
+# Collections define the structure for the different content types
+collections:
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Блог" # Used in the UI
+    folder: "content/blog" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template
+    editor:
+      preview: false
+    fields: # The fields for each document, usually in front matter
+      - {label: "Заголовок", name: "title", widget: "string"}
+      - {label: "Дата публикации", name: "date", widget: "datetime"}
+      - {label: "Описание", name: "description", widget: "string"}
+      - {label: "Автор", name: "author", widget: "string", default: "Администрация"}
+      - {label: "Категории", name: "categories", widget: "list", default: ["новости"]}
+      - {label: "Теги", name: "tags", widget: "list"}
+      - {label: "Изображение", name: "image", widget: "image", required: false}
+      - {label: "Черновик", name: "draft", widget: "boolean", default: false}
+      - {label: "Содержание", name: "body", widget: "markdown"}
+
+  - name: "pages"
+    label: "Страницы"
+    files:
+      - file: "content/_index.md"
+        label: "Главная страница"
+        name: "homepage"
+        fields:
+          - {label: "Заголовок", name: "title", widget: "string"}
+          - {label: "Описание", name: "description", widget: "string"}
+          - {label: "Содержание", name: "body", widget: "markdown"}
+          
+      - file: "content/about/_index.md"
+        label: "О нас"
+        name: "about"
+        fields:
+          - {label: "Заголовок", name: "title", widget: "string"}
+          - {label: "Описание", name: "description", widget: "string"}
+          - {label: "Содержание", name: "body", widget: "markdown"}
+          
+      - file: "content/contacts/_index.md"
+        label: "Контакты"
+        name: "contacts"
+        fields:
+          - {label: "Заголовок", name: "title", widget: "string"}
+          - {label: "Описание", name: "description", widget: "string"}
+          - {label: "Содержание", name: "body", widget: "markdown"}
+          
+      - file: "content/admissions/_index.md"
+        label: "Поступление"
+        name: "admissions"
+        fields:
+          - {label: "Заголовок", name: "title", widget: "string"}
+          - {label: "Описание", name: "description", widget: "string"}
+          - {label: "Содержание", name: "body", widget: "markdown"}
+
+  - name: "organization"
+    label: "Сведения об организации"
+    folder: "content/organization"
+    create: false # Don't allow creating new organization pages
+    slug: "{{slug}}"
+    nested:
+      depth: 100
+    fields:
+      - {label: "Заголовок", name: "title", widget: "string"}
+      - {label: "Описание", name: "description", widget: "string", required: false}
+      - {label: "Вес (порядок)", name: "weight", widget: "number", default: 10}
+      - {label: "Содержание", name: "body", widget: "markdown"}
+
+  - name: "settings"
+    label: "Настройки сайта"
+    files:
+      - file: "hugo.toml"
+        label: "Конфигурация Hugo"
+        name: "hugo_config"
+        fields:
+          - {label: "Название сайта", name: "title", widget: "string"}
+          - {label: "Базовый URL", name: "baseURL", widget: "string"}
+          - {label: "Язык", name: "languageCode", widget: "string", default: "ru"}
+          - {label: "Описание", name: "description", widget: "string"}
+          - label: "Параметры"
+            name: "params"
+            widget: "object"
+            fields:
+              - {label: "Название организации", name: "organization", widget: "string"}
+              - {label: "Телефон", name: "phone", widget: "string"}
+              - {label: "Email", name: "email", widget: "string"}
+              - {label: "Адрес", name: "address", widget: "string"}
