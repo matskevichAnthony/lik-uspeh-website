@@ -1,0 +1,83 @@
+{{ define "main" }}
+<div class="section-page">
+  <div class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item">
+          <a href="/" class="breadcrumbs__link">Главная</a>
+        </li>
+        {{ range .Ancestors.Reverse }}
+        <li class="breadcrumbs__item">
+          <a href="{{ .RelPermalink }}" class="breadcrumbs__link">{{ .Title }}</a>
+        </li>
+        {{ end }}
+        <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+          {{ .Title }}
+        </li>
+      </ol>
+    </nav>
+
+    <div class="section-page__content">
+      <header class="section-page__header">
+        <h1 class="section-page__title">{{ .Title }}</h1>
+        {{ if .Description }}
+        <p class="section-page__description">{{ .Description }}</p>
+        {{ end }}
+      </header>
+
+      {{ if .Content }}
+      <div class="section-page__intro">
+        {{ .Content }}
+      </div>
+      {{ end }}
+
+      {{ if .Pages }}
+      <div class="section-page__grid">
+        {{ range .Pages }}
+        <article class="section-card">
+          {{ if .Params.featured_image }}
+          <div class="section-card__image">
+            <img src="{{ .Params.featured_image }}" alt="{{ .Title }}">
+          </div>
+          {{ end }}
+          <div class="section-card__content">
+            <h2 class="section-card__title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h2>
+            {{ if .Description }}
+            <p class="section-card__description">{{ .Description }}</p>
+            {{ else if .Summary }}
+            <p class="section-card__description">{{ .Summary }}</p>
+            {{ end }}
+            {{ if .Date }}
+            <div class="section-card__meta">
+              <time class="section-card__date" datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "2 января 2006" }}
+              </time>
+            </div>
+            {{ end }}
+            <a href="{{ .RelPermalink }}" class="section-card__link">Подробнее</a>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      <!-- Organization submenu for organization section -->
+      {{ if eq .Section "organization" }}
+      <div class="organization-menu">
+        <h2 class="organization-menu__title">Разделы</h2>
+        <div class="organization-menu__grid">
+          {{ range .Site.Menus.organization }}
+          <a href="{{ .URL }}" class="organization-menu__item">
+            <h3 class="organization-menu__item-title">{{ .Name }}</h3>
+          </a>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

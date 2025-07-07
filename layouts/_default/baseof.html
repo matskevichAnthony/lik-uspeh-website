@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="keywords"
+    content="{{ if .Params.keywords }}{{ delimit .Params.keywords ", " }}{{ else }}{{ delimit .Site.Params.keywords ", " }}{{ end }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+  <meta property="og:description"
+    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+  <meta name="twitter:description"
+    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Styles -->
+  {{ $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  {{ if .IsHome }}
+  <!-- JSON-LD для главной страницы -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "{{ .Site.Title }}",
+      "description": "{{ .Site.Params.description }}",
+      "url": "{{ .Site.BaseURL }}",
+      "telephone": "{{ .Site.Params.phone }}",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Москва",
+        "addressCountry": "RU",
+        "streetAddress": "{{ .Site.Params.address }}"
+      },
+      "sameAs": [
+        "{{ .Site.Params.telegram }}",
+        "{{ .Site.Params.vk }}"
+      ]
+    }
+  </script>
+  {{ end }}
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header__content">
+        <div class="header__logo">
+          <a href="/" class="logo">
+            <span class="logo__text">{{ .Site.Title }}</span>
+          </a>
+        </div>
+
+        <nav class="header__nav">
+          <button class="nav-toggle" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <ul class="nav">
+            {{ range .Site.Menus.main }}
+            {{ if .HasChildren }}
+            <li class="nav__item nav__item--dropdown">
+              <a href="{{ .URL }}" class="nav__link">{{ .Name }}</a>
+              <ul class="nav__dropdown">
+                {{ range .Children }}
+                <li><a href="{{ .URL }}" class="nav__dropdown-link">{{ .Name }}</a></li>
+                {{ end }}
+              </ul>
+            </li>
+            {{ else }}
+            <li class="nav__item">
+              <a href="{{ .URL }}"
+                class="nav__link{{ if eq $.RelPermalink .URL }} nav__link--active{{ end }}">{{ .Name }}</a>
+            </li>
+            {{ end }}
+            {{ end }}
+          </ul>
+        </nav>
+
+        <div class="header__contacts">
+          <a href="tel:{{ .Site.Params.phone }}" class="header__phone">{{ .Site.Params.phone }}</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__section">
+          <h3 class="footer__title">{{ .Site.Title }}</h3>
+          <p class="footer__description">{{ .Site.Params.description }}</p>
+        </div>
+
+        <div class="footer__section">
+          <h3 class="footer__title">Контакты</h3>
+          <div class="footer__contacts">
+            <p class="footer__contact">
+              <span class="footer__contact-label">Телефон:</span>
+              <a href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
+            </p>
+            <p class="footer__contact">
+              <span class="footer__contact-label">Email:</span>
+              <a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a>
+            </p>
+            <p class="footer__contact">
+              <span class="footer__contact-label">Адрес:</span>
+              {{ .Site.Params.address }}
+            </p>
+          </div>
+        </div>
+
+        <div class="footer__section">
+          <h3 class="footer__title">Социальные сети</h3>
+          <div class="footer__social">
+            <a href="{{ .Site.Params.telegram }}" class="footer__social-link" target="_blank" rel="noopener">
+              Telegram
+            </a>
+            <a href="{{ .Site.Params.vk }}" class="footer__social-link" target="_blank" rel="noopener">
+              VKontakte
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__section">
+          <h3 class="footer__title">Быстрые ссылки</h3>
+          <ul class="footer__links">
+            <li><a href="/about/" class="footer__link">О гимназии</a></li>
+            <li><a href="/admissions/" class="footer__link">Поступление</a></li>
+            <li><a href="/contacts/" class="footer__link">Контакты</a></li>
+            <li><a href="/blog/" class="footer__link">Новости</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">
+          © {{ now.Year }} {{ .Site.Title }}. Все права защищены.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  {{ $script := resources.Get "js/main.js" | minify | fingerprint }}
+  <script src="{{ $script.Permalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+</body>
+
+</html>

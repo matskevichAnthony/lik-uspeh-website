@@ -1,0 +1,82 @@
+[
+  {
+    {- range $index, $page := .Site.RegularPages -
+    }
+  }
+  {
+    {- if $index -
+    }
+  },
+  {
+    {- end
+    }
+  }
+  {
+    "title": {
+      { .Title | jsonify
+      }
+    },
+    "permalink": {
+      { .Permalink | jsonify
+      }
+    },
+    "summary": {
+      { .Summary | plainify | jsonify
+      }
+    },
+    "content": {
+      { .Plain | jsonify
+      }
+    },
+    "date": {
+      { .Date.Format "2006-01-02" | jsonify
+      }
+    },
+    "section": {
+      { .Section | jsonify
+      }
+    },
+    "tags": [
+      {
+        {- range $tindex, $tag := .Params.tags -
+        }
+      }{
+        {- if $tindex -
+        }
+      },
+      {
+        {- end -
+        }
+      }{
+        { $tag | jsonify
+        }
+      }{
+        {- end -
+        }
+      }
+    ],
+    "categories": [
+      {
+        {- range $cindex, $cat := .Params.categories -
+        }
+      }{
+        {- if $cindex -
+        }
+      },
+      {
+        {- end -
+        }
+      }{
+        { $cat | jsonify
+        }
+      }{
+        {- end -
+        }
+      }
+    ]
+  }
+{
+    {- end -
+    }
+  }
+]

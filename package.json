@@ -1,0 +1,38 @@
+{
+  "name": "lik-uspeh-website",
+  "version": "1.0.0",
+  "description": "Официальный сайт гимназии «ЛИК-Успех» на Hugo",
+  "scripts": {
+    "dev": "hugo server --buildDrafts --watch",
+    "build": "hugo --minify --gc",
+    "clean": "rm -rf public/ resources/ .hugo_build.lock",
+    "telegram": "node scripts/telegram-notify.js",
+    "deploy": "npm run build && npm run telegram"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/lik-uspeh-website.git"
+  },
+  "keywords": [
+    "hugo",
+    "static-site",
+    "education",
+    "school",
+    "gymnasium",
+    "russia"
+  ],
+  "author": "Гимназия «ЛИК-Успех»",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0",
+    "hugo": ">=0.100.0"
+  },
+  "devDependencies": {
+    "node-fetch": "^3.3.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

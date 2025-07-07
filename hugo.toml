@@ -1,0 +1,295 @@
+baseURL = 'https://lik-uspeh.ru'
+languageCode = 'ru'
+title = 'Гимназия «ЛИК-Успех»'
+defaultContentLanguage = 'ru'
+
+# SEO и метаданные
+enableRobotsTXT = true
+enableGitInfo = false
+enableEmoji = true
+
+# Настройки сборки
+[build]
+  writeStats = true
+
+# Параметры темы
+[params]
+  description = "Частная гимназия «ЛИК-Успех» - качественное образование в Москве"
+  keywords = ["гимназия", "частная школа", "образование", "Москва", "ЛИК-Успех"]
+  author = "Гимназия «ЛИК-Успех»"
+  email = "info@lik-uspeh.ru"
+  phone = "+7 (495) XXX-XX-XX"
+  address = "Москва, ул. Примерная, д. 1"
+  
+  # Социальные сети
+  telegram = "https://t.me/lik_uspeh"
+  vk = "https://vk.com/likuspeh"
+  
+  # Настройки блога
+  blog_pagination = 6
+  posts_per_page = 10
+
+# Меню навигации
+[menus]
+  [[menus.main]]
+    identifier = "home"
+    name = "Главная"
+    url = "/"
+    weight = 1
+
+  [[menus.main]]
+    identifier = "about"
+    name = "О гимназии"
+    url = "/about/"
+    weight = 2
+
+  [[menus.main]]
+    identifier = "kindergarten"
+    name = "Детский сад"
+    url = "/kindergarten/"
+    weight = 3
+
+  [[menus.main]]
+    identifier = "admissions"
+    name = "Приём в гимназию"
+    url = "/admissions/"
+    weight = 4
+    hasChildren = true
+
+  [[menus.main]]
+    identifier = "admission-requirements"
+    name = "Требования для поступления"
+    url = "/admissions/requirements/"
+    parent = "admissions"
+    weight = 41
+
+  [[menus.main]]
+    identifier = "admission-first-class"
+    name = "Приём в первый класс"
+    url = "/admissions/first-class/"
+    parent = "admissions"
+    weight = 42
+
+  [[menus.main]]
+    identifier = "admission-tenth-class"
+    name = "Поступление в 10 класс"
+    url = "/admissions/tenth-class/"
+    parent = "admissions"
+    weight = 43
+
+  [[menus.main]]
+    identifier = "organization"
+    name = "Сведения об организации"
+    url = "/organization/"
+    weight = 5
+    hasChildren = true
+
+  [[menus.main]]
+    identifier = "contacts"
+    name = "Контактные данные"
+    url = "/contacts/"
+    weight = 6
+
+  [[menus.main]]
+    identifier = "vpr"
+    name = "ВПР"
+    url = "/vpr/"
+    weight = 7
+
+  [[menus.main]]
+    identifier = "education"
+    name = "Образование"
+    url = "/education/"
+    weight = 8
+    hasChildren = true
+
+  [[menus.main]]
+    identifier = "gia"
+    name = "ГИА"
+    url = "/education/gia/"
+    parent = "education"
+    weight = 81
+
+  [[menus.main]]
+    identifier = "olympiad"
+    name = "Всероссийская олимпиада"
+    url = "/education/olympiad/"
+    parent = "education"
+    weight = 82
+
+  [[menus.main]]
+    identifier = "students"
+    name = "Раздел для учащихся"
+    url = "/students/"
+    weight = 9
+
+  [[menus.main]]
+    identifier = "union"
+    name = "Профсоюз"
+    url = "/union/"
+    weight = 10
+
+  [[menus.main]]
+    identifier = "diary"
+    name = "Электронный дневник"
+    url = "https://login.dnevnik.ru/"
+    weight = 11
+
+  [[menus.main]]
+    identifier = "blog"
+    name = "Новости"
+    url = "/blog/"
+    weight = 12
+
+  [[menus.main]]
+    identifier = "articles"
+    name = "Полезные статьи"
+    url = "/articles/"
+    weight = 13
+
+# Подменю для "Сведения об организации"
+  [[menus.organization]]
+    identifier = "basic-info"
+    name = "Основные сведения"
+    url = "/organization/basic-info/"
+    weight = 1
+
+  [[menus.organization]]
+    identifier = "structure"
+    name = "Структура и органы управления"
+    url = "/organization/structure/"
+    weight = 2
+
+  [[menus.organization]]
+    identifier = "education-info"
+    name = "Образование"
+    url = "/organization/education/"
+    weight = 3
+
+  [[menus.organization]]
+    identifier = "documents"
+    name = "Нормативные документы"
+    url = "/organization/documents/"
+    weight = 4
+
+  [[menus.organization]]
+    identifier = "standards"
+    name = "Образовательные стандарты и требования"
+    url = "/organization/standards/"
+    weight = 5
+
+  [[menus.organization]]
+    identifier = "staff"
+    name = "Руководство. Педагогический состав"
+    url = "/organization/staff/"
+    weight = 6
+
+  [[menus.organization]]
+    identifier = "facilities"
+    name = "МТО и оснащенность"
+    url = "/organization/facilities/"
+    weight = 7
+
+  [[menus.organization]]
+    identifier = "support"
+    name = "Стипендии и меры поддержки"
+    url = "/organization/support/"
+    weight = 8
+
+  [[menus.organization]]
+    identifier = "paid-services"
+    name = "Платные образовательные услуги"
+    url = "/organization/paid-services/"
+    weight = 9
+
+  [[menus.organization]]
+    identifier = "finance"
+    name = "Финансово-хозяйственная деятельность"
+    url = "/organization/finance/"
+    weight = 10
+
+  [[menus.organization]]
+    identifier = "vacancies"
+    name = "Вакантные места"
+    url = "/organization/vacancies/"
+    weight = 11
+
+  [[menus.organization]]
+    identifier = "accessibility"
+    name = "Доступная среда"
+    url = "/organization/accessibility/"
+    weight = 12
+
+  [[menus.organization]]
+    identifier = "international"
+    name = "Международное сотрудничество"
+    url = "/organization/international/"
+    weight = 13
+
+  [[menus.organization]]
+    identifier = "self-examination"
+    name = "Самообследование"
+    url = "/organization/self-examination/"
+    weight = 14
+
+  [[menus.organization]]
+    identifier = "fire-safety"
+    name = "Пожарная безопасность"
+    url = "/organization/fire-safety/"
+    weight = 15
+
+  [[menus.organization]]
+    identifier = "anti-terrorism"
+    name = "Противодействие терроризму"
+    url = "/organization/anti-terrorism/"
+    weight = 16
+
+  [[menus.organization]]
+    identifier = "anti-corruption"
+    name = "Антикоррупционная деятельность"
+    url = "/organization/anti-corruption/"
+    weight = 17
+
+  [[menus.organization]]
+    identifier = "admission-docs"
+    name = "Документы о поступлении"
+    url = "/organization/admission-docs/"
+    weight = 18
+
+  [[menus.organization]]
+    identifier = "orders"
+    name = "Приказы"
+    url = "/organization/orders/"
+    weight = 19
+
+# Настройки таксономий
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
+# Настройки форматов вывода
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+
+# Настройки RSS
+[services.rss]
+  limit = 20
+
+# Настройки разметки
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
+    lineNos = true
+
+# Настройки обработки изображений
+[imaging]
+  resampleFilter = "lanczos"
+  quality = 85
+  anchor = "smart"

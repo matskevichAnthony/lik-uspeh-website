@@ -1,0 +1,193 @@
+{{ define "main" }}
+<article class="blog-post">
+  <div class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item">
+          <a href="/" class="breadcrumbs__link">Главная</a>
+        </li>
+        <li class="breadcrumbs__item">
+          <a href="/blog/" class="breadcrumbs__link">Новости</a>
+        </li>
+        <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+          {{ .Title }}
+        </li>
+      </ol>
+    </nav>
+
+    <div class="blog-post__content">
+      <main class="blog-post__main">
+        <header class="blog-post__header">
+          {{ if .Params.featured_image }}
+          <div class="blog-post__featured-image">
+            <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" loading="lazy">
+          </div>
+          {{ end }}
+
+          <div class="blog-post__meta">
+            <time class="blog-post__date" datetime="{{ .Date.Format "2006-01-02" }}">
+              {{ .Date.Format "2 января 2006" }}
+            </time>
+            {{ if .Params.author }}
+            <span class="blog-post__author">Автор: {{ .Params.author }}</span>
+            {{ end }}
+            {{ if .Params.categories }}
+            <div class="blog-post__categories">
+              {{ range .Params.categories }}
+              <a href="/categories/{{ . | urlize }}/" class="blog-post__category">{{ . }}</a>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+
+          <h1 class="blog-post__title">{{ .Title }}</h1>
+
+          {{ if .Description }}
+          <div class="blog-post__summary">{{ .Description }}</div>
+          {{ end }}
+        </header>
+
+        <div class="blog-post__body">
+          {{ .Content }}
+        </div>
+
+        <footer class="blog-post__footer">
+          {{ if .Params.tags }}
+          <div class="blog-post__tags">
+            <h3 class="blog-post__tags-title">Теги:</h3>
+            <div class="blog-post__tags-list">
+              {{ range .Params.tags }}
+              <a href="/tags/{{ . | urlize }}/" class="blog-post__tag">#{{ . }}</a>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+
+          <!-- Социальные сети -->
+          <div class="blog-post__share">
+            <h3 class="blog-post__share-title">Поделиться:</h3>
+            <div class="blog-post__share-buttons">
+              <a href="https://vk.com/share.php?url={{ .Permalink | absURL }}&title={{ .Title }}" target="_blank"
+                rel="noopener" class="share-button share-button--vk">
+                VKontakte
+              </a>
+              <a href="https://t.me/share/url?url={{ .Permalink | absURL }}&text={{ .Title }}" target="_blank"
+                rel="noopener" class="share-button share-button--telegram">
+                Telegram
+              </a>
+              <a href="https://connect.ok.ru/offer?url={{ .Permalink | absURL }}&title={{ .Title }}" target="_blank"
+                rel="noopener" class="share-button share-button--ok">
+                Одноклассники
+              </a>
+            </div>
+          </div>
+
+          <!-- Навигация по постам -->
+          <nav class="blog-post__navigation">
+            {{ if .PrevInSection }}
+            <div class="post-nav post-nav--prev">
+              <span class="post-nav__label">Предыдущая новость:</span>
+              <a href="{{ .PrevInSection.RelPermalink }}" class="post-nav__link">
+                {{ .PrevInSection.Title }}
+              </a>
+            </div>
+            {{ end }}
+
+            {{ if .NextInSection }}
+            <div class="post-nav post-nav--next">
+              <span class="post-nav__label">Следующая новость:</span>
+              <a href="{{ .NextInSection.RelPermalink }}" class="post-nav__link">
+                {{ .NextInSection.Title }}
+              </a>
+            </div>
+            {{ end }}
+          </nav>
+        </footer>
+      </main>
+
+      <aside class="blog-post__sidebar">
+        <!-- Последние новости -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">Последние новости</h3>
+          <div class="recent-posts">
+            {{ range first 5 (where .Site.RegularPages "Section" "blog") }}
+            {{ if ne .RelPermalink $.RelPermalink }}
+            <article class="recent-post">
+              <h4 class="recent-post__title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h4>
+              <time class="recent-post__date" datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "2 января" }}
+              </time>
+            </article>
+            {{ end }}
+            {{ end }}
+          </div>
+        </div>
+
+        <!-- Похожие записи -->
+        {{ $related := .Site.RegularPages.Related . | first 5 }}
+        {{ if $related }}
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">Похожие новости</h3>
+          <div class="related-posts">
+            {{ range $related }}
+            <article class="related-post">
+              <h4 class="related-post__title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h4>
+              <time class="related-post__date" datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "2 января" }}
+              </time>
+            </article>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+        <!-- Полезные ссылки -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">Полезные ссылки</h3>
+          <ul class="sidebar-widget__list">
+            <li><a href="/admissions/" class="sidebar-widget__link">Поступление</a></li>
+            <li><a href="/contacts/" class="sidebar-widget__link">Контакты</a></li>
+            <li><a href="https://login.dnevnik.ru/" class="sidebar-widget__link" target="_blank">Электронный дневник</a>
+            </li>
+            <li><a href="/articles/" class="sidebar-widget__link">Полезные статьи</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</article>
+
+<!-- Структурированные данные для SEO -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "{{ .Title }}",
+    "description": "{{ if .Description }}{{ .Description }}{{ else }}{{ .Summary }}{{ end }}",
+    "author": {
+      "@type": "Organization",
+      "name": "{{ .Site.Title }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ .Site.Title }}",
+      "url": "{{ .Site.BaseURL }}"
+    },
+    "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+    "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+    "url": "{{ .Permalink }}",
+    {{ if .Params.featured_image }}
+    "image": "{{ .Params.featured_image | absURL }}",
+    {{ end }}
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ .Permalink }}"
+    }
+  }
+</script>
+{{ end }}

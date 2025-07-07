@@ -1,0 +1,189 @@
+{{ define "main" }}
+<div class="blog-page">
+  <div class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item">
+          <a href="/" class="breadcrumbs__link">Главная</a>
+        </li>
+        <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+          Новости
+        </li>
+      </ol>
+    </nav>
+
+    <header class="blog-page__header">
+      <h1 class="blog-page__title">Новости гимназии</h1>
+      <p class="blog-page__description">Последние события и важные объявления</p>
+    </header>
+
+    <div class="blog-page__content">
+      <main class="blog-page__main">
+        {{ if .Pages }}
+        <div class="blog-posts">
+          {{ range .Paginator.Pages }}
+          <article class="blog-post-card">
+            {{ if .Params.featured_image }}
+            <div class="blog-post-card__image">
+              <a href="{{ .RelPermalink }}">
+                <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" loading="lazy">
+              </a>
+            </div>
+            {{ end }}
+
+            <div class="blog-post-card__content">
+              <div class="blog-post-card__meta">
+                <time class="blog-post-card__date" datetime="{{ .Date.Format "2006-01-02" }}">
+                  {{ .Date.Format "2 января 2006" }}
+                </time>
+                {{ if .Params.categories }}
+                <div class="blog-post-card__categories">
+                  {{ range .Params.categories }}
+                  <span class="blog-post-card__category">{{ . }}</span>
+                  {{ end }}
+                </div>
+                {{ end }}
+              </div>
+
+              <h2 class="blog-post-card__title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h2>
+
+              <div class="blog-post-card__summary">
+                {{ .Summary }}
+              </div>
+
+              <div class="blog-post-card__footer">
+                <a href="{{ .RelPermalink }}" class="blog-post-card__read-more">
+                  Читать полностью
+                </a>
+                {{ if .Params.tags }}
+                <div class="blog-post-card__tags">
+                  {{ range first 3 .Params.tags }}
+                  <span class="blog-post-card__tag">#{{ . }}</span>
+                  {{ end }}
+                </div>
+                {{ end }}
+              </div>
+            </div>
+          </article>
+          {{ end }}
+        </div>
+
+        <!-- Пагинация -->
+        {{ if gt .Paginator.TotalPages 1 }}
+        <nav class="pagination" aria-label="Навигация по страницам">
+          <ul class="pagination__list">
+            {{ if .Paginator.HasPrev }}
+            <li class="pagination__item">
+              <a href="{{ .Paginator.Prev.URL }}" class="pagination__link pagination__link--prev">
+                ← Предыдущая
+              </a>
+            </li>
+            {{ end }}
+
+            {{ range .Paginator.Pagers }}
+            <li class="pagination__item">
+              <a href="{{ .URL }}" class="pagination__link{{ if eq . $.Paginator }} pagination__link--current{{ end }}">
+                {{ .PageNumber }}
+              </a>
+            </li>
+            {{ end }}
+
+            {{ if .Paginator.HasNext }}
+            <li class="pagination__item">
+              <a href="{{ .Paginator.Next.URL }}" class="pagination__link pagination__link--next">
+                Следующая →
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+        </nav>
+        {{ end }}
+        {{ else }}
+        <div class="blog-empty">
+          <h2>Пока нет новостей</h2>
+          <p>Следите за обновлениями!</p>
+        </div>
+        {{ end }}
+      </main>
+
+      <aside class="blog-page__sidebar">
+        <!-- Категории -->
+        {{ if .Site.Taxonomies.categories }}
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">Категории</h3>
+          <ul class="sidebar-widget__list">
+            {{ range .Site.Taxonomies.categories.ByCount }}
+            <li>
+              <a href="{{ .Page.RelPermalink }}" class="sidebar-widget__link">
+                {{ .Page.Title }} ({{ .Count }})
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+
+        <!-- Последние посты -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">Последние новости</h3>
+          <div class="recent-posts">
+            {{ range first 5 (where .Site.RegularPages "Section" "blog") }}
+            <article class="recent-post">
+              <h4 class="recent-post__title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h4>
+              <time class="recent-post__date" datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "2 января" }}
+              </time>
+            </article>
+            {{ end }}
+          </div>
+        </div>
+
+        <!-- Теги -->
+        {{ if .Site.Taxonomies.tags }}
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">Популярные теги</h3>
+          <div class="tag-cloud">
+            {{ range first 20 .Site.Taxonomies.tags.ByCount }}
+            <a href="{{ .Page.RelPermalink }}" class="tag-cloud__tag">
+              #{{ .Page.Title }}
+            </a>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+        <!-- Архив -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">Архив</h3>
+          <ul class="sidebar-widget__list">
+            {{ range (.Site.RegularPages.GroupByDate "2006-01") }}
+            <li>
+              <a href="/blog/{{ .Key | urlize }}/" class="sidebar-widget__link">
+                {{ .Key }} ({{ len .Pages }})
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+
+        <!-- Полезные ссылки -->
+        <div class="sidebar-widget">
+          <h3 class="sidebar-widget__title">Полезные ссылки</h3>
+          <ul class="sidebar-widget__list">
+            <li><a href="/admissions/" class="sidebar-widget__link">Поступление</a></li>
+            <li><a href="/contacts/" class="sidebar-widget__link">Контакты</a></li>
+            <li><a href="https://login.dnevnik.ru/" class="sidebar-widget__link" target="_blank">Электронный дневник</a>
+            </li>
+            <li><a href="/articles/" class="sidebar-widget__link">Полезные статьи</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+{{ end }}
