@@ -1,0 +1,86 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Hugo: Serve Development",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"bash",
+				"-c",
+				"cd /home/v3nd4v41/lik-uspeh/new-website && hugo server --buildDrafts --watch --bind 0.0.0.0 --port 1313"
+			],
+			"group": "build",
+			"isBackground": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Hugo: Build Production",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"bash",
+				"-c",
+				"cd /home/v3nd4v41/lik-uspeh/new-website && hugo --minify --gc"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Hugo: Clean Cache",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"bash",
+				"-c",
+				"cd /home/v3nd4v41/lik-uspeh/new-website && rm -rf public/ resources/ .hugo_build.lock"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Telegram: Send Notification",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"bash",
+				"-c",
+				"cd /home/v3nd4v41/lik-uspeh/new-website && node scripts/telegram-notify.js"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"problemMatcher": []
+		}
+	]
+}
