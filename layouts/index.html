@@ -1,120 +1,392 @@
 {{ define "main" }}
-<div class="homepage">
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero__content">
-        <h1 class="hero__title">{{ .Site.Title }}</h1>
-        <p class="hero__subtitle">{{ .Site.Params.description }}</p>
-        <div class="hero__actions">
-          <a href="/about/" class="btn btn--primary">О гимназии</a>
-          <a href="/admissions/" class="btn btn--secondary">Поступление</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Features Section -->
-  <section class="features">
-    <div class="container">
-      <h2 class="section__title">Почему выбирают нас</h2>
-      <div class="features__grid">
-        <div class="feature">
-          <div class="feature__icon">🎓</div>
-          <h3 class="feature__title">Качественное образование</h3>
-          <p class="feature__description">Современные программы и методики обучения</p>
+<!-- Hero Section with Sophisticated Design -->
+<section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-background via-background-light to-background-grey">
+  <!-- Decorative Elements -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute top-20 left-20 w-64 h-64 bg-primary rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-20 w-80 h-80 bg-accent rounded-full blur-3xl"></div>
+  </div>
+  
+  <div class="container-custom relative z-10">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left Column: Content -->
+      <div class="space-y-8 fade-in">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 border border-border shadow-sm">
+          <div class="w-3 h-3 bg-accent rounded-full animate-pulse"></div>
+          <span class="text-sm font-medium text-text">{{ .Params.hero.live_counter.text }}</span>
+          <span class="text-sm font-bold text-primary">{{ .Params.hero.live_counter.students }} учеников • {{ .Params.hero.live_counter.activities }} активностей</span>
         </div>
-        <div class="feature">
-          <div class="feature__icon">👨‍🏫</div>
-          <h3 class="feature__title">Опытные педагоги</h3>
-          <p class="feature__description">Квалифицированные специалисты с большим опытом</p>
-        </div>
-        <div class="feature">
-          <div class="feature__icon">🏫</div>
-          <h3 class="feature__title">Современная база</h3>
-          <p class="feature__description">Оборудованные классы и лаборатории</p>
-        </div>
-        <div class="feature">
-          <div class="feature__icon">👥</div>
-          <h3 class="feature__title">Индивидуальный подход</h3>
-          <p class="feature__description">Небольшие классы, внимание к каждому ученику</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Education Levels Section -->
-  <section class="education-levels">
-    <div class="container">
-      <h2 class="section__title">Уровни образования</h2>
-      <div class="levels__grid">
-        <div class="level">
-          <h3 class="level__title">Детский сад</h3>
-          <p class="level__description">Подготовка к школе в комфортной среде</p>
-          <a href="/kindergarten/" class="level__link">Подробнее</a>
+        <!-- Main Title -->
+        <div class="space-y-6">
+          <h1 class="hero-title md:text-6xl lg:text-7xl">
+            <span class="block text-primary">{{ .Params.hero.title }}</span>
+          </h1>
+          <p class="hero-subtitle text-xl md:text-2xl">
+            {{ .Params.hero.subtitle }}
+          </p>
         </div>
-        <div class="level">
-          <h3 class="level__title">Начальная школа</h3>
-          <p class="level__description">1-4 классы. Основы знаний и навыков</p>
-          <a href="/education/" class="level__link">Подробнее</a>
-        </div>
-        <div class="level">
-          <h3 class="level__title">Средняя школа</h3>
-          <p class="level__description">5-9 классы. Углубленное изучение предметов</p>
-          <a href="/education/" class="level__link">Подробнее</a>
-        </div>
-        <div class="level">
-          <h3 class="level__title">Старшая школа</h3>
-          <p class="level__description">10-11 классы. Профильное обучение</p>
-          <a href="/education/" class="level__link">Подробнее</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Latest News Section -->
-  <section class="latest-news">
-    <div class="container">
-      <div class="section__header">
-        <h2 class="section__title">Последние новости</h2>
-        <a href="/blog/" class="section__link">Все новости</a>
-      </div>
-      <div class="news__grid">
-        {{ range first 3 (where .Site.RegularPages "Section" "blog") }}
-        <article class="news-card">
-          {{ if .Params.featured_image }}
-          <div class="news-card__image">
-            <img src="{{ .Params.featured_image }}" alt="{{ .Title }}">
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <a href="{{ .Params.hero.cta_primary.url }}" class="btn-primary group">
+            {{ .Params.hero.cta_primary.text }}
+            <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+          <a href="{{ .Params.hero.cta_secondary.url }}" class="btn-outline group">
+            {{ .Params.hero.cta_secondary.text }}
+            <svg class="w-5 h-5 ml-2 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Key Stats -->
+        <div class="grid grid-cols-2 gap-6 pt-8">
+          {{ range .Params.statistics }}
+          <div class="text-center p-4 bg-white/50 backdrop-blur-sm rounded-xl border border-border/50">
+            <div class="text-3xl font-bold text-primary mb-1">{{ .number }}</div>
+            <div class="text-sm text-text-secondary">{{ .description }}</div>
           </div>
           {{ end }}
-          <div class="news-card__content">
-            <time class="news-card__date" datetime="{{ .Date.Format "2006-01-02" }}">
-              {{ .Date.Format "2 января 2006" }}
-            </time>
-            <h3 class="news-card__title">
-              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </h3>
-            <p class="news-card__summary">{{ .Summary }}</p>
-            <a href="{{ .RelPermalink }}" class="news-card__link">Читать далее</a>
-          </div>
-        </article>
-        {{ end }}
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- CTA Section -->
-  <section class="cta">
-    <div class="container">
-      <div class="cta__content">
-        <h2 class="cta__title">Готовы присоединиться к нам?</h2>
-        <p class="cta__description">Узнайте больше о поступлении в нашу гимназию</p>
-        <div class="cta__actions">
-          <a href="/admissions/" class="btn btn--primary btn--large">Поступление</a>
-          <a href="/contacts/" class="btn btn--secondary btn--large">Связаться с нами</a>
+      <!-- Right Column: Visual Element -->
+      <div class="relative">
+        <div class="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl p-8 backdrop-blur-sm border border-border/50">
+          <!-- Placeholder for campus imagery or illustration -->
+          <div class="h-full bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center">
+            <div class="text-center space-y-4">
+              <div class="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h2M7 3h10M12 7v4m0 0v4m0-4h4m-4 0H8"></path>
+                </svg>
+              </div>
+              <p class="text-white/90 font-medium">Виртуальный тур по кампусу</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Floating Cards -->
+        <div class="absolute -top-4 -right-4 w-24 h-24 bg-accent rounded-2xl flex items-center justify-center shadow-lg animate-bounce">
+          <span class="text-2xl">🎓</span>
+        </div>
+        <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-secondary rounded-xl flex items-center justify-center shadow-lg" style="animation: bounce 2s infinite 0.5s;">
+          <span class="text-xl">📚</span>
         </div>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
+
+<!-- Age-Based Navigation -->
+<section class="py-20 bg-white">
+  <div class="container-custom">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Образование по возрастам</h2>
+      <p class="section-subtitle">От любознательности к академическому превосходству</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {{ range .Params.age_navigation }}
+      <a href="{{ .url }}" class="group block">
+        <div class="card hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
+          <div class="card-body space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="education-badge">{{ .age_range }} лет</span>
+              <svg class="w-6 h-6 text-primary transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-primary">{{ .title }}</h3>
+            <p class="text-text-secondary">{{ .description }}</p>
+          </div>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Advantages Grid -->
+<section class="py-20 bg-background-light">
+  <div class="container-custom">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Почему выбирают ЛИК-Успех</h2>
+      <p class="section-subtitle">Уникальные преимущества гуманитарного образования</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {{ range .Params.advantages }}
+      <div class="group">
+        <div class="card h-full hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+          <div class="card-body space-y-4">
+            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+              <!-- Icon based on .icon value -->
+              {{ if eq .icon "languages" }}
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+              </svg>
+              {{ else if eq .icon "courses" }}
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+              </svg>
+              {{ else if eq .icon "immersion" }}
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+              </svg>
+              {{ else if eq .icon "results" }}
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+              {{ else if eq .icon "mentoring" }}
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+              </svg>
+              {{ else }}
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              {{ end }}
+            </div>
+            <h3 class="text-lg font-bold text-primary">{{ .title }}</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">{{ .description }}</p>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Student Projects Showcase -->
+<section class="py-20 bg-white" id="projects">
+  <div class="container-custom">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Проекты наших учеников</h2>
+      <p class="section-subtitle">Творчество и инновации в действии</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      {{ range .Params.projects }}
+      <div class="group">
+        <div class="card overflow-hidden hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
+          <div class="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+            <!-- Placeholder for project image -->
+            <div class="text-center space-y-2">
+              <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto">
+                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="text-lg font-bold text-primary mb-3">{{ .title }}</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">{{ .description }}</p>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Campus Life Gallery -->
+<section class="py-20 bg-gradient-to-br from-primary/5 to-accent/5" id="campus-life">
+  <div class="container-custom">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Жизнь кампуса</h2>
+      <p class="section-subtitle">Каждый день — новые открытия</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {{ range .Params.campus_life }}
+      <div class="group cursor-pointer">
+        <div class="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
+          <!-- Placeholder for campus images -->
+          <div class="h-full flex items-center justify-center">
+            <div class="text-center space-y-2">
+              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto">
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+            <p class="text-white text-sm font-medium">{{ .caption }}</p>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-20 bg-white">
+  <div class="container-custom">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Истории успеха</h2>
+      <p class="section-subtitle">Мнения выпускников о гимназии</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      {{ range .Params.testimonials }}
+      <div class="group">
+        <div class="card h-full hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+          <div class="card-body space-y-6">
+            <div class="flex">
+              {{ range seq 5 }}
+              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+              </svg>
+              {{ end }}
+            </div>
+            <blockquote class="text-text italic text-lg leading-relaxed">
+              "{{ .quote }}"
+            </blockquote>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <span class="text-primary font-bold">{{ substr .author 0 1 }}</span>
+              </div>
+              <div>
+                <div class="font-semibold text-primary">{{ .author }}</div>
+                <div class="text-sm text-text-secondary">{{ .year }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Partners -->
+<section class="py-20 bg-background-light">
+  <div class="container-custom">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Наши партнёры</h2>
+      <p class="section-subtitle">Сотрудничество с ведущими образовательными учреждениями</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {{ range .Params.partners }}
+      <div class="group">
+        <div class="card hover:shadow-lg transition-all duration-300 group-hover:-translate-y-1">
+          <div class="card-body text-center space-y-4">
+            <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h2M7 3h10M12 7v4m0 0v4m0-4h4m-4 0H8"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-primary">{{ .name }}</h3>
+            <p class="text-sm text-text-secondary">{{ .description }}</p>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Latest News -->
+<section class="py-20 bg-white">
+  <div class="container-custom">
+    <div class="flex justify-between items-center mb-16">
+      <div>
+        <h2 class="section-title text-left mb-0">Последние новости</h2>
+        <p class="section-subtitle text-left mb-0">События и достижения гимназии</p>
+      </div>
+      <a href="/news/" class="nav-link group">
+        Все новости
+        <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      {{ range .Params.news }}
+      <article class="group">
+        <div class="card hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
+          <div class="card-body space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-text-light">{{ .date }}</span>
+              <span class="education-badge">{{ .category }}</span>
+            </div>
+            <h3 class="text-lg font-bold text-primary leading-tight">
+              <a href="{{ .url }}" class="hover:text-primary-light transition-colors">{{ .title }}</a>
+            </h3>
+            <a href="{{ .url }}" class="nav-link text-sm group-hover:text-primary">
+              Читать далее →
+            </a>
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Admission Process -->
+<section class="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+  <div class="container-custom">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Как поступить</h2>
+      <p class="section-subtitle">Простой процесс зачисления в 4 шага</p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-8">
+      {{ range .Params.admission_steps }}
+      <div class="text-center group">
+        <div class="relative mb-6">
+          <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300">
+            {{ .step }}
+          </div>
+          {{ if ne .step 4 }}
+          <div class="hidden md:block absolute top-8 left-full w-full h-0.5 bg-border -z-10"></div>
+          {{ end }}
+        </div>
+        <h3 class="text-lg font-bold text-primary mb-2">{{ .title }}</h3>
+        <p class="text-text-secondary text-sm">{{ .description }}</p>
+      </div>
+      {{ end }}
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="/admission/" class="btn-primary">
+        Начать процесс поступления
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="py-20 bg-gradient-to-r from-primary via-primary-dark to-secondary text-white">
+  <div class="container-custom text-center">
+    <div class="max-w-4xl mx-auto space-y-8">
+      <h2 class="text-3xl md:text-4xl font-bold font-heading">
+        {{ .Params.final_cta.title }}
+      </h2>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="{{ .Params.final_cta.button_url }}" class="bg-accent text-primary hover:bg-accent-light px-8 py-4 rounded-lg font-semibold transition-all duration-200 hover:scale-105">
+          {{ .Params.final_cta.button_text }}
+        </a>
+        <a href="/contacts/" class="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 rounded-lg font-semibold transition-all duration-200">
+          Записаться на экскурсию
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 {{ end }}

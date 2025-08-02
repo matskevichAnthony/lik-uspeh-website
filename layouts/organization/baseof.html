@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="keywords"
+    content="{{ if .Params.keywords }}{{ delimit .Params.keywords ", " }}{{ else }}{{ delimit .Site.Params.keywords ", " }}{{ end }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+  <meta property="og:description"
+    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+  <meta name="twitter:description"
+    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Styles -->
+  {{ $style := resources.Get "css/main.css" | postCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    rel="stylesheet">
+
+  <!-- JSON-LD для образовательной организации -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "{{ .Site.Title }}",
+      "description": "{{ .Site.Params.description }}",
+      "url": "{{ .Site.BaseURL }}",
+      "telephone": "{{ .Site.Params.phone }}",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Москва",
+        "addressCountry": "RU",
+        "streetAddress": "{{ .Site.Params.address }}"
+      },
+      "sameAs": [
+        "{{ .Site.Params.telegram }}",
+        "{{ .Site.Params.vk }}"
+      ]
+    }
+  </script>
+
+  <!-- Netlify Identity Widget for Decap CMS -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+
+<body class="body--legal">
+  <!-- Utility Bar (верхняя полоса) -->
+  <div class="utility-bar">
+    <div class="container">
+      <div class="utility-bar__content">
+        <div class="utility-bar__left">
+          {{ range .Site.Menus.utility }}
+          {{ if eq .Identifier "organization" }}
+          <a href="{{ .URL }}"
+            class="utility-bar__link utility-bar__link--primary utility-bar__link--active">{{ .Name }}</a>
+          {{ end }}
+          {{ end }}
+        </div>
+
+        <div class="utility-bar__right">
+          {{ range .Site.Menus.utility }}
+          {{ if ne .Identifier "organization" }}
+          <a href="{{ .URL }}" class="utility-bar__link{{ if .Params.external }} utility-bar__link--external{{ end }}"
+            {{ if .Params.external }}target="_blank" rel="noopener" {{ end }}>
+            {{ .Name }}
+          </a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header__content">
+        <div class="header__logo">
+          <a href="/" class="logo">
+            <span class="logo__text">{{ .Site.Title }}</span>
+          </a>
+        </div>
+
+        <nav class="header__nav">
+          <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false">
+            <span class="nav-toggle__line"></span>
+            <span class="nav-toggle__line"></span>
+            <span class="nav-toggle__line"></span>
+          </button>
+
+          <ul class="nav">
+            {{ range .Site.Menus.main }}
+            {{ if .HasChildren }}
+            <li class="nav__item nav__item--dropdown">
+              <a href="{{ .URL }}" class="nav__link{{ if eq $.RelPermalink .URL }} nav__link--active{{ end }}">
+                {{ .Name }}
+                <svg class="nav__dropdown-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M4.5 6l3.5 3.5L11.5 6H4.5z" />
+                </svg>
+              </a>
+              <ul class="nav__dropdown">
+                {{ range .Children }}
+                <li class="nav__dropdown-item">
+                  <a href="{{ .URL }}"
+                    class="nav__dropdown-link{{ if eq $.RelPermalink .URL }} nav__dropdown-link--active{{ end }}">
+                    {{ .Name }}
+                  </a>
+                </li>
+                {{ end }}
+              </ul>
+            </li>
+            {{ else }}
+            <li class="nav__item">
+              <a href="{{ .URL }}"
+                class="nav__link{{ if eq $.RelPermalink .URL }} nav__link--active{{ end }}">{{ .Name }}</a>
+            </li>
+            {{ end }}
+            {{ end }}
+          </ul>
+        </nav>
+
+        <div class="header__contacts">
+          <a href="tel:{{ .Site.Params.phone }}" class="header__phone">{{ .Site.Params.phone }}</a>
+          <a href="/admission/" class="header__cta btn btn--primary btn--sm">Подать заявку</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Legal Update Banner -->
+  <div class="legal-banner">
+    <div class="container">
+      <div class="legal-banner__content">
+        <div class="legal-banner__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+          </svg>
+        </div>
+        <div class="legal-banner__text">
+          <span class="legal-banner__label">Раздел обновлён</span>
+          <span
+            class="legal-banner__date">{{ if .Params.lastUpdated }}{{ .Params.lastUpdated | dateFormat "02.01.2006" }}{{ else }}{{ .Date | dateFormat "02.01.2006" }}{{ end }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <div class="container">
+      <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item">
+          <a href="/" class="breadcrumbs__link">Главная</a>
+        </li>
+        <li class="breadcrumbs__item">
+          <a href="/svedeniya-ob-obrazovatelnoy-organizatsii/" class="breadcrumbs__link">Сведения об организации</a>
+        </li>
+        {{ if ne .Title "Сведения об образовательной организации" }}
+        <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+          {{ .Title }}
+        </li>
+        {{ end }}
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Main Content with Sidebar -->
+  <main class="main main--with-sidebar">
+    <div class="container">
+      <div class="main__layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+          <nav class="side-nav" aria-label="Сведения об организации">
+            <h2 class="side-nav__title">Сведения об организации</h2>
+            <ul class="side-nav__list">
+              {{ range .Site.Menus.organization }}
+              <li class="side-nav__item">
+                <a href="{{ .URL }}"
+                  class="side-nav__link{{ if eq $.RelPermalink .URL }} side-nav__link--active{{ end }}">
+                  {{ .Name }}
+                </a>
+              </li>
+              {{ end }}
+            </ul>
+          </nav>
+        </aside>
+
+        <!-- Content Area -->
+        <div class="content">
+          {{ block "main" . }}{{ end }}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__section">
+          <h3 class="footer__title">{{ .Site.Title }}</h3>
+          <p class="footer__description">{{ .Site.Params.description }}</p>
+          <div class="footer__social">
+            <a href="{{ .Site.Params.telegram }}" class="footer__social-link" target="_blank" rel="noopener"
+              aria-label="Telegram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.22-5.45 3.59-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.74 4.01-1.74 6.69-2.89 8.04-3.44.64-.26 1.5-.61 1.5-.61s.54-.21.77-.06c.17.11.21.26.19.44z" />
+              </svg>
+            </a>
+            <a href="{{ .Site.Params.vk }}" class="footer__social-link" target="_blank" rel="noopener"
+              aria-label="VKontakte">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.5 8.97c.68.39 1.14.98 1.46 1.65.14.29.35.87-.13 1.26-.27.22-.64.38-1.09.38h-1.77c-.61 0-.94-.38-1.31-.76-.29-.29-.55-.55-.92-.55-.37 0-.59.24-.59.58 0 .8.6 1.45 1.37 1.45h.58c.26 0 .5.21.5.47 0 .26-.24.47-.5.47h-.58c-1.33 0-2.37-.98-2.37-2.39 0-.89.44-1.55 1.09-1.55.55 0 .99.35 1.42.79.31.32.48.48.73.48h1.77c.26 0 .48-.06.59-.18.11-.12.08-.28-.02-.4-.32-.38-.67-.72-1.09-.98-.29-.18-.29-.58 0-.76z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__section">
+          <h3 class="footer__title">Быстрые ссылки</h3>
+          <ul class="footer__links">
+            {{ range .Site.Menus.footer_quick }}
+            <li class="footer__link-item">
+              <a href="{{ .URL }}" class="footer__link">{{ .Name }}</a>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+
+        <div class="footer__section">
+          <h3 class="footer__title">Юридическая информация</h3>
+          <ul class="footer__links">
+            {{ range .Site.Menus.footer_legal }}
+            <li class="footer__link-item">
+              <a href="{{ .URL }}" class="footer__link">{{ .Name }}</a>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+
+        <div class="footer__section">
+          <h3 class="footer__title">Контакты</h3>
+          <div class="footer__contacts">
+            <p class="footer__contact">
+              <span class="footer__contact-label">Телефон:</span>
+              <a href="tel:{{ .Site.Params.phone }}" class="footer__contact-link">{{ .Site.Params.phone }}</a>
+            </p>
+            <p class="footer__contact">
+              <span class="footer__contact-label">Email:</span>
+              <a href="mailto:{{ .Site.Params.email }}" class="footer__contact-link">{{ .Site.Params.email }}</a>
+            </p>
+            <p class="footer__contact">
+              <span class="footer__contact-label">Адрес:</span>
+              <span class="footer__contact-text">{{ .Site.Params.address }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copyright">
+          <p>© {{ now.Year }} {{ .Site.Title }}. Все права защищены.</p>
+        </div>
+        <div class="footer__legal-links">
+          <a href="/privacy-policy/" class="footer__legal-link">Политика конфиденциальности</a>
+          <a href="/terms-of-use/" class="footer__legal-link">Пользовательское соглашение</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  {{ $script := resources.Get "js/main.js" | minify | fingerprint }}
+  <script src="{{ $script.Permalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+
+  <!-- Netlify Identity Widget Script -->
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

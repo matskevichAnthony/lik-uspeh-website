@@ -1,0 +1,126 @@
+{{ define "main" }}
+<article class="legal-page">
+  <header class="legal-page__header">
+    <h1 class="legal-page__title">{{ .Title }}</h1>
+    {{ if .Params.description }}
+    <p class="legal-page__description">{{ .Params.description }}</p>
+    {{ end }}
+  </header>
+
+  <div class="legal-page__content">
+    {{ .Content }}
+
+    {{ if .Params.documents }}
+    <section class="legal-documents">
+      <h2 class="legal-documents__title">Документы</h2>
+      <div class="legal-documents__list">
+        {{ range .Params.documents }}
+        <div class="legal-document">
+          <div class="legal-document__info">
+            <h3 class="legal-document__name">{{ .name }}</h3>
+            {{ if .description }}
+            <p class="legal-document__description">{{ .description }}</p>
+            {{ end }}
+            {{ if .date }}
+            <p class="legal-document__date">Дата: {{ .date }}</p>
+            {{ end }}
+            {{ if .size }}
+            <p class="legal-document__size">Размер: {{ .size }}</p>
+            {{ end }}
+          </div>
+          <div class="legal-document__actions">
+            <a href="{{ .url }}" class="btn btn--outline btn--sm" target="_blank" rel="noopener">
+              <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+              </svg>
+              Скачать PDF
+            </a>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    {{ if .Params.tables }}
+    <section class="legal-tables">
+      {{ range .Params.tables }}
+      <div class="legal-table">
+        <h3 class="legal-table__title">{{ .title }}</h3>
+        {{ if .description }}
+        <p class="legal-table__description">{{ .description }}</p>
+        {{ end }}
+
+        <div class="table-responsive">
+          <table class="table">
+            {{ if .headers }}
+            <thead>
+              <tr>
+                {{ range .headers }}
+                <th>{{ . }}</th>
+                {{ end }}
+              </tr>
+            </thead>
+            {{ end }}
+            {{ if .rows }}
+            <tbody>
+              {{ range .rows }}
+              <tr>
+                {{ range . }}
+                <td>{{ . | markdownify }}</td>
+                {{ end }}
+              </tr>
+              {{ end }}
+            </tbody>
+            {{ end }}
+          </table>
+        </div>
+      </div>
+      {{ end }}
+    </section>
+    {{ end }}
+
+    {{ if .Params.contacts }}
+    <section class="legal-contacts">
+      <h2 class="legal-contacts__title">Контактная информация</h2>
+      <div class="legal-contacts__grid">
+        {{ range .Params.contacts }}
+        <div class="legal-contact">
+          <h3 class="legal-contact__name">{{ .name }}</h3>
+          {{ if .position }}
+          <p class="legal-contact__position">{{ .position }}</p>
+          {{ end }}
+          {{ if .phone }}
+          <p class="legal-contact__phone">
+            <span class="legal-contact__label">Телефон:</span>
+            <a href="tel:{{ .phone }}">{{ .phone }}</a>
+          </p>
+          {{ end }}
+          {{ if .email }}
+          <p class="legal-contact__email">
+            <span class="legal-contact__label">Email:</span>
+            <a href="mailto:{{ .email }}">{{ .email }}</a>
+          </p>
+          {{ end }}
+          {{ if .hours }}
+          <p class="legal-contact__hours">
+            <span class="legal-contact__label">Часы приёма:</span>
+            {{ .hours }}
+          </p>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+  </div>
+
+  {{ if .Params.lastUpdated }}
+  <footer class="legal-page__footer">
+    <p class="legal-page__updated">
+      Последнее обновление: {{ .Params.lastUpdated | dateFormat "02.01.2006" }}
+    </p>
+  </footer>
+  {{ end }}
+</article>
+{{ end }}

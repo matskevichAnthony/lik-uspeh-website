@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
-  branch: main # Branch to update (optional; defaults to master)
+  name: test-repo
+
+# Режим разработки - позволяет редактировать файлы напрямую
+local_backend: true
 
 # Media files will be stored in the repo under static/images/uploads
 media_folder: "static/images/uploads"

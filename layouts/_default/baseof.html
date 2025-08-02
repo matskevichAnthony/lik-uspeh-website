@@ -31,13 +31,15 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
   <!-- Styles -->
-  {{ $style := resources.Get "scss/main.scss" | toCSS | minify | fingerprint }}
+  {{ $style := resources.Get "css/main.css" | postCSS | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    rel="stylesheet">
 
   {{ if .IsHome }}
   <!-- JSON-LD для главной страницы -->
@@ -68,47 +70,102 @@
 </head>
 
 <body>
+  <!-- Utility Bar -->
+  <div class="bg-primary text-white text-sm sticky top-0 z-50">
+    <div class="container-custom">
+      <div class="flex items-center justify-between py-2">
+        <div class="flex items-center gap-6">
+          <a href="/organization/"
+            class="text-white/80 hover:text-white hover:bg-white/10 px-3 py-1 rounded font-medium transition-colors">
+            Сведения об образовательной организации
+          </a>
+          <a href="/admission/"
+            class="text-white/80 hover:text-white hover:bg-white/10 px-3 py-1 rounded font-medium transition-colors">
+            Приём в гимназию
+          </a>
+        </div>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="/contacts/"
+            class="text-white/80 hover:text-white hover:bg-white/10 px-3 py-1 rounded font-medium transition-colors">
+            Контакты
+          </a>
+          <a href="/admin-login/"
+            class="bg-accent text-primary hover:bg-accent-light px-3 py-1 rounded font-medium transition-colors">
+            Войти
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <div class="header__content">
-        <div class="header__logo">
-          <a href="/" class="logo">
-            <span class="logo__text">{{ .Site.Title }}</span>
+  <header class="bg-white border-b border-border sticky top-9 z-40 shadow-lg backdrop-blur-sm bg-white/90">
+    <div class="container-custom">
+      <div class="flex items-center justify-between py-4 min-h-20">
+        <div class="flex-shrink-0">
+          <a href="/" class="text-primary text-2xl font-bold font-heading hover:text-primary-light transition-colors">
+            {{ .Site.Title }}
           </a>
         </div>
 
-        <nav class="header__nav">
-          <button class="nav-toggle" aria-label="Открыть меню">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-
-          <ul class="nav">
+        <nav class="hidden lg:flex flex-1 justify-center">
+          <ul class="flex items-center gap-2">
             {{ range .Site.Menus.main }}
             {{ if .HasChildren }}
-            <li class="nav__item nav__item--dropdown">
-              <a href="{{ .URL }}" class="nav__link">{{ .Name }}</a>
-              <ul class="nav__dropdown">
+            <li class="relative group">
+              <a href="{{ .URL }}"
+                class="flex items-center gap-2 px-4 py-3 text-text font-medium font-heading rounded-lg hover:text-primary hover:bg-background-light hover:scale-105 transition-all duration-200{{ if eq $.RelPermalink .URL }} text-primary bg-background-light{{ end }}">
+                {{ .Name }}
+                <svg
+                  class="w-4 h-4 text-text-light group-hover:text-primary group-hover:rotate-180 transition-all duration-200"
+                  viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M4.5 6l3.5 3.5L11.5 6H4.5z" />
+                </svg>
+              </a>
+              <ul
+                class="absolute top-full left-0 min-w-64 bg-white border border-border rounded-lg shadow-xl opacity-0 invisible translate-y-4 group-hover:opacity-100 group-hover:visible group-hover:translate-y-2 transition-all duration-200 z-50 py-2">
                 {{ range .Children }}
-                <li><a href="{{ .URL }}" class="nav__dropdown-link">{{ .Name }}</a></li>
+                <li>
+                  <a href="{{ .URL }}"
+                    class="block px-4 py-3 text-text hover:bg-background-light hover:text-primary hover:pl-6 transition-all duration-150 text-sm font-medium{{ if eq $.RelPermalink .URL }} bg-background-light text-primary font-semibold{{ end }}">
+                    {{ .Name }}
+                  </a>
+                </li>
                 {{ end }}
               </ul>
             </li>
             {{ else }}
-            <li class="nav__item">
+            <li>
               <a href="{{ .URL }}"
-                class="nav__link{{ if eq $.RelPermalink .URL }} nav__link--active{{ end }}">{{ .Name }}</a>
+                class="flex items-center gap-2 px-4 py-3 text-text font-medium font-heading rounded-lg hover:text-primary hover:bg-background-light hover:scale-105 transition-all duration-200{{ if eq $.RelPermalink .URL }} text-primary bg-background-light{{ end }}">
+                {{ .Name }}
+              </a>
             </li>
             {{ end }}
             {{ end }}
           </ul>
         </nav>
 
-        <div class="header__contacts">
-          <a href="tel:{{ .Site.Params.phone }}" class="header__phone">{{ .Site.Params.phone }}</a>
+        <!-- Desktop Contacts -->
+        <div class="hidden xl:flex items-center gap-6 flex-shrink-0">
+          <a href="tel:{{ .Site.Params.phone }}"
+            class="flex items-center text-text font-medium hover:text-primary transition-colors">
+            <span class="mr-2">📞</span>
+            {{ .Site.Params.phone }}
+          </a>
+          <a href="/admission/" class="btn-primary">
+            Подать заявку
+          </a>
         </div>
+
+        <!-- Mobile Navigation Toggle -->
+        <button
+          class="lg:hidden flex flex-col justify-around w-10 h-10 p-2 hover:bg-background-light rounded-lg transition-colors"
+          aria-label="Открыть меню" aria-expanded="false">
+          <span class="block h-0.5 w-6 bg-text rounded transition-all duration-200"></span>
+          <span class="block h-0.5 w-6 bg-text rounded transition-all duration-200"></span>
+          <span class="block h-0.5 w-6 bg-text rounded transition-all duration-200"></span>
+        </button>
       </div>
     </div>
   </header>
@@ -119,59 +176,79 @@
   </main>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__content">
-        <div class="footer__section">
-          <h3 class="footer__title">{{ .Site.Title }}</h3>
-          <p class="footer__description">{{ .Site.Params.description }}</p>
-        </div>
-
-        <div class="footer__section">
-          <h3 class="footer__title">Контакты</h3>
-          <div class="footer__contacts">
-            <p class="footer__contact">
-              <span class="footer__contact-label">Телефон:</span>
-              <a href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
-            </p>
-            <p class="footer__contact">
-              <span class="footer__contact-label">Email:</span>
-              <a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a>
-            </p>
-            <p class="footer__contact">
-              <span class="footer__contact-label">Адрес:</span>
-              {{ .Site.Params.address }}
-            </p>
+  <footer class="bg-primary text-white mt-auto">
+    <div class="container-custom">
+      <div class="py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          <div>
+            <h3 class="text-accent text-lg font-semibold mb-4">{{ .Site.Title }}</h3>
+            <p class="text-white/90 leading-relaxed mb-4">{{ .Site.Params.description }}</p>
+            <div class="flex gap-4">
+              <a href="{{ .Site.Params.telegram }}"
+                class="flex items-center justify-center w-10 h-10 bg-white/10 rounded-lg hover:bg-accent hover:-translate-y-0.5 transition-all duration-200"
+                target="_blank" rel="noopener" aria-label="Telegram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.22-5.45 3.59-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.74 4.01-1.74 6.69-2.89 8.04-3.44.64-.26 1.5-.61 1.5-.61s.54-.21.77-.06c.17.11.21.26.19.44z" />
+                </svg>
+              </a>
+              <a href="{{ .Site.Params.vk }}"
+                class="flex items-center justify-center w-10 h-10 bg-white/10 rounded-lg hover:bg-accent hover:-translate-y-0.5 transition-all duration-200"
+                target="_blank" rel="noopener" aria-label="VKontakte">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.5 8.97c.68.39 1.14.98 1.46 1.65.14.29.35.87-.13 1.26-.27.22-.64.38-1.09.38h-1.77c-.61 0-.94-.38-1.31-.76-.29-.29-.55-.55-.92-.55-.37 0-.59.24-.59.58 0 .8.6 1.45 1.37 1.45h.58c.26 0 .5.21.5.47 0 .26-.24.47-.5.47h-.58c-1.33 0-2.37-.98-2.37-2.39 0-.89.44-1.55 1.09-1.55.55 0 .99.35 1.42.79.31.32.48.48.73.48h1.77c.26 0 .48-.06.59-.18.11-.12.08-.28-.02-.4-.32-.38-.67-.72-1.09-.98-.29-.18-.29-.58 0-.76z" />
+                </svg>
+              </a>
+            </div>
           </div>
-        </div>
 
-        <div class="footer__section">
-          <h3 class="footer__title">Социальные сети</h3>
-          <div class="footer__social">
-            <a href="{{ .Site.Params.telegram }}" class="footer__social-link" target="_blank" rel="noopener">
-              Telegram
-            </a>
-            <a href="{{ .Site.Params.vk }}" class="footer__social-link" target="_blank" rel="noopener">
-              VKontakte
-            </a>
+          <div>
+            <h3 class="text-accent text-lg font-semibold mb-4">Быстрые ссылки</h3>
+            <ul class="space-y-2">
+              {{ range .Site.Menus.footer_quick }}
+              <li>
+                <a href="{{ .URL }}" class="text-white/90 hover:text-accent transition-colors">{{ .Name }}</a>
+              </li>
+              {{ end }}
+            </ul>
           </div>
-        </div>
 
-        <div class="footer__section">
-          <h3 class="footer__title">Быстрые ссылки</h3>
-          <ul class="footer__links">
-            <li><a href="/about/" class="footer__link">О гимназии</a></li>
-            <li><a href="/admissions/" class="footer__link">Поступление</a></li>
-            <li><a href="/contacts/" class="footer__link">Контакты</a></li>
-            <li><a href="/blog/" class="footer__link">Новости</a></li>
-          </ul>
+          <div>
+            <h3 class="text-accent text-lg font-semibold mb-4">Юридическая информация</h3>
+            <ul class="space-y-2">
+              {{ range .Site.Menus.footer_legal }}
+              <li>
+                <a href="{{ .URL }}" class="text-white/90 hover:text-accent transition-colors">{{ .Name }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-accent text-lg font-semibold mb-4">Контакты</h3>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 flex-shrink-0">📞</span>
+                <a href="tel:{{ .Site.Params.phone }}"
+                  class="text-white/90 hover:text-accent transition-colors">{{ .Site.Params.phone }}</a>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 flex-shrink-0">✉️</span>
+                <a href="mailto:{{ .Site.Params.email }}"
+                  class="text-white/90 hover:text-accent transition-colors">{{ .Site.Params.email }}</a>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="w-5 h-5 flex-shrink-0 mt-0.5">📍</span>
+                <span class="text-white/90">{{ .Site.Params.address }}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="footer__bottom">
-        <p class="footer__copyright">
-          © {{ now.Year }} {{ .Site.Title }}. Все права защищены.
-        </p>
+      <div class="border-t border-white/20 py-6 text-center text-sm text-white/80">
+        <p>&copy; {{ now.Year }} {{ .Site.Title }}. Все права защищены.</p>
       </div>
     </div>
   </footer>
