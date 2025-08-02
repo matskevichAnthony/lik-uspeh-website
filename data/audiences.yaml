@@ -1,0 +1,35 @@
+audiences:
+  students:
+    name: "Ученики"
+    slug: "students"
+    icon: "i-heroicons-academic-cap"
+    color: "blue"
+    priority: 1
+  
+  parents:
+    name: "Родители"
+    slug: "parents"
+    icon: "i-heroicons-heart"
+    color: "rose"
+    priority: 2
+  
+  teachers:
+    name: "Педагоги"
+    slug: "teachers"
+    icon: "i-heroicons-user-group"
+    color: "green"
+    priority: 3
+  
+  staff:
+    name: "Сотрудники"
+    slug: "staff"
+    icon: "i-heroicons-briefcase"
+    color: "purple"
+    priority: 4
+  
+  general:
+    name: "Общее"
+    slug: "general"
+    icon: "i-heroicons-globe-alt"
+    color: "gray"
+    priority: 5

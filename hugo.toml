@@ -40,20 +40,21 @@ enableEmoji = true
 
   [[menus.main]]
     identifier = "about"
-    name = "О школе"
+    name = "О гимназии"
     url = "/about/"
     weight = 2
 
   [[menus.main]]
-    identifier = "admission"
-    name = "Поступление"
-    url = "/admission/"
+    identifier = "education"
+    name = "Образование"
+    url = "/education/"
     weight = 3
+    hasChildren = true
 
   [[menus.main]]
-    identifier = "kindergarten"
-    name = "Детский сад"
-    url = "/kindergarten/"
+    identifier = "admissions"
+    name = "Поступление"
+    url = "/admissions/"
     weight = 4
 
   [[menus.main]]
@@ -69,7 +70,43 @@ enableEmoji = true
     url = "/contacts/"
     weight = 6
 
-  # Подменю "Новости" (дроп-даун)
+  # Подменю "Образование"
+  [[menus.main]]
+    identifier = "kindergarten"
+    name = "Детский сад"
+    url = "/kindergarten/"
+    parent = "education"
+    weight = 31
+
+  [[menus.main]]
+    identifier = "school-programs"
+    name = "Школьные программы"
+    url = "/education/"
+    parent = "education"
+    weight = 32
+
+  [[menus.main]]
+    identifier = "gia-preparation"
+    name = "Подготовка к ГИА"
+    url = "/education/gia/"
+    parent = "education"
+    weight = 33
+
+  [[menus.main]]
+    identifier = "olympiad"
+    name = "Олимпиады"
+    url = "/education/olympiad/"
+    parent = "education"
+    weight = 34
+
+  [[menus.main]]
+    identifier = "staff"
+    name = "Педагоги"
+    url = "/staff/"
+    parent = "education"
+    weight = 35
+
+  # Подменю "Новости"
   [[menus.main]]
     identifier = "news-announcements"
     name = "Новости"
@@ -78,18 +115,11 @@ enableEmoji = true
     weight = 51
 
   [[menus.main]]
-    identifier = "events"
-    name = "События"
-    url = "/events/"
-    parent = "news"
-    weight = 52
-
-  [[menus.main]]
     identifier = "blog"
     name = "Блог"
     url = "/blog/"
     parent = "news"
-    weight = 53
+    weight = 52
 
   # Utility-bar меню (верхняя полоса)
   [[menus.utility]]
@@ -192,13 +222,13 @@ enableEmoji = true
 
   # Футер меню - быстрые ссылки
   [[menus.footer_quick]]
-    name = "О школе"
+    name = "О гимназии"
     url = "/about/"
     weight = 1
 
   [[menus.footer_quick]]
     name = "Поступление"
-    url = "/admission/"
+    url = "/admissions/"
     weight = 2
 
   [[menus.footer_quick]]
@@ -224,7 +254,7 @@ enableEmoji = true
 
   [[menus.footer_legal]]
     name = "Документы"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/dokumenty/"
+    url = "/docs/"
     weight = 2
 
   [[menus.footer_legal]]
@@ -234,7 +264,7 @@ enableEmoji = true
 
   [[menus.footer_legal]]
     name = "Противодействие коррупции"
-    url = "/protivodeystvie-korruptsii/"
+    url = "/organization/anti-corruption/"
     weight = 4
 
 # Настройки таксономий

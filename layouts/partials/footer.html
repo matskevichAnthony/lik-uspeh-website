@@ -1,0 +1,137 @@
+<!-- Footer -->
+<footer class="bg-primary text-white mt-auto">
+  <div class="container-custom py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-accent text-lg font-semibold mb-4">{{ .Site.Title }}</h3>
+        <p class="text-white/90 mb-4 text-sm leading-relaxed">
+          {{ .Site.Params.description }}
+        </p>
+        <div class="flex items-center gap-4">
+          <a href="{{ .Site.Params.telegram }}" target="_blank" rel="noopener"
+            class="text-white/80 hover:text-accent transition-colors" title="Telegram">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12 12-5.373 12-12S18.626 0 12 0zm5.568 8.16c-.169 1.858-.896 6.728-.896 6.728-.896 6.728-1.268 7.878-1.268 7.878-.16.71-.544.885-.544.885s-1.894.16-3.201-.16c-.896-.224-1.789-.576-2.461-.896-.224-.096-.384-.16-.384-.352 0-.16.096-.32.288-.416l8.096-6.048s.672-.416.672-.832c0-.224-.16-.352-.48-.16l-9.984 6.272s-.896.288-1.792.032c-.896-.256-1.885-.416-1.885-.416s-1.157-.736.352-1.504c1.509-.768 8.8-3.297 8.8-3.297l.8-.288 1.728-.64s.896-.32 1.408.16c.512.48.096 1.12.096 1.12z"/>
+            </svg>
+          </a>
+          <a href="{{ .Site.Params.vk }}" target="_blank" rel="noopener"
+            class="text-white/80 hover:text-accent transition-colors" title="ВКонтакте">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.5 8.97c.68.39 1.14.98 1.46 1.65.14.29.35.87-.13 1.26-.27.22-.64.38-1.09.38h-1.77c-.61 0-.94-.38-1.31-.76-.29-.29-.55-.55-.92-.55-.37 0-.59.24-.59.58 0 .8.6 1.45 1.37 1.45h.58c.26 0 .5.21.5.47 0 .26-.24.47-.5.47h-.58c-1.33 0-2.37-.98-2.37-2.39 0-.89.44-1.55 1.09-1.55.55 0 .99.35 1.42.79.31.32.48.48.73.48h1.77c.26 0 .48-.06.59-.18.11-.12.08-.28-.02-.4-.32-.38-.67-.72-1.09-.98-.29-.18-.29-.58 0-.76z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-accent text-lg font-semibold mb-4">Образование</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/kindergarten/" class="text-white/90 hover:text-accent transition-colors">Детский сад</a>
+          </li>
+          <li>
+            <a href="/education/" class="text-white/90 hover:text-accent transition-colors">Школьные программы</a>
+          </li>
+          <li>
+            <a href="/admissions/" class="text-white/90 hover:text-accent transition-colors">Поступление</a>
+          </li>
+          <li>
+            <a href="/staff/" class="text-white/90 hover:text-accent transition-colors">Педагогический состав</a>
+          </li>
+          <li>
+            <a href="/education/gia/" class="text-white/90 hover:text-accent transition-colors">Подготовка к ГИА</a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-accent text-lg font-semibold mb-4">Информация</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/about/" class="text-white/90 hover:text-accent transition-colors">О гимназии</a>
+          </li>
+          <li>
+            <a href="/news/" class="text-white/90 hover:text-accent transition-colors">Новости</a>
+          </li>
+          <li>
+            <a href="/blog/" class="text-white/90 hover:text-accent transition-colors">Блог</a>
+          </li>
+          <li>
+            <a href="/organization/vacancies/" class="text-white/90 hover:text-accent transition-colors">Вакансии</a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-accent text-lg font-semibold mb-4">Официальная информация</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/svedeniya-ob-obrazovatelnoy-organizatsii/" class="text-white/90 hover:text-accent transition-colors">Сведения об организации</a>
+          </li>
+          <li>
+            <a href="/docs/" class="text-white/90 hover:text-accent transition-colors">Документы</a>
+          </li>
+          <li>
+            <a href="/organization/documents/" class="text-white/90 hover:text-accent transition-colors">Устав</a>
+          </li>
+          <li>
+            <a href="/organization/anti-corruption/" class="text-white/90 hover:text-accent transition-colors">Противодействие коррупции</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Контактная информация -->
+    <div class="mt-8 pt-8 border-t border-white/20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Телефон</p>
+            <a href="tel:{{ .Site.Params.phone }}" class="text-white font-medium hover:text-accent transition-colors">
+              {{ .Site.Params.phone }}
+            </a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Email</p>
+            <a href="mailto:{{ .Site.Params.email }}" class="text-white font-medium hover:text-accent transition-colors">
+              {{ .Site.Params.email }}
+            </a>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Адрес</p>
+            <p class="text-white font-medium">{{ .Site.Params.address }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-white/20 py-6 mt-8 text-center text-sm text-white/80">
+      <p>&copy; {{ now.Year }} {{ .Site.Title }}. Все права защищены.</p>
+      <p class="mt-1">Лицензия на осуществление образовательной деятельности № XXXXX</p>
+    </div>
+  </div>
+</footer>

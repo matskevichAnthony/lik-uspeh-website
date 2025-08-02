@@ -1,85 +1,189 @@
 {{ define "main" }}
-<div class="legal-section-index">
-  <header class="legal-section-index__header">
-    <h1 class="legal-section-index__title">{{ .Title }}</h1>
-    {{ if .Params.description }}
-    <p class="legal-section-index__description">{{ .Params.description }}</p>
-    {{ end }}
-  </header>
+<div class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
+  <!-- Хлебные крошки -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex items-center space-x-2 text-sm text-gray-600">
+        <a href="/" class="hover:text-blue-600 transition-colors">Главная</a>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+        </svg>
+        <span class="text-gray-900 font-medium">{{ .Title }}</span>
+      </nav>
+    </div>
+  </div>
 
-  <div class="legal-section-index__content">
-    {{ .Content }}
-
-    <nav class="legal-section-nav">
-      <h2 class="legal-section-nav__title">Разделы</h2>
-      <div class="legal-section-nav__grid">
-        {{ range .Site.Menus.organization }}
-        <a href="{{ .URL }}" class="legal-section-card">
-          <h3 class="legal-section-card__title">{{ .Name }}</h3>
-          <div class="legal-section-card__arrow">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-            </svg>
-          </div>
-        </a>
-        {{ end }}
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header секция -->
+    <header class="text-center mb-12">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
       </div>
-    </nav>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ .Title }}</h1>
+      {{ if .Params.description }}
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">{{ .Params.description }}</p>
+      {{ end }}
+      {{ if .Params.lastUpdated }}
+      <div class="inline-flex items-center bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium mt-4">
+        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+        </svg>
+        Раздел обновлён {{ .Params.lastUpdated }}
+      </div>
+      {{ end }}
+    </header>
 
-    {{ if .Params.recentUpdates }}
-    <section class="recent-updates">
-      <h2 class="recent-updates__title">Последние обновления</h2>
-      <div class="recent-updates__list">
-        {{ range .Params.recentUpdates }}
-        <div class="recent-update">
-          <div class="recent-update__info">
-            <h3 class="recent-update__title">
-              <a href="{{ .url }}">{{ .title }}</a>
-            </h3>
-            <p class="recent-update__section">{{ .section }}</p>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Основной контент -->
+      <div class="lg:col-span-2 space-y-8">
+        <!-- Важные уведомления -->
+        {{ if .Params.importantNotices }}
+        <section class="space-y-4">
+          {{ range .Params.importantNotices }}
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden
+            {{- if eq .type "warning" }} border-l-4 border-l-amber-400{{ end }}
+            {{- if eq .type "success" }} border-l-4 border-l-green-400{{ end }}
+            {{- if eq .type "info" }} border-l-4 border-l-blue-400{{ end }}">
+            <div class="p-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mr-4">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center
+                    {{- if eq .type "warning" }} bg-amber-100 text-amber-600{{ end }}
+                    {{- if eq .type "success" }} bg-green-100 text-green-600{{ end }}
+                    {{- if eq .type "info" }} bg-blue-100 text-blue-600{{ end }}">
+                    {{ if eq .type "warning" }}
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    {{ else if eq .type "success" }}
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    {{ else }}
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                    {{ end }}
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ .title }}</h3>
+                  <p class="text-gray-600 leading-relaxed">{{ .text | markdownify }}</p>
+                  {{ if .link }}
+                  <a href="{{ .link.url }}" class="inline-flex items-center mt-3 text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                    {{ .link.text }}
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="recent-update__date">{{ .date }}</div>
+          {{ end }}
+        </section>
+        {{ end }}
+
+        <!-- Основной контент страницы -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+          <div class="prose prose-gray max-w-none">
+            {{ .Content }}
+          </div>
         </div>
-        {{ end }}
-      </div>
-    </section>
-    {{ end }}
 
-    {{ if .Params.importantNotices }}
-    <section class="important-notices">
-      <h2 class="important-notices__title">Важные уведомления</h2>
-      <div class="important-notices__list">
-        {{ range .Params.importantNotices }}
-        <div class="important-notice important-notice--{{ .type | default "info" }}">
-          <div class="important-notice__icon">
-            {{ if eq .type "warning" }}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
-            </svg>
-            {{ else if eq .type "success" }}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-            </svg>
-            {{ else }}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-            </svg>
+        <!-- Последние обновления -->
+        {{ if .Params.recentUpdates }}
+        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+          <div class="flex items-center mb-6">
+            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">Последние обновления</h2>
+          </div>
+          <div class="space-y-4">
+            {{ range .Params.recentUpdates }}
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-900 mb-1">
+                    <a href="{{ .url }}" class="hover:text-blue-600 transition-colors">{{ .title }}</a>
+                  </h3>
+                  <p class="text-sm text-gray-600 mb-2">{{ .section }}</p>
+                </div>
+                <div class="flex-shrink-0 ml-4">
+                  <div class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
+                    {{ .date }}
+                  </div>
+                </div>
+              </div>
+            </div>
             {{ end }}
           </div>
-          <div class="important-notice__content">
-            <h3 class="important-notice__title">{{ .title }}</h3>
-            <p class="important-notice__text">{{ .text | markdownify }}</p>
-            {{ if .link }}
-            <a href="{{ .link.url }}" class="important-notice__link">{{ .link.text }}</a>
-            {{ end }}
-          </div>
-        </div>
+        </section>
         {{ end }}
       </div>
-    </section>
-    {{ end }}
+
+      <!-- Сайдбар с разделами -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24">
+          <nav class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center mb-6">
+              <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+              </div>
+              <h2 class="text-lg font-bold text-gray-900">Разделы</h2>
+            </div>
+            <div class="space-y-2">
+              {{ range .Site.Menus.organization }}
+              <a href="{{ .URL }}" class="group flex items-center justify-between p-3 rounded-lg hover:bg-blue-50 transition-colors border border-transparent hover:border-blue-200">
+                <span class="text-sm font-medium text-gray-700 group-hover:text-blue-700 leading-tight">{{ .Name }}</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+              {{ end }}
+            </div>
+          </nav>
+
+          <!-- Контактная информация -->
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mt-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Нужна помощь?</h3>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start">
+                <svg class="w-4 h-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+                <div>
+                  <p class="text-gray-600">Телефон:</p>
+                  <a href="tel:{{ .Site.Params.phone }}" class="text-blue-600 hover:text-blue-700 font-medium">{{ .Site.Params.phone }}</a>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg class="w-4 h-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+                <div>
+                  <p class="text-gray-600">Email:</p>
+                  <a href="mailto:{{ .Site.Params.email }}" class="text-blue-600 hover:text-blue-700 font-medium">{{ .Site.Params.email }}</a>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-gray-200">
+                <p class="text-gray-600 text-xs">Часы приёма:</p>
+                <p class="text-gray-800 font-medium">Пн-Пт, 9:00-18:00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {{ end }}

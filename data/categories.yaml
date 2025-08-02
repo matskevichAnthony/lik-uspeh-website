@@ -1,0 +1,56 @@
+categories:
+  education:
+    name: "Образование"
+    slug: "education"
+    icon: "i-heroicons-book-open"
+    color: "blue"
+    priority: 1
+  
+  admissions:
+    name: "Поступление"
+    slug: "admissions"
+    icon: "i-heroicons-clipboard-document-check"
+    color: "green"
+    priority: 2
+  
+  events:
+    name: "Мероприятия"
+    slug: "events"
+    icon: "i-heroicons-calendar-days"
+    color: "purple"
+    priority: 3
+  
+  sports:
+    name: "Спорт"
+    slug: "sports"
+    icon: "i-heroicons-trophy"
+    color: "amber"
+    priority: 4
+  
+  culture:
+    name: "Культура"
+    slug: "culture"
+    icon: "i-heroicons-musical-note"
+    color: "pink"
+    priority: 5
+  
+  competitions:
+    name: "Конкурсы"
+    slug: "competitions"
+    icon: "i-heroicons-star"
+    color: "yellow"
+    priority: 6
+  
+  science:
+    name: "Наука"
+    slug: "science"
+    icon: "i-heroicons-beaker"
+    color: "cyan"
+    priority: 7
+  
+  technology:
+    name: "Технологии"
+    slug: "technology"
+    icon: "i-heroicons-computer-desktop"
+    color: "indigo"
+    priority: 8

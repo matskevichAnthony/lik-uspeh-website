@@ -1,0 +1,41 @@
+<!-- Scripts -->
+{{ $script := resources.Get "js/main.js" | minify | fingerprint }}
+<script src="{{ $script.Permalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+
+<!-- Mobile menu functionality -->
+<script>
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  if (menu.classList.contains('hidden')) {
+    menu.classList.remove('hidden');
+  } else {
+    menu.classList.add('hidden');
+  }
+}
+
+function toggleMobileSubmenu(identifier) {
+  const submenu = document.getElementById('submenu-' + identifier);
+  const button = submenu.previousElementSibling.querySelector('svg');
+  
+  if (submenu.classList.contains('hidden')) {
+    submenu.classList.remove('hidden');
+    button.style.transform = 'rotate(180deg)';
+  } else {
+    submenu.classList.add('hidden');
+    button.style.transform = 'rotate(0deg)';
+  }
+}
+</script>
+
+<!-- Netlify Identity Widget Script -->
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>

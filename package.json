@@ -4,8 +4,11 @@
   "description": "Официальный сайт гимназии «ЛИК-Успех» на Hugo",
   "scripts": {
     "dev": "hugo server --buildDrafts --watch",
-    "build": "hugo --minify --gc",
+    "build": "bash scripts/build-with-search.sh",
+    "build:hugo": "hugo --minify --gc",
+    "build:search": "pagefind --site public --output-path public/pagefind --glob '**/*.html'",
     "clean": "rm -rf public/ resources/ .hugo_build.lock",
+    "install:pagefind": "bash scripts/install-pagefind.sh",
     "telegram": "node scripts/telegram-notify.js",
     "deploy": "npm run build && npm run telegram"
   },

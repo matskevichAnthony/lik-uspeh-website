@@ -1,0 +1,138 @@
+<!-- Header -->
+<header class="bg-white border-b border-border sticky top-9 z-40 shadow-lg backdrop-blur-sm bg-white/90">
+  <div class="container-custom">
+    <div class="flex items-center justify-between py-4 min-h-20">
+      <div class="flex-shrink-0">
+        <a href="/" class="text-primary text-2xl font-bold font-heading hover:text-primary-light transition-colors">
+          {{ .Site.Title }}
+        </a>
+      </div>
+
+      <nav class="hidden lg:flex flex-1 justify-center">
+        <ul class="flex items-center gap-2">
+          {{ range .Site.Menus.main }}
+          {{ if .HasChildren }}
+          <li class="relative group">
+            <a href="{{ .URL }}"
+              class="flex items-center gap-2 px-4 py-3 text-text font-medium font-heading rounded-lg hover:text-primary hover:bg-background-light hover:scale-105 transition-all duration-200{{ if eq $.RelPermalink .URL }} text-primary bg-background-light{{ end }}">
+              {{ .Name }}
+              <svg
+                class="w-4 h-4 text-text-light group-hover:text-primary group-hover:rotate-180 transition-all duration-200"
+                viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4.5 6l3.5 3.5L11.5 6H4.5z" />
+              </svg>
+            </a>
+            <ul
+              class="absolute top-full left-0 min-w-64 bg-white border border-border rounded-lg shadow-xl opacity-0 invisible translate-y-4 group-hover:opacity-100 group-hover:visible group-hover:translate-y-2 transition-all duration-200 z-50 py-2">
+              {{ range .Children }}
+              <li>
+                <a href="{{ .URL }}"
+                  class="block px-4 py-3 text-text hover:bg-background-light hover:text-primary hover:pl-6 transition-all duration-150 text-sm font-medium{{ if eq $.RelPermalink .URL }} bg-background-light text-primary font-semibold{{ end }}">
+                  {{ .Name }}
+                </a>
+              </li>
+              {{ end }}
+            </ul>
+          </li>
+          {{ else }}
+          <li>
+            <a href="{{ .URL }}"
+              class="flex items-center gap-2 px-4 py-3 text-text font-medium font-heading rounded-lg hover:text-primary hover:bg-background-light hover:scale-105 transition-all duration-200{{ if eq $.RelPermalink .URL }} text-primary bg-background-light{{ end }}">
+              {{ .Name }}
+            </a>
+          </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </nav>
+
+      <!-- Desktop Contacts -->
+      <div class="hidden xl:flex items-center gap-6 flex-shrink-0">
+        <div class="flex items-center gap-2 text-text">
+          <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+          <a href="tel:{{ .Site.Params.phone }}" class="font-medium hover:text-primary transition-colors">
+            {{ .Site.Params.phone }}
+          </a>
+        </div>
+        <div class="flex items-center gap-2 text-text">
+          <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+          </svg>
+          <a href="mailto:{{ .Site.Params.email }}" class="font-medium hover:text-primary transition-colors">
+            {{ .Site.Params.email }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-background-light transition-colors"
+        onclick="toggleMobileMenu()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="lg:hidden hidden border-t border-border bg-white">
+      <nav class="py-4">
+        <ul class="space-y-2">
+          {{ range .Site.Menus.main }}
+          {{ if .HasChildren }}
+          <li>
+            <button onclick="toggleMobileSubmenu('{{ .Identifier }}')"
+              class="w-full flex items-center justify-between px-4 py-3 text-text font-medium hover:bg-background-light rounded-lg transition-colors">
+              {{ .Name }}
+              <svg class="w-4 h-4 transition-transform" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M4.5 6l3.5 3.5L11.5 6H4.5z" />
+              </svg>
+            </button>
+            <ul id="submenu-{{ .Identifier }}" class="hidden ml-4 mt-2 space-y-1">
+              {{ range .Children }}
+              <li>
+                <a href="{{ .URL }}"
+                  class="block px-4 py-2 text-sm text-text hover:bg-background-light hover:text-primary rounded transition-colors">
+                  {{ .Name }}
+                </a>
+              </li>
+              {{ end }}
+            </ul>
+          </li>
+          {{ else }}
+          <li>
+            <a href="{{ .URL }}"
+              class="block px-4 py-3 text-text font-medium hover:bg-background-light rounded-lg transition-colors{{ if eq $.RelPermalink .URL }} bg-background-light text-primary{{ end }}">
+              {{ .Name }}
+            </a>
+          </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+
+        <!-- Mobile Contacts -->
+        <div class="mt-6 pt-4 border-t border-border space-y-3">
+          <div class="flex items-center gap-2 px-4">
+            <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+            <a href="tel:{{ .Site.Params.phone }}" class="font-medium hover:text-primary transition-colors">
+              {{ .Site.Params.phone }}
+            </a>
+          </div>
+          <div class="flex items-center gap-2 px-4">
+            <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+            <a href="mailto:{{ .Site.Params.email }}" class="font-medium hover:text-primary transition-colors">
+              {{ .Site.Params.email }}
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>

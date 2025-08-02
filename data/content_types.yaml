@@ -1,0 +1,42 @@
+content_types:
+  news:
+    name: "Новости"
+    slug: "news"
+    icon: "i-heroicons-newspaper"
+    color: "blue"
+    priority: 1
+  
+  articles:
+    name: "Статьи"
+    slug: "articles"
+    icon: "i-heroicons-document-text"
+    color: "purple"
+    priority: 2
+  
+  announcements:
+    name: "Объявления"
+    slug: "announcements"
+    icon: "i-heroicons-megaphone"
+    color: "amber"
+    priority: 3
+  
+  guides:
+    name: "Руководства"
+    slug: "guides"
+    icon: "i-heroicons-book-open"
+    color: "green"
+    priority: 4
+  
+  events:
+    name: "События"
+    slug: "events"
+    icon: "i-heroicons-calendar-days"
+    color: "rose"
+    priority: 5
+  
+  achievements:
+    name: "Достижения"
+    slug: "achievements"
+    icon: "i-heroicons-trophy"
+    color: "yellow"
+    priority: 6
