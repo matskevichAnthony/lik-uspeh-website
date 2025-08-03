@@ -38,6 +38,8 @@ export default defineConfig({
         light: '#d4b881',
         dark: '#b8955b'
       },
+      'lik-primary': '#667eea',
+      'lik-secondary': '#764ba2',
       text: {
         DEFAULT: '#1a1a1a',
         secondary: '#4a5568',
@@ -128,6 +130,7 @@ export default defineConfig({
     ['hero-subtitle', 'text-lg md:text-xl text-text-secondary max-w-2xl mx-auto'],
     
     // Контейнеры
+    ['container-content', 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'],
     ['container-custom', 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'],
     ['container-narrow', 'max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'],
     ['container-text', 'max-w-3xl mx-auto px-4 sm:px-6 lg:px-8'],
@@ -160,7 +163,7 @@ export default defineConfig({
     'nav-link', 'nav-link-active',
     'section-title', 'section-subtitle',
     'hero-title', 'hero-subtitle',
-    'container-custom', 'container-narrow', 'container-text',
+    'container-content', 'container-custom', 'container-narrow', 'container-text',
     'education-badge', 'legal-text', 'official-seal',
     'data-table', 'data-table-th', 'data-table-td', 'data-table-row-even'
   ]

@@ -1,0 +1,328 @@
+{{ define "main" }}
+<div class="min-h-screen bg-background">
+  <!-- Hero Section -->
+  {{ if .Params.hero }}
+  <section class="relative bg-gradient-to-br from-lik-primary to-lik-secondary text-white py-20">
+    <div class="container-content">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">{{ .Params.hero.title }}</h1>
+        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">{{ .Params.hero.subtitle }}</p>
+        {{ if .Params.hero.cta }}
+        <a href="{{ .Params.hero.cta.url }}" class="btn bg-white text-lik-primary hover:bg-gray-100 text-lg px-8 py-4">
+          {{ .Params.hero.cta.text }}
+        </a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+  <div class="container-content py-12">
+    <!-- Main Content -->
+    <div class="prose prose-lg max-w-none mb-16">
+      {{ .Content }}
+    </div>
+
+    <!-- Age Groups -->
+    {{ if .Params.age_groups }}
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">Возрастные группы</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {{ range .Params.age_groups }}
+        <div class="card card-hover">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-primary mb-2">{{ .name }}</h3>
+            <p class="text-lik-primary font-semibold mb-2">{{ .age }}</p>
+            <p class="text-sm text-text-light mb-4">Группа до {{ .capacity }}</p>
+            <p class="text-text-secondary mb-4">{{ .description }}</p>
+            
+            <div class="mb-4">
+              <h4 class="font-semibold text-text mb-2">Особенности программы:</h4>
+              <ul class="space-y-1">
+                {{ range .features }}
+                <li class="flex items-center text-sm text-text-secondary">
+                  <span class="w-2 h-2 bg-lik-primary rounded-full mr-2"></span>
+                  {{ . }}
+                </li>
+                {{ end }}
+              </ul>
+            </div>
+
+            {{ if .daily_routine }}
+            <details class="mt-4">
+              <summary class="cursor-pointer font-semibold text-primary hover:text-lik-primary">Режим дня</summary>
+              <div class="mt-2 space-y-1">
+                {{ range .daily_routine }}
+                <div class="text-xs text-text-secondary bg-background-light p-2 rounded">{{ . }}</div>
+                {{ end }}
+              </div>
+            </details>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- Programs -->
+    {{ if .Params.programs }}
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">Образовательные программы</h2>
+      
+      <!-- Core Programs -->
+      {{ if .Params.programs.core }}
+      <div class="mb-12">
+        <h3 class="text-2xl font-bold text-text mb-6">Основные программы</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {{ range .Params.programs.core }}
+          <div class="card">
+            <div class="p-6 text-center">
+              <div class="w-16 h-16 bg-lik-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl">🎓</span>
+              </div>
+              <h4 class="font-bold text-lg text-primary mb-2">{{ .title }}</h4>
+              <p class="text-text-secondary text-sm">{{ .description }}</p>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      <!-- Additional Programs -->
+      {{ if .Params.programs.additional }}
+      <div>
+        <h3 class="text-2xl font-bold text-text mb-6">Дополнительные программы</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {{ range .Params.programs.additional }}
+          <div class="card">
+            <div class="p-6">
+              <h4 class="font-bold text-lg text-primary mb-2">{{ .title }}</h4>
+              <p class="text-text-secondary mb-3">{{ .description }}</p>
+              <div class="flex items-center justify-between text-sm text-text-light">
+                <span>{{ .age }}</span>
+                <span>{{ .frequency }}</span>
+              </div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </section>
+    {{ end }}
+
+    <!-- Facilities -->
+    {{ if .Params.facilities }}
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">Наша инфраструктура</h2>
+      
+      <!-- Indoor Facilities -->
+      {{ if .Params.facilities.indoor }}
+      <div class="mb-8">
+        <h3 class="text-2xl font-bold text-text mb-6">Внутренние помещения</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {{ range .Params.facilities.indoor }}
+          <div class="card">
+            <div class="p-6">
+              <h4 class="font-bold text-lg text-primary mb-2">{{ .name }}</h4>
+              <p class="text-text-secondary mb-2">{{ .description }}</p>
+              <span class="badge badge-blue">{{ .area }}</span>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      <!-- Outdoor Facilities -->
+      {{ if .Params.facilities.outdoor }}
+      <div>
+        <h3 class="text-2xl font-bold text-text mb-6">Уличные площадки</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {{ range .Params.facilities.outdoor }}
+          <div class="card">
+            <div class="p-6">
+              <h4 class="font-bold text-lg text-primary mb-2">{{ .name }}</h4>
+              <p class="text-text-secondary mb-2">{{ .description }}</p>
+              <span class="badge badge-green">{{ if .area }}{{ .area }}{{ else }}{{ .count }}{{ end }}</span>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </section>
+    {{ end }}
+
+    <!-- Nutrition -->
+    {{ if .Params.nutrition }}
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">Питание</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="card">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-primary mb-4">Принципы питания</h3>
+            <ul class="space-y-2">
+              {{ range .Params.nutrition.principles }}
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-lik-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-text-secondary">{{ . }}</span>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-primary mb-4">Режим питания</h3>
+            <div class="space-y-3">
+              {{ range .Params.nutrition.meals }}
+              <div class="flex items-center justify-between p-3 bg-background-light rounded">
+                <div>
+                  <div class="font-medium text-text">{{ .name }}</div>
+                  <div class="text-sm text-text-secondary">{{ .example }}</div>
+                </div>
+                <span class="badge badge-amber">{{ .time }}</span>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- Staff -->
+    {{ if .Params.staff }}
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">Наша команда</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {{ range .Params.staff }}
+        <div class="card text-center">
+          <div class="p-6">
+            <div class="w-20 h-20 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <span class="text-2xl">👩‍🏫</span>
+            </div>
+            <h4 class="font-bold text-text mb-1">{{ .name }}</h4>
+            <p class="text-sm text-lik-primary font-medium mb-2">{{ .position }}</p>
+            <p class="text-xs text-text-light mb-1">{{ .education }}</p>
+            <p class="text-xs text-text-light">{{ .experience }}</p>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- Testimonials -->
+    {{ if .Params.testimonials }}
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">Отзывы родителей</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {{ range .Params.testimonials }}
+        <div class="card">
+          <div class="p-6">
+            <blockquote class="text-text-secondary italic mb-4">"{{ .quote }}"</blockquote>
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                <span class="text-xl">👤</span>
+              </div>
+              <div>
+                <div class="font-medium text-text">{{ .author }}</div>
+                <div class="text-sm text-text-light">{{ .child }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- Admission Info -->
+    {{ if .Params.admission_info }}
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">Поступление</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-primary mb-4">Требования</h3>
+            <ul class="space-y-2">
+              {{ range .Params.admission_info.requirements }}
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-lik-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-text-secondary text-sm">{{ . }}</span>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-primary mb-4">Документы</h3>
+            <ul class="space-y-2">
+              {{ range .Params.admission_info.documents }}
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-lik-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span class="text-text-secondary text-sm">{{ . }}</span>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-primary mb-4">Процесс</h3>
+            <ol class="space-y-2">
+              {{ range $index, $step := .Params.admission_info.process }}
+              <li class="flex items-start">
+                <span class="w-6 h-6 bg-lik-primary text-white rounded-full flex items-center justify-center text-xs mr-3 flex-shrink-0">{{ add $index 1 }}</span>
+                <span class="text-text-secondary text-sm">{{ $step }}</span>
+              </li>
+              {{ end }}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- Contact Information -->
+    {{ if .Params.contact }}
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">Контактная информация</h2>
+      <div class="card max-w-2xl mx-auto">
+        <div class="p-8 text-center">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="font-bold text-text mb-2">Телефон</h3>
+              <a href="tel:{{ .Params.contact.phone }}" class="text-lik-primary hover:text-lik-secondary">{{ .Params.contact.phone }}</a>
+            </div>
+            <div>
+              <h3 class="font-bold text-text mb-2">Email</h3>
+              <a href="mailto:{{ .Params.contact.email }}" class="text-lik-primary hover:text-lik-secondary">{{ .Params.contact.email }}</a>
+            </div>
+            <div>
+              <h3 class="font-bold text-text mb-2">Адрес</h3>
+              <p class="text-text-secondary">{{ .Params.contact.address }}</p>
+            </div>
+            <div>
+              <h3 class="font-bold text-text mb-2">Часы работы</h3>
+              <p class="text-text-secondary">{{ .Params.contact.hours }}</p>
+            </div>
+          </div>
+          <div class="mt-8">
+            <a href="/contacts" class="btn-primary">Записаться на экскурсию</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

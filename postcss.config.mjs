@@ -2,7 +2,9 @@ import UnoCSS from '@unocss/postcss'
 
 export default {
   plugins: [
-    UnoCSS(),
+    UnoCSS({
+      configFile: './uno.config.ts'
+    }),
     require('postcss-import'),
     require('autoprefixer'),
   ],

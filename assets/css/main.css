@@ -1,4 +1,5 @@
 /* UnoCSS - Tailwind-compatible atomic CSS */
+@import 'uno.css';
 @unocss;
 
 /* Кастомные CSS переменные для сайта гимназии «ЛИК-Успех» */
