@@ -1,288 +1,440 @@
+{{ define "head" }}
+  <meta property="og:title" content="{{ .Title }}">
+  <meta property="og:description" content="{{ .Description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ .Title }}">
+  <meta name="twitter:description" content="{{ .Description }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+{{ end }}
+
 {{ define "main" }}
-<div class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
-  <!-- Hero секция -->
-  <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-    <div class="container mx-auto px-4 py-16">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">{{ .Title }}</h1>
-        <p class="text-xl text-blue-100 leading-relaxed">
-          Последние новости, события и достижения гимназии «ЛИК-Успех»
-        </p>
-      </div>
+<div class="bg-white min-h-screen">
+  <!-- Header -->
+  <div class="border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-medium text-gray-900 mb-6">{{ .Title }}</h1>
+      <p class="text-xl sm:text-2xl text-gray-600 max-w-3xl leading-relaxed">{{ .Description }}</p>
     </div>
   </div>
 
-  <div class="container mx-auto px-4 py-8">
-    <!-- Поиск и фильтры -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-      <div class="flex flex-col lg:flex-row gap-6">
-        <!-- Поиск Pagefind -->
-        <div class="flex-1">
-          <div class="relative">
-            <div id="search" class="pagefind-ui" data-pagefind-ui></div>
-          </div>
-        </div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Filter Navigation -->
+    <div class="py-12 border-b border-gray-100">
+      <!-- Main Filter Tabs -->
+      <div class="flex flex-wrap items-center gap-8 mb-8">
+        <button class="filter-btn active text-lg font-medium text-gray-900 border-b-2 border-gray-900 pb-2" data-audience="all">
+          Все
+        </button>
+        <button class="filter-btn text-lg font-medium text-gray-500 hover:text-gray-900 pb-2 border-b-2 border-transparent hover:border-gray-300 transition-colors" data-audience="parents">
+          Родителям
+        </button>
+        <button class="filter-btn text-lg font-medium text-gray-500 hover:text-gray-900 pb-2 border-b-2 border-transparent hover:border-gray-300 transition-colors" data-audience="students">
+          Ученикам
+        </button>
+        <button class="filter-btn text-lg font-medium text-gray-500 hover:text-gray-900 pb-2 border-b-2 border-transparent hover:border-gray-300 transition-colors" data-audience="teachers">
+          Преподавателям
+        </button>
+      </div>
+
+      <!-- Secondary Filters -->
+      <div class="flex flex-wrap items-center gap-4">
+        <select id="subject-filter" class="appearance-none text-sm text-gray-600 bg-white border border-gray-300 rounded-full px-4 py-2 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
+          <option value="">Все предметы</option>
+          {{ range .Site.Taxonomies.subject }}
+          <option value="{{ .Page.Title }}">{{ .Page.Title }}</option>
+          {{ end }}
+        </select>
         
-        <!-- Фильтры -->
-        <div class="flex flex-wrap gap-4 lg:w-auto">
-          <!-- Фильтр по типу контента -->
-          <div class="relative">
-            <select id="content-type-filter" class="appearance-none bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-              <option value="">Все типы</option>
-              {{ range $key, $type := $.Site.Data.content_types.content_types }}
-              <option value="{{ $type.slug }}">{{ $type.name }}</option>
-              {{ end }}
-            </select>
-            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
-          </div>
+        <select id="grade-filter" class="appearance-none text-sm text-gray-600 bg-white border border-gray-300 rounded-full px-4 py-2 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
+          <option value="">Все классы</option>
+          {{ range .Site.Taxonomies.grade }}
+          <option value="{{ .Page.Title }}">{{ .Page.Title }} класс</option>
+          {{ end }}
+        </select>
+        
+        <select id="format-filter" class="appearance-none text-sm text-gray-600 bg-white border border-gray-300 rounded-full px-4 py-2 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
+          <option value="">Все форматы</option>
+          {{ range .Site.Taxonomies.format }}
+          <option value="{{ .Page.Title }}">{{ .Page.Title }}</option>
+          {{ end }}
+        </select>
 
-          <!-- Фильтр по аудитории -->
-          <div class="relative">
-            <select id="audience-filter" class="appearance-none bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-              <option value="">Все аудитории</option>
-              {{ range $key, $audience := $.Site.Data.audiences.audiences }}
-              <option value="{{ $audience.slug }}">{{ $audience.name }}</option>
-              {{ end }}
-            </select>
-            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Фильтр по категории -->
-          <div class="relative">
-            <select id="category-filter" class="appearance-none bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 pr-8 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-              <option value="">Все категории</option>
-              {{ range $key, $category := $.Site.Data.categories.categories }}
-              <option value="{{ $category.slug }}">{{ $category.name }}</option>
-              {{ end }}
-            </select>
-            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Кнопка сброса фильтров -->
-          <button id="clear-filters" class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
-            Сбросить
-          </button>
-        </div>
+        <label class="inline-flex items-center cursor-pointer text-sm text-gray-600 ml-4">
+          <input type="checkbox" id="student-work-toggle" class="sr-only">
+          <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-2 peer-focus:ring-gray-900 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"></div>
+          <span class="ml-3">Только работы учеников</span>
+        </label>
       </div>
     </div>
 
-    <!-- Счетчик результатов -->
-    <div id="results-counter" class="mb-6 text-gray-600 text-sm">
-      Найдено статей: <span id="total-count">{{ len .Paginator.Pages }}</span>
-    </div>
+    <!-- Articles -->
+    <div class="py-16">
+      {{ $paginator := .Paginate .RegularPages }}
+      
+      <div id="articles-grid" class="space-y-16">
+        {{ range $paginator.Pages }}
+        {{ $isStudent := or (eq .Params.author_role "student") .Params.student_work }}
+        <article class="blog-card flex flex-col sm:flex-row items-start gap-8 group cursor-pointer pb-16 border-b border-gray-100 last:border-b-0 last:pb-0"
+                 data-audiences="{{ if .Params.audiences }}{{ delimit .Params.audiences " " }}{{ end }}"
+                 data-subjects="{{ if .Params.subjects }}{{ delimit .Params.subjects " " }}{{ end }}"
+                 data-grades="{{ if .Params.grade }}{{ delimit .Params.grade " " }}{{ end }}"
+                 data-formats="{{ if .Params.formats }}{{ delimit .Params.formats " " }}{{ end }}"
+                 data-student-work="{{ $isStudent }}"
+                 onclick="window.location.href='{{ .RelPermalink }}'">
+          
+          <!-- Content -->
+          <div class="flex-1 order-2 sm:order-1">
+            <!-- Title -->
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors leading-snug">
+              {{ .Title }}
+            </h2>
 
-    <!-- Список статей -->
-    <div id="blog-posts" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {{ range .Paginator.Pages }}
-      <article class="blog-post-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-               data-content-type="{{ .Params.content_type | default "news" }}"
-               {{ with .Params.audience }}data-audience="{{ . }}"{{ end }}
-               {{ with .Params.category }}data-category="{{ . }}"{{ end }}
-               data-pagefind-body>
-        <!-- Изображение -->
-        {{ if .Params.image }}
-        <div class="aspect-video bg-gradient-to-br from-blue-500 to-indigo-600 relative overflow-hidden">
-          <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="w-full h-full object-cover">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-        </div>
-        {{ else }}
-        <div class="aspect-video bg-gradient-to-br from-blue-500 to-indigo-600 relative flex items-center justify-center">
-          <svg class="w-12 h-12 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H16"/>
+            <!-- Author - if present -->
+            {{ if .Params.author }}
+            <div class="mb-4">
+              <span class="text-base font-semibold text-gray-800 bg-gray-50 px-3 py-1 rounded-full">
+                {{ .Params.author }}{{ if and (eq .Params.author_role "student") .Params.grade }}, {{ delimit .Params.grade ", " }} класс{{ end }}
+              </span>
+            </div>
+            {{ end }}
+            
+            <!-- Description -->
+            {{ if .Description }}
+            <p class="text-gray-600 mb-6 line-clamp-3 text-base sm:text-lg leading-relaxed">{{ .Description }}</p>
+            {{ end }}
+            
+            <!-- Hashtags -->
+            {{ if .Params.tags }}
+            <div class="flex flex-wrap gap-2 mb-4">
+              {{ range first 4 .Params.tags }}
+              <span class="inline-flex items-center text-sm text-blue-600 hover:text-blue-700 cursor-pointer">
+                #{{ . }}
+              </span>
+              {{ end }}
+            </div>
+            {{ end }}
+
+            <!-- Meta at bottom -->
+            <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500">
+              {{ partial "blog/badge-role.html" . }}
+              <span class="text-gray-400">·</span>
+              <time datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "2 янв 2006" }}
+              </time>
+              <span class="text-gray-400">·</span>
+              {{ $readingTime := mul (div (countwords .Content) 200) 1 }}
+              {{ if lt $readingTime 1 }}{{ $readingTime = 1 }}{{ end }}
+              <span>{{ $readingTime }} мин чтения</span>
+            </div>
+          </div>
+
+          <!-- Image/Abstract -->
+          <div class="flex-shrink-0 order-1 sm:order-2 w-full sm:w-32 h-32 sm:h-32">
+            {{ if .Params.image }}
+            <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="w-full h-full object-cover rounded">
+            {{ else }}
+            <div class="w-full h-full rounded" data-abstract data-seed="{{ .RelPermalink }}"></div>
+            {{ end }}
+          </div>
+        </article>
+        {{ end }}
+      </div>
+
+      <!-- No Results -->
+      <div id="no-results" class="hidden text-center py-20">
+        <div class="text-gray-300 mb-4">
+          <svg class="w-20 h-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
           </svg>
         </div>
+        <h3 class="text-2xl font-light text-gray-900 mb-3">Статьи не найдены</h3>
+        <p class="text-gray-600 mb-6">Попробуйте изменить критерии фильтрации.</p>
+        <button id="clear-filters" class="px-6 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors">
+          Сбросить фильтры
+        </button>
+      </div>
+
+      <!-- Pagination -->
+      {{ if gt $paginator.TotalPages 1 }}
+      <nav class="flex justify-center items-center space-x-2 mt-16 pt-12 border-t border-gray-100">
+        {{ if $paginator.HasPrev }}
+        <a href="{{ $paginator.Prev.URL }}" class="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors">
+          ← Предыдущая
+        </a>
         {{ end }}
-
-        <div class="p-6">
-          <!-- Метаданные и badges -->
-          <div class="flex flex-wrap items-center gap-2 mb-4">
-            <!-- Content Type Badge -->
-            {{ $contentType := index $.Site.Data.content_types.content_types (.Params.content_type | default "news") }}
-            {{ if $contentType }}
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-{{ $contentType.color }}-100 text-{{ $contentType.color }}-800">
-              <i class="{{ $contentType.icon }} w-3 h-3 mr-1"></i>
-              {{ $contentType.name }}
-            </span>
-            {{ end }}
-
-            <!-- Audience Badge -->
-            {{ $audience := index $.Site.Data.audiences.audiences (.Params.audience | default "general") }}
-            {{ if $audience }}
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-{{ $audience.color }}-100 text-{{ $audience.color }}-800">
-              <i class="{{ $audience.icon }} w-3 h-3 mr-1"></i>
-              {{ $audience.name }}
-            </span>
-            {{ end }}
-
-            <!-- Дата -->
-            <time datetime="{{ .Date.Format "2006-01-02" }}" class="text-xs text-gray-500">
-              {{ .Date.Format "2 января 2006" }}
-            </time>
-          </div>
-
-          <!-- Заголовок -->
-          <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-blue-600 transition-colors">
-            <a href="{{ .RelPermalink }}" class="block">{{ .Title }}</a>
-          </h2>
-
-          <!-- Описание -->
-          {{ if .Summary }}
-          <p class="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3">{{ .Summary }}</p>
-          {{ end }}
-
-          <!-- Теги -->
-          {{ if .Params.tags }}
-          <div class="flex flex-wrap gap-1 mb-4">
-            {{ range first 3 .Params.tags }}
-            <span class="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-md">#{{ . }}</span>
-            {{ end }}
-          </div>
-          {{ end }}
-
-          <!-- Кнопка читать далее -->
-          <div class="flex items-center justify-between">
-            <a href="{{ .RelPermalink }}" class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors group">
-              Читать далее
-              <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-            </a>
-            
-            <!-- Время чтения -->
-            {{ if .ReadingTime }}
-            <span class="text-xs text-gray-500">{{ .ReadingTime }} мин</span>
-            {{ end }}
-          </div>
-        </div>
-      </article>
+        
+        {{ range $paginator.Pagers }}
+        {{ if eq . $paginator }}
+        <span class="px-4 py-2 bg-gray-900 text-white rounded-full">{{ .PageNumber }}</span>
+        {{ else }}
+        <a href="{{ .URL }}" class="px-4 py-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors">
+          {{ .PageNumber }}
+        </a>
+        {{ end }}
+        {{ end }}
+        
+        {{ if $paginator.HasNext }}
+        <a href="{{ $paginator.Next.URL }}" class="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors">
+          Следующая →
+        </a>
+        {{ end }}
+      </nav>
       {{ end }}
     </div>
-
-    <!-- Пагинация -->
-    {{ if gt .Paginator.TotalPages 1 }}
-    <nav class="mt-12 flex justify-center">
-      <div class="flex items-center space-x-2">
-        {{ if .Paginator.HasPrev }}
-        <a href="{{ .Paginator.Prev.URL }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-          </svg>
-          Предыдущая
-        </a>
-        {{ end }}
-        
-        {{ range .Paginator.Pagers }}
-        {{ if eq . $.Paginator }}
-        <span class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg">{{ .PageNumber }}</span>
-        {{ else }}
-        <a href="{{ .URL }}" class="px-4 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">{{ .PageNumber }}</a>
-        {{ end }}
-        {{ end }}
-        
-        {{ if .Paginator.HasNext }}
-        <a href="{{ .Paginator.Next.URL }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-          Следующая
-          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </a>
-        {{ end }}
-      </div>
-    </nav>
-    {{ end }}
   </div>
 </div>
 
-<!-- Pagefind и фильтрация JavaScript -->
+<!-- Abstract Pattern Generator Script -->
 <script>
+// Generate flat abstract art into elements matching a selector.
+function generateAbstractPattern(selector = "[data-abstract]", opts = {}) {
+  const {
+    seed = String(Date.now()),
+    cellMin = 40,
+    cellMax = 80,
+    ratio = 1,
+    padding = 0,
+    responsive = false
+  } = opts;
+
+  // fast deterministic PRNG
+  function xmur3(str){let h=1779033703^str.length;for(let i=0;i<str.length;i++)h=Math.imul(h^str.charCodeAt(i),3432918353),h=h<<13|h>>>19;return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return (h^h>>>16)>>>0}}
+  function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,1|t);t^=t+Math.imul(t^t>>>7,61|t);return ((t^t>>>14)>>>0)/4294967296}}
+  const rand = mulberry32(xmur3(seed)());
+
+  // palette generator
+  function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
+  function hsl(h,s,l){return `hsl(${(h+360)%360} ${clamp(s,0,100)}% ${clamp(l,0,100)}%)`}
+  function makePalette(r){
+    const base = r()*360;
+    const S = 40 + r()*20;
+    const L = 55;
+    const offsets = [0, 30, -25, 120 + (r()*40-20), 180 + (r()*40-20)];
+    const lights = [L-10, L, L+10, L-5, L+15].map(v=>clamp(v,30,75));
+    return offsets.map((off,i)=>hsl(base+off, S, lights[i]));
+  }
+  const palette = makePalette(rand);
+  const accent = hsl(rand()*360, 15, 94);
+
+  const elements = document.querySelectorAll(selector);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  elements.forEach((el) => {
+    // Remove existing canvas
+    const existing = el.querySelector("canvas[data-abstract-canvas]");
+    if (existing) existing.remove();
+
+    // Get seed from element
+    const elementSeed = el.dataset.seed || seed;
+    const elementRand = mulberry32(xmur3(elementSeed)());
+    const elementPalette = makePalette(elementRand);
+
+    const rect = el.getBoundingClientRect();
+    const cssW = Math.max(1, Math.round(rect.width || el.clientWidth || 128));
+    const cssH = Math.round(rect.height || cssW * ratio);
+
+    const canvas = document.createElement("canvas");
+    canvas.dataset.abstractCanvas = "1";
+    canvas.style.display = "block";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.borderRadius = "inherit";
+
+    const W = Math.max(1, Math.floor(cssW * dpr));
+    const H = Math.max(1, Math.floor(cssH * dpr));
+    canvas.width = W;
+    canvas.height = H;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
+    const innerW = cssW - padding*2;
+    const innerH = cssH - padding*2;
+    const cell = Math.round(cellMin + elementRand()*(cellMax - cellMin));
+    const cols = Math.max(1, Math.ceil(innerW / cell));
+    const rows = Math.max(1, Math.ceil(innerH / cell));
+
+    // background
+    ctx.fillStyle = accent;
+    ctx.fillRect(0, 0, cssW, cssH);
+
+    // draw pattern
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = padding + c * cell;
+        const y = padding + r * cell;
+        const w = Math.min(cell, innerW - c*cell);
+        const h = Math.min(cell, innerH - r*cell);
+        if (w <= 0 || h <= 0) continue;
+
+        const diagFlip = (r + c + (elementRand() < 0.5 ? 1 : 0)) % 2 === 0;
+
+        // first triangle
+        ctx.beginPath();
+        if (diagFlip) {
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + w, y);
+          ctx.lineTo(x + w, y + h);
+        } else {
+          ctx.moveTo(x, y);
+          ctx.lineTo(x, y + h);
+          ctx.lineTo(x + w, y + h);
+        }
+        const idx1 = (r + c) % elementPalette.length;
+        ctx.fillStyle = elementPalette[idx1];
+        ctx.fill();
+
+        // second triangle
+        ctx.beginPath();
+        if (diagFlip) {
+          ctx.moveTo(x, y);
+          ctx.lineTo(x, y + h);
+          ctx.lineTo(x + w, y + h);
+        } else {
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + w, y);
+          ctx.lineTo(x + w, y + h);
+        }
+        const idx2 = (r*3 + c*5 + 2) % elementPalette.length;
+        ctx.fillStyle = elementPalette[idx2];
+        ctx.fill();
+      }
+    }
+
+    ctx.restore();
+    el.appendChild(canvas);
+  });
+}
+
+// Initialize everything
 document.addEventListener('DOMContentLoaded', function() {
-  // Инициализация фильтров
-  const contentTypeFilter = document.getElementById('content-type-filter');
-  const audienceFilter = document.getElementById('audience-filter');
-  const categoryFilter = document.getElementById('category-filter');
-  const clearFiltersBtn = document.getElementById('clear-filters');
-  const blogPosts = document.querySelectorAll('.blog-post-card');
-  const totalCountSpan = document.getElementById('total-count');
+  // Generate abstract patterns for posts without images with random seed
+  generateAbstractPattern('[data-abstract]', {
+    seed: String(Date.now() + Math.random())
+  });
   
-  // Функция фильтрации
-  function filterPosts() {
-    const contentType = contentTypeFilter.value;
-    const audience = audienceFilter.value;
-    const category = categoryFilter.value;
-    
+  // Filter functionality
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const subjectFilter = document.getElementById('subject-filter');
+  const gradeFilter = document.getElementById('grade-filter');
+  const formatFilter = document.getElementById('format-filter');
+  const studentToggle = document.getElementById('student-work-toggle');
+  const articlesGrid = document.getElementById('articles-grid');
+  const noResults = document.getElementById('no-results');
+  const clearFiltersBtn = document.getElementById('clear-filters');
+  
+  let currentAudience = 'all';
+  
+  function filterArticles() {
+    const articles = document.querySelectorAll('.blog-card');
     let visibleCount = 0;
     
-    blogPosts.forEach(post => {
-      const postContentType = post.dataset.contentType;
-      const postAudience = post.dataset.audience || '';
-      const postCategory = post.dataset.category || '';
+    articles.forEach(article => {
+      let show = true;
       
-      const matchesContentType = !contentType || postContentType === contentType;
-      const matchesAudience = !audience || postAudience === audience;
-      const matchesCategory = !category || postCategory === category;
-      
-      if (matchesContentType && matchesAudience && matchesCategory) {
-        post.style.display = 'block';
-        visibleCount++;
-      } else {
-        post.style.display = 'none';
+      if (currentAudience !== 'all') {
+        const audiences = article.dataset.audiences;
+        if (!audiences || !audiences.includes(currentAudience)) {
+          show = false;
+        }
       }
+      
+      if (subjectFilter.value) {
+        const subjects = article.dataset.subjects;
+        if (!subjects || !subjects.includes(subjectFilter.value)) {
+          show = false;
+        }
+      }
+      
+      if (gradeFilter.value) {
+        const grades = article.dataset.grades;
+        if (!grades || !grades.includes(gradeFilter.value)) {
+          show = false;
+        }
+      }
+      
+      if (formatFilter.value) {
+        const formats = article.dataset.formats;
+        if (!formats || !formats.includes(formatFilter.value)) {
+          show = false;
+        }
+      }
+      
+      if (studentToggle.checked) {
+        const isStudentWork = article.dataset.studentWork === 'true';
+        if (!isStudentWork) {
+          show = false;
+        }
+      }
+      
+      article.style.display = show ? 'flex' : 'none';
+      if (show) visibleCount++;
     });
     
-    totalCountSpan.textContent = visibleCount;
+    if (visibleCount === 0) {
+      articlesGrid.style.display = 'none';
+      noResults.style.display = 'block';
+    } else {
+      articlesGrid.style.display = 'block';
+      noResults.style.display = 'none';
+    }
   }
   
-  // Обработчики событий для фильтров
-  contentTypeFilter.addEventListener('change', filterPosts);
-  audienceFilter.addEventListener('change', filterPosts);
-  categoryFilter.addEventListener('change', filterPosts);
+  // Filter button handlers
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'text-gray-900', 'border-gray-900');
+        b.classList.add('text-gray-500', 'border-transparent');
+      });
+      this.classList.add('active', 'text-gray-900', 'border-gray-900');
+      this.classList.remove('text-gray-500', 'border-transparent');
+      
+      currentAudience = this.dataset.audience;
+      filterArticles();
+    });
+  });
   
-  // Сброс фильтров
+  [subjectFilter, gradeFilter, formatFilter].forEach(filter => {
+    filter.addEventListener('change', filterArticles);
+  });
+  
+  studentToggle.addEventListener('change', filterArticles);
+  
   clearFiltersBtn.addEventListener('click', function() {
-    contentTypeFilter.value = '';
-    audienceFilter.value = '';
-    categoryFilter.value = '';
-    filterPosts();
+    filterBtns.forEach(btn => {
+      btn.classList.remove('active', 'text-gray-900', 'border-gray-900');
+      btn.classList.add('text-gray-500', 'border-transparent');
+    });
+    filterBtns[0].classList.add('active', 'text-gray-900', 'border-gray-900');
+    filterBtns[0].classList.remove('text-gray-500', 'border-transparent');
+    currentAudience = 'all';
+    
+    subjectFilter.value = '';
+    gradeFilter.value = '';
+    formatFilter.value = '';
+    studentToggle.checked = false;
+    
+    filterArticles();
   });
 });
 </script>
 
-<!-- Подключение Pagefind -->
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-<script src="/pagefind/pagefind-ui.js"></script>
-<script>
-  window.addEventListener('DOMContentLoaded', (event) => {
-    new PagefindUI({ 
-      element: "#search",
-      showSubResults: true,
-      showImages: false,
-      excerptLength: 15,
-      translations: {
-        placeholder: "Поиск по блогу...",
-        clear_search: "Очистить",
-        load_more: "Загрузить ещё",
-        search_label: "Поиск по сайту",
-        filters_label: "Фильтры",
-        zero_results: "Ничего не найдено для [SEARCH_TERM]",
-        many_results: "[COUNT] результатов для [SEARCH_TERM]",
-        one_result: "[COUNT] результат для [SEARCH_TERM]",
-        alt_search: "Ничего не найдено для [SEARCH_TERM]. Показаны результаты для [DIFFERENT_TERM]",
-        search_suggestion: "Попробуйте поискать [DIFFERENT_TERM]",
-        searching: "Поиск [SEARCH_TERM]..."
-      }
-    });
-  });
-</script>
+<style>
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
 {{ end }}

@@ -1,0 +1,276 @@
+{{ define "head" }}
+  <meta property="og:title" content="{{ .Title }}">
+  <meta property="og:description" content="{{ .Description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ .Title }}">
+  <meta name="twitter:description" content="{{ .Description }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+{{ end }}
+
+{{ define "main" }}
+<div class="bg-white min-h-screen">
+  <!-- Header -->
+  <div class="border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-medium text-gray-900 mb-6">{{ .Title }}</h1>
+      <p class="text-xl sm:text-2xl text-gray-600 max-w-3xl leading-relaxed">{{ .Description }}</p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- News Items -->
+    <div class="py-16">
+      {{ $paginator := .Paginate .RegularPages }}
+      
+      <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {{ range $paginator.Pages }}
+        <article class="news-card group cursor-pointer"
+                 onclick="window.location.href='{{ .RelPermalink }}'">
+          
+          <!-- Image/Abstract -->
+          <div class="mb-6">
+            {{ if .Params.image }}
+            <div class="w-full h-48">
+              <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="w-full h-full object-cover rounded-lg">
+            </div>
+            {{ else }}
+            <div class="w-full h-48 rounded-lg" data-abstract data-seed="{{ .RelPermalink }}"></div>
+            {{ end }}
+          </div>
+
+          <!-- Content -->
+          <div>
+            <!-- Title -->
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-gray-700 transition-colors leading-tight">
+              {{ .Title }}
+            </h2>
+
+            <!-- Author - if present -->
+            {{ if .Params.author }}
+            <div class="mb-3">
+              <span class="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full">
+                {{ .Params.author }}
+              </span>
+            </div>
+            {{ end }}
+            
+            <!-- Description -->
+            {{ if .Description }}
+            <p class="text-gray-600 mb-4 line-clamp-3 text-base leading-relaxed">{{ .Description }}</p>
+            {{ end }}
+            
+            <!-- Hashtags -->
+            {{ if .Params.tags }}
+            <div class="flex flex-wrap gap-2 mb-4">
+              {{ range first 3 .Params.tags }}
+              <span class="inline-flex items-center text-sm text-blue-600 hover:text-blue-700 cursor-pointer">
+                #{{ . }}
+              </span>
+              {{ end }}
+            </div>
+            {{ end }}
+
+            <!-- Meta at bottom -->
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "2 янв 2006" }}
+              </time>
+              <span class="text-gray-400">·</span>
+              {{ $readingTime := mul (div (countwords .Content) 200) 1 }}
+              {{ if lt $readingTime 1 }}{{ $readingTime = 1 }}{{ end }}
+              <span>{{ $readingTime }} мин чтения</span>
+            </div>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+
+      <!-- No Results -->
+      <div id="no-results" class="hidden text-center py-20">
+        <div class="text-gray-300 mb-4">
+          <svg class="w-20 h-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <h3 class="text-2xl font-light text-gray-900 mb-3">Новости не найдены</h3>
+        <p class="text-gray-600">В данный момент нет опубликованных новостей.</p>
+      </div>
+
+      <!-- Pagination -->
+      {{ if gt $paginator.TotalPages 1 }}
+      <nav class="flex justify-center items-center space-x-2 mt-16 pt-12 border-t border-gray-100">
+        {{ if $paginator.HasPrev }}
+        <a href="{{ $paginator.Prev.URL }}" class="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors">
+          ← Предыдущая
+        </a>
+        {{ end }}
+        
+        {{ range $paginator.Pagers }}
+        {{ if eq . $paginator }}
+        <span class="px-4 py-2 bg-gray-900 text-white rounded-full">{{ .PageNumber }}</span>
+        {{ else }}
+        <a href="{{ .URL }}" class="px-4 py-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors">
+          {{ .PageNumber }}
+        </a>
+        {{ end }}
+        {{ end }}
+        
+        {{ if $paginator.HasNext }}
+        <a href="{{ $paginator.Next.URL }}" class="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors">
+          Следующая →
+        </a>
+        {{ end }}
+      </nav>
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+<!-- Abstract Pattern Generator Script -->
+<script>
+// Generate flat abstract art into elements matching a selector.
+function generateAbstractPattern(selector = "[data-abstract]", opts = {}) {
+  const {
+    seed = String(Date.now()),
+    cellMin = 50,
+    cellMax = 90,
+    ratio = 16/9,
+    padding = 0,
+    responsive = false
+  } = opts;
+
+  // fast deterministic PRNG
+  function xmur3(str){let h=1779033703^str.length;for(let i=0;i<str.length;i++)h=Math.imul(h^str.charCodeAt(i),3432918353),h=h<<13|h>>>19;return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return (h^h>>>16)>>>0}}
+  function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,1|t);t^=t+Math.imul(t^t>>>7,61|t);return ((t^t>>>14)>>>0)/4294967296}}
+  const rand = mulberry32(xmur3(seed)());
+
+  // palette generator
+  function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
+  function hsl(h,s,l){return `hsl(${(h+360)%360} ${clamp(s,0,100)}% ${clamp(l,0,100)}%)`}
+  function makePalette(r){
+    const base = r()*360;
+    const S = 50 + r()*25;
+    const L = 60;
+    const offsets = [0, 40, -35, 130 + (r()*50-25), 190 + (r()*50-25)];
+    const lights = [L-15, L, L+15, L-8, L+20].map(v=>clamp(v,35,80));
+    return offsets.map((off,i)=>hsl(base+off, S, lights[i]));
+  }
+  const palette = makePalette(rand);
+  const accent = hsl(rand()*360, 20, 95);
+
+  const elements = document.querySelectorAll(selector);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  elements.forEach((el) => {
+    // Remove existing canvas
+    const existing = el.querySelector("canvas[data-abstract-canvas]");
+    if (existing) existing.remove();
+
+    // Get seed from element
+    const elementSeed = el.dataset.seed || seed;
+    const elementRand = mulberry32(xmur3(elementSeed)());
+    const elementPalette = makePalette(elementRand);
+
+    const rect = el.getBoundingClientRect();
+    const cssW = Math.max(1, Math.round(rect.width || el.clientWidth || 400));
+    const cssH = Math.round(rect.height || cssW * ratio);
+
+    const canvas = document.createElement("canvas");
+    canvas.dataset.abstractCanvas = "1";
+    canvas.style.display = "block";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.borderRadius = "inherit";
+
+    const W = Math.max(1, Math.floor(cssW * dpr));
+    const H = Math.max(1, Math.floor(cssH * dpr));
+    canvas.width = W;
+    canvas.height = H;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
+    const innerW = cssW - padding*2;
+    const innerH = cssH - padding*2;
+    const cell = Math.round(cellMin + elementRand()*(cellMax - cellMin));
+    const cols = Math.max(1, Math.ceil(innerW / cell));
+    const rows = Math.max(1, Math.ceil(innerH / cell));
+
+    // background
+    ctx.fillStyle = accent;
+    ctx.fillRect(0, 0, cssW, cssH);
+
+    // draw pattern
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = padding + c * cell;
+        const y = padding + r * cell;
+        const w = Math.min(cell, innerW - c*cell);
+        const h = Math.min(cell, innerH - r*cell);
+        if (w <= 0 || h <= 0) continue;
+
+        const diagFlip = (r + c + (elementRand() < 0.5 ? 1 : 0)) % 2 === 0;
+
+        // first triangle
+        ctx.beginPath();
+        if (diagFlip) {
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + w, y);
+          ctx.lineTo(x + w, y + h);
+        } else {
+          ctx.moveTo(x, y);
+          ctx.lineTo(x, y + h);
+          ctx.lineTo(x + w, y + h);
+        }
+        const idx1 = (r + c) % elementPalette.length;
+        ctx.fillStyle = elementPalette[idx1];
+        ctx.fill();
+
+        // second triangle
+        ctx.beginPath();
+        if (diagFlip) {
+          ctx.moveTo(x, y);
+          ctx.lineTo(x, y + h);
+          ctx.lineTo(x + w, y + h);
+        } else {
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + w, y);
+          ctx.lineTo(x + w, y + h);
+        }
+        const idx2 = (r*3 + c*5 + 2) % elementPalette.length;
+        ctx.fillStyle = elementPalette[idx2];
+        ctx.fill();
+      }
+    }
+
+    ctx.restore();
+    el.appendChild(canvas);
+  });
+}
+
+// Initialize abstract patterns
+document.addEventListener('DOMContentLoaded', function() {
+  generateAbstractPattern('[data-abstract]', {
+    seed: String(Date.now() + Math.random())
+  });
+});
+</script>
+
+<style>
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
+{{ end }}

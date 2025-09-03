@@ -170,6 +170,10 @@ enableEmoji = true
   tag = "tags"
   category = "categories"
   series = "series"
+  audience = "audiences"
+  subject = "subjects"
+  grade = "grades"
+  format = "formats"
 
 # Настройки форматов вывода
 [outputs]
