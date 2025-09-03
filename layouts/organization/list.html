@@ -141,13 +141,30 @@
               <h2 class="text-lg font-bold text-gray-900">Разделы</h2>
             </div>
             <div class="space-y-2">
-              {{ range .Site.Menus.organization }}
-              <a href="{{ .URL }}" class="group flex items-center justify-between p-3 rounded-lg hover:bg-blue-50 transition-colors border border-transparent hover:border-blue-200">
-                <span class="text-sm font-medium text-gray-700 group-hover:text-blue-700 leading-tight">{{ .Name }}</span>
+              {{ $currentSection := "svedeniya-ob-obrazovatelnoy-organizatsii" }}
+              {{ $organizationPages := where .Site.RegularPages "Section" $currentSection }}
+              {{ $sortedPages := sort $organizationPages ".Params.weight" "asc" }}
+              {{ range $sortedPages }}
+                {{ $showInMenu := true }}
+                {{ if isset .Params "menu_settings" }}
+                  {{ if isset .Params.menu_settings "show_in_menu" }}
+                    {{ $showInMenu = .Params.menu_settings.show_in_menu }}
+                  {{ end }}
+                {{ end }}
+                {{ if $showInMenu }}
+                {{ $menuName := .Title }}
+                {{ if isset .Params "menu_settings" }}
+                  {{ if .Params.menu_settings.menu_name }}
+                    {{ $menuName = .Params.menu_settings.menu_name }}
+                  {{ end }}
+                {{ end }}
+              <a href="{{ .RelPermalink }}" class="group flex items-center justify-between p-3 rounded-lg hover:bg-blue-50 transition-colors border border-transparent hover:border-blue-200">
+                <span class="text-sm font-medium text-gray-700 group-hover:text-blue-700 leading-tight">{{ $menuName }}</span>
                 <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
               </a>
+              {{ end }}
               {{ end }}
             </div>
           </nav>

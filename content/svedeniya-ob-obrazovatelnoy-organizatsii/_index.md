@@ -5,29 +5,6 @@ type: "organization"
 layout: "list"
 url: "/svedeniya-ob-obrazovatelnoy-organizatsii/"
 lastUpdated: "2025-01-15"
-recentUpdates:
-  - title: "Финансовая отчётность за 2024 год"
-    section: "Финансово-хозяйственная деятельность"
-    url: "/svedeniya-ob-obrazovatelnoy-organizatsii/finansovo-khozyaystvennaya-deyatelnost/"
-    date: "15.01.2025"
-  - title: "Образовательные программы на 2024-2025 учебный год"
-    section: "Образование"
-    url: "/svedeniya-ob-obrazovatelnoy-organizatsii/obrazovanie/"
-    date: "10.01.2025"
-  - title: "Обновленный состав педагогического коллектива"
-    section: "Руководство. Педагогический состав"
-    url: "/svedeniya-ob-obrazovatelnoy-organizatsii/rukovodstvo-pedagogicheskiy-sostav/"
-    date: "08.01.2025"
-importantNotices:
-  - type: "info"
-    title: "Обновление документов"
-    text: "Все документы регулярно обновляются в соответствии с действующим законодательством. Последнее обновление: 15 января 2025 года."
-  - type: "success"
-    title: "Аккредитация подтверждена"
-    text: "Образовательная деятельность гимназии подтверждена государственной аккредитацией до 2029 года."
-    link:
-      text: "Посмотреть документы"
-      url: "/svedeniya-ob-obrazovatelnoy-organizatsii/dokumenty/"
 ---
 
 ## Нормативная база

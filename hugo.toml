@@ -85,19 +85,6 @@ enableEmoji = true
     parent = "education"
     weight = 32
 
-  [[menus.main]]
-    identifier = "gia-preparation"
-    name = "Подготовка к ГИА"
-    url = "/education/gia/"
-    parent = "education"
-    weight = 33
-
-  [[menus.main]]
-    identifier = "olympiad"
-    name = "Олимпиады"
-    url = "/education/olympiad/"
-    parent = "education"
-    weight = 34
 
   [[menus.main]]
     identifier = "staff"
@@ -135,90 +122,9 @@ enableEmoji = true
     weight = 2
     external = true
 
-  [[menus.utility]]
-    identifier = "vacancies"
-    name = "Вакансии"
-    url = "/organization/vacancies/"
-    weight = 3
 
-# Подменю для "Сведения об организации" (side-nav)
-  [[menus.organization]]
-    identifier = "basic-info"
-    name = "Основные сведения"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/osnovnye-svedeniya/"
-    weight = 1
+# Organization menu is now dynamically generated from page frontmatter
 
-  [[menus.organization]]
-    identifier = "structure"
-    name = "Структура и органы управления"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/struktura-i-organy-upravleniya/"
-    weight = 2
-
-  [[menus.organization]]
-    identifier = "documents"
-    name = "Документы"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/dokumenty/"
-    weight = 3
-
-  [[menus.organization]]
-    identifier = "education-info"
-    name = "Образование"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/obrazovanie/"
-    weight = 4
-
-  [[menus.organization]]
-    identifier = "standards"
-    name = "Образовательные стандарты и требования"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/obrazovatelnye-standarty/"
-    weight = 5
-
-  [[menus.organization]]
-    identifier = "staff"
-    name = "Руководство. Педагогический состав"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/rukovodstvo-pedagogicheskiy-sostav/"
-    weight = 6
-
-  [[menus.organization]]
-    identifier = "facilities"
-    name = "Материально-техническое обеспечение"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/materialno-tekhnicheskoe-obespechenie/"
-    weight = 7
-
-  [[menus.organization]]
-    identifier = "support"
-    name = "Стипендии и меры поддержки обучающихся"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/stipendii-i-mery-podderzhki/"
-    weight = 8
-
-  [[menus.organization]]
-    identifier = "paid-services"
-    name = "Платные образовательные услуги"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/platnye-obrazovatelnye-uslugi/"
-    weight = 9
-
-  [[menus.organization]]
-    identifier = "finance"
-    name = "Финансово-хозяйственная деятельность"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/finansovo-khozyaystvennaya-deyatelnost/"
-    weight = 10
-
-  [[menus.organization]]
-    identifier = "vacancies"
-    name = "Вакантные места для приёма (перевода) обучающихся"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/vakantnye-mesta/"
-    weight = 11
-
-  [[menus.organization]]
-    identifier = "accessibility"
-    name = "Доступная среда"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/dostupnaya-sreda/"
-    weight = 12
-
-  [[menus.organization]]
-    identifier = "international"
-    name = "Международное сотрудничество"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/mezhdunarodnoe-sotrudnichestvo/"
-    weight = 13
 
   # Футер меню - быстрые ссылки
   [[menus.footer_quick]]
@@ -257,15 +163,7 @@ enableEmoji = true
     url = "/docs/"
     weight = 2
 
-  [[menus.footer_legal]]
-    name = "Финансовая отчётность"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/finansovo-khozyaystvennaya-deyatelnost/"
-    weight = 3
 
-  [[menus.footer_legal]]
-    name = "Противодействие коррупции"
-    url = "/organization/anti-corruption/"
-    weight = 4
 
 # Настройки таксономий
 [taxonomies]

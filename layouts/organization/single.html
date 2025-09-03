@@ -32,12 +32,28 @@
               <a href="/svedeniya-ob-obrazovatelnoy-organizatsii/" class="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors">Разделы</a>
             </div>
             <div class="space-y-1">
-              {{ range .Site.Menus.organization }}
-              <a href="{{ .URL }}" class="group flex items-center justify-between p-3 rounded-lg transition-colors border border-transparent
-                {{- if eq $.RelPermalink .URL }} bg-blue-50 border-blue-200 text-blue-700{{ else }} hover:bg-blue-50 hover:border-blue-200{{ end }}">
+              {{ $currentSection := "svedeniya-ob-obrazovatelnoy-organizatsii" }}
+              {{ $organizationPages := where .Site.RegularPages "Section" $currentSection }}
+              {{ $sortedPages := sort $organizationPages ".Params.weight" "asc" }}
+              {{ range $sortedPages }}
+                {{ $showInMenu := true }}
+                {{ if isset .Params "menu_settings" }}
+                  {{ if isset .Params.menu_settings "show_in_menu" }}
+                    {{ $showInMenu = .Params.menu_settings.show_in_menu }}
+                  {{ end }}
+                {{ end }}
+                {{ if $showInMenu }}
+                {{ $menuName := .Title }}
+                {{ if isset .Params "menu_settings" }}
+                  {{ if .Params.menu_settings.menu_name }}
+                    {{ $menuName = .Params.menu_settings.menu_name }}
+                  {{ end }}
+                {{ end }}
+              <a href="{{ .RelPermalink }}" class="group flex items-center justify-between p-3 rounded-lg transition-colors border border-transparent
+                {{- if eq $.RelPermalink .RelPermalink }} bg-blue-50 border-blue-200 text-blue-700{{ else }} hover:bg-blue-50 hover:border-blue-200{{ end }}">
                 <span class="text-sm font-medium leading-tight
-                  {{- if eq $.RelPermalink .URL }} text-blue-700{{ else }} text-gray-700 group-hover:text-blue-700{{ end }}">{{ .Name }}</span>
-                {{ if eq $.RelPermalink .URL }}
+                  {{- if eq $.RelPermalink .RelPermalink }} text-blue-700{{ else }} text-gray-700 group-hover:text-blue-700{{ end }}">{{ $menuName }}</span>
+                {{ if eq $.RelPermalink .RelPermalink }}
                 <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                 </svg>
@@ -47,6 +63,7 @@
                 </svg>
                 {{ end }}
               </a>
+              {{ end }}
               {{ end }}
             </div>
             

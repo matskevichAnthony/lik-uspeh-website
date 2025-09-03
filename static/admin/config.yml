@@ -105,15 +105,36 @@ collections:
 
   - name: "organization"
     label: "Сведения об организации"
-    folder: "content/organization"
-    create: false # Don't allow creating new organization pages
+    folder: "content/svedeniya-ob-obrazovatelnoy-organizatsii"
+    create: true # Allow creating new organization pages
     slug: "{{slug}}"
-    nested:
-      depth: 100
     fields:
       - {label: "Заголовок", name: "title", widget: "string"}
       - {label: "Описание", name: "description", widget: "string", required: false}
+      - {label: "Тип", name: "type", widget: "hidden", default: "organization"}
+      - {label: "Макет", name: "layout", widget: "hidden", default: "single"}
+      - {label: "URL", name: "url", widget: "string", hint: "Например: /svedeniya-ob-obrazovatelnoy-organizatsii/novaya-stranitsa/"}
+      - {label: "Последнее обновление", name: "lastUpdated", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Вес (порядок)", name: "weight", widget: "number", default: 10}
+      - label: "Родительская страница"
+        name: "parent"
+        widget: "select"
+        required: false
+        options:
+          - {label: "Нет (основной раздел)", value: ""}
+          - {label: "Образование", value: "obrazovanie"}
+          - {label: "Документы", value: "dokumenty"}
+          - {label: "Руководство", value: "rukovodstvo-pedagogicheskiy-sostav"}
+        hint: "Если это подраздел другой страницы"
+      - label: "Настройки меню"
+        name: "menu_settings"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {label: "Показывать в боковом меню", name: "show_in_menu", widget: "boolean", default: true}
+          - {label: "Идентификатор в меню", name: "menu_identifier", widget: "string", required: false, hint: "Латиницей, без пробелов. Автоматически генерируется если пусто"}
+          - {label: "Название в меню", name: "menu_name", widget: "string", required: false, hint: "По умолчанию используется заголовок страницы"}
+          - {label: "Порядок в меню", name: "menu_weight", widget: "number", required: false, hint: "По умолчанию используется вес страницы"}
       - {label: "Содержание", name: "body", widget: "markdown"}
 
   - name: "settings"
@@ -135,3 +156,102 @@ collections:
               - {label: "Телефон", name: "phone", widget: "string"}
               - {label: "Email", name: "email", widget: "string"}
               - {label: "Адрес", name: "address", widget: "string"}
+
+  - name: "navigation"
+    label: "Навигация сайта"
+    files:
+      - file: "hugo.toml"
+        label: "Меню сведений об организации"
+        name: "organization_menu"
+        fields:
+          - label: "Меню сведений об организации"
+            name: "menus"
+            widget: "object"
+            fields:
+              - label: "Разделы организации"
+                name: "organization"
+                widget: "list"
+                fields:
+                  - {label: "Идентификатор", name: "identifier", widget: "string", hint: "Уникальный ID (латиницей, без пробелов)"}
+                  - {label: "Название", name: "name", widget: "string"}
+                  - {label: "URL", name: "url", widget: "string", hint: "Полный путь к странице"}
+                  - {label: "Порядок", name: "weight", widget: "number", default: 10, hint: "Чем меньше число, тем выше в списке"}
+
+  # Document management collection
+  - name: "documents"
+    label: "Документы"
+    folder: "data/documents"
+    format: "json"
+    create: true
+    slug: "{{title}}"
+    media_folder: "/static/documents"
+    public_folder: "/documents"
+    fields:
+      - {label: "Заголовок", name: "title", widget: "string"}
+      - {label: "Описание", name: "description", widget: "text", required: false}
+      - label: "Тип документа"
+        name: "document_type"
+        widget: "select"
+        options:
+          - {label: "Загруженный файл", value: "file"}
+          - {label: "Внешняя ссылка", value: "external"}
+        default: "file"
+      - label: "Файл"
+        name: "file"
+        widget: "file"
+        required: false
+        condition: {field: "document_type", equals: "file"}
+        media_folder: "/static/documents"
+        public_folder: "/documents"
+      - {label: "Внешняя ссылка", name: "external_url", widget: "string", required: false, condition: {field: "document_type", equals: "external"}, hint: "Полная ссылка на внешний документ (например: https://example.com/document.pdf)"}
+      - label: "Страницы"
+        name: "pages"
+        widget: "select"
+        multiple: true
+        options:
+          - {label: "Основные сведения", value: "osnovnye-svedeniya"}
+          - {label: "Структура и органы управления", value: "struktura-i-organy-upravleniya"}
+          - {label: "Документы", value: "dokumenty"}
+          - {label: "Образование", value: "obrazovanie"}
+          - {label: "Образовательные стандарты", value: "obrazovatelnye-standarty"}
+          - {label: "Руководство. Педагогический состав", value: "rukovodstvo-pedagogicheskiy-sostav"}
+          - {label: "Материально-техническое обеспечение", value: "materialno-tekhnicheskoe-obespechenie"}
+          - {label: "Стипендии и меры поддержки", value: "stipendii-i-mery-podderzhki"}
+          - {label: "Платные образовательные услуги", value: "platnye-obrazovatelnye-uslugi"}
+          - {label: "Финансово-хозяйственная деятельность", value: "finansovo-khozyaystvennaya-deyatelnost"}
+          - {label: "Вакантные места", value: "vakantnye-mesta"}
+          - {label: "Доступная среда", value: "dostupnaya-sreda"}
+          - {label: "Международное сотрудничество", value: "mezhdunarodnoe-sotrudnichestvo"}
+          - {label: "ВПР 2026", value: "vpr-2026"}
+          - {label: "Учебные планы", value: "uchebnyye-plany"}
+          - {label: "Рабочие программы", value: "rabochiye-programmy"}
+        hint: "Выберите страницы где должен появиться документ"
+      - label: "Категория"
+        name: "category" 
+        widget: "select"
+        required: false
+        options:
+          - {label: "Устав", value: "ustav"}
+          - {label: "Положения", value: "polozheniya"}
+          - {label: "Приказы", value: "prikazy"}
+          - {label: "Образовательные программы", value: "obrazovatelnye-programmy"}
+          - {label: "ВПР подготовка", value: "vpr-preparation"}
+          - {label: "ВПР приказы", value: "vpr-orders"}
+          - {label: "Учебные планы", value: "uchebnye-plany"}
+          - {label: "Рабочие программы", value: "rabochie-programmy"}
+          - {label: "Другое", value: "other"}
+        hint: "Категория для группировки документов"
+      - {label: "Дата", name: "date", widget: "datetime", default: ""}
+      - {label: "Размер файла", name: "file_size", widget: "string", required: false, hint: "Например: 2.5 MB"}
+      - label: "Тип файла"
+        name: "file_type"
+        widget: "select"
+        required: false
+        options:
+          - {label: "PDF", value: "PDF"}
+          - {label: "DOC", value: "DOC"}
+          - {label: "DOCX", value: "DOCX"}
+          - {label: "XLS", value: "XLS"}
+          - {label: "XLSX", value: "XLSX"}
+          - {label: "HTML", value: "HTML"}
+          - {label: "Другой", value: "OTHER"}

@@ -1,0 +1,169 @@
+{{ $page := .Get "page" }}
+{{ $category := .Get "category" }}
+{{ $title := .Get "title" | default "Документы" }}
+
+<div class="documents-section mb-8">
+  <h3 class="text-xl font-semibold mb-4 text-gray-800">{{ $title }}</h3>
+  <div class="documents-list space-y-3">
+    
+    <!-- Main documents from JSON data -->
+    {{ range $.Site.Data.documents }}
+      {{ $doc := . }}
+      {{ $shouldShow := false }}
+        
+        <!-- Check if document should appear on this page -->
+        {{ if $page }}
+          {{ range $doc.pages }}
+            {{ if eq . $page }}
+              {{ $shouldShow = true }}
+            {{ end }}
+          {{ end }}
+          {{ end }}
+        
+        <!-- Check if document matches category filter -->
+        {{ if $category }}
+          {{ if eq $doc.category $category }}
+            {{ $shouldShow = true }}
+          {{ end }}
+        {{ end }}
+        
+        <!-- If no filters specified, show all -->
+        {{ if and (not $page) (not $category) }}
+          {{ $shouldShow = true }}
+        {{ end }}
+        
+        {{ if $shouldShow }}
+          <div class="document-item border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h4 class="font-medium text-gray-900 mb-1">
+                  {{ if eq $doc.document_type "external" }}
+                    <a href="{{ $doc.external_url }}" class="text-blue-600 hover:text-blue-800 hover:underline" target="_blank" rel="noopener noreferrer">
+                      {{ $doc.title }}
+                      <svg class="inline w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  {{ else }}
+                    <a href="{{ $doc.file }}" class="text-blue-600 hover:text-blue-800 hover:underline" download>
+                      {{ $doc.title }}
+                    </a>
+                  {{ end }}
+                </h4>
+                {{ if $doc.description }}
+                  <p class="text-sm text-gray-600 mb-2">{{ $doc.description }}</p>
+                {{ end }}
+                <div class="flex items-center space-x-4 text-xs text-gray-500">
+                  {{ if $doc.date }}
+                    <span>{{ dateFormat "02.01.2006" $doc.date }}</span>
+                  {{ end }}
+                  {{ if $doc.file_size }}
+                    <span>{{ $doc.file_size }}</span>
+                  {{ end }}
+                  {{ if $doc.file_type }}
+                    <span class="uppercase">{{ $doc.file_type }}</span>
+                  {{ end }}
+                  {{ if $doc.category }}
+                    <span class="bg-gray-100 px-2 py-1 rounded text-xs">
+                      {{ $doc.category }}
+                    </span>
+                  {{ end }}
+                </div>
+              </div>
+              <div class="ml-4">
+                {{ if eq $doc.document_type "external" }}
+                  <a href="{{ $doc.external_url }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 hover:text-blue-700 transition-colors" target="_blank" rel="noopener noreferrer">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Открыть
+                  </a>
+                {{ else }}
+                  <a href="{{ $doc.file }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 hover:text-blue-700 transition-colors" download>
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Скачать
+                  </a>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        {{ end }}
+    {{ end }}
+    
+    <!-- Fallback message if no documents found -->
+    {{ $hasDocuments := false }}
+    {{ range $.Site.Data.documents }}
+      {{ $doc := . }}
+      {{ if $page }}
+        {{ range $doc.pages }}
+          {{ if eq . $page }}{{ $hasDocuments = true }}{{ end }}
+        {{ end }}
+      {{ else if $category }}
+        {{ if eq $doc.category $category }}{{ $hasDocuments = true }}{{ end }}
+      {{ else }}
+        {{ $hasDocuments = true }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if not $hasDocuments }}
+      <div class="text-center py-8 text-gray-500">
+        <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <p>Документы пока не добавлены</p>
+      </div>
+    {{ end }}
+
+    <!-- Show subpages if this is a parent page -->
+    {{ $currentPage := .Page.File.BaseFileName }}
+    {{ $subpages := slice }}
+    {{ range $.Site.RegularPages }}
+      {{ if eq .Params.parent $currentPage }}
+        {{ $subpages = $subpages | append . }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if $subpages }}
+      <div class="mt-8 border-t pt-6">
+        <h4 class="text-lg font-medium text-gray-900 mb-4">Разделы</h4>
+        <div class="grid gap-4 md:grid-cols-2">
+          {{ range $subpages }}
+            {{ $subpageDocuments := slice }}
+            {{ $subpageName := .File.BaseFileName }}
+            {{ range $.Site.Data.documents }}
+              {{ $doc := . }}
+              {{ range $doc.pages }}
+                {{ if eq . $subpageName }}
+                  {{ $subpageDocuments = $subpageDocuments | append $doc }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h5 class="font-medium text-gray-900 mb-2">
+                <a href="{{ .RelPermalink }}" class="text-blue-600 hover:text-blue-800 hover:underline">
+                  {{ .Title }}
+                </a>
+              </h5>
+              {{ if .Description }}
+                <p class="text-sm text-gray-600 mb-3">{{ .Description }}</p>
+              {{ end }}
+              {{ if $subpageDocuments }}
+                <div class="text-xs text-gray-500">
+                  <span class="inline-flex items-center">
+                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    {{ len $subpageDocuments }} {{ if eq (len $subpageDocuments) 1 }}документ{{ else if le (len $subpageDocuments) 4 }}документа{{ else }}документов{{ end }}
+                  </span>
+                </div>
+              {{ end }}
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+  </div>
+</div>
