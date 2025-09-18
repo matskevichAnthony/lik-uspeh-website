@@ -1,0 +1,81 @@
+{{/* 
+  Accordion Component
+  Usage: {{ partial "accordion.html" (dict "items" $accordionItems "id" "admission-faq") }}
+*/}}
+{{ $id := .id | default "accordion" }}
+{{ $items := .items }}
+
+<div class="accordion-wrapper space-y-4" id="{{ $id }}">
+  {{ range $index, $item := $items }}
+  <div class="accordion-item border border-border rounded-lg overflow-hidden">
+    <button 
+      class="accordion-trigger w-full px-6 py-4 text-left bg-background-light hover:bg-background-grey transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
+      type="button"
+      data-accordion-trigger="{{ $id }}-{{ $index }}"
+      aria-expanded="false"
+      aria-controls="{{ $id }}-content-{{ $index }}"
+    >
+      <div class="flex items-center justify-between">
+        <h3 class="font-medium text-text pr-4">{{ $item.title }}</h3>
+        <svg 
+          class="accordion-icon w-5 h-5 text-text-light transition-transform duration-200" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </div>
+    </button>
+    <div 
+      class="accordion-content hidden px-6 py-4 bg-white border-t border-border"
+      id="{{ $id }}-content-{{ $index }}"
+      aria-labelledby="{{ $id }}-{{ $index }}"
+    >
+      <div class="prose prose-sm max-w-none text-text-secondary">
+        {{ $item.content | markdownify }}
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const triggers = document.querySelectorAll('[data-accordion-trigger]');
+  
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-accordion-trigger');
+      const content = document.getElementById(targetId.replace('{{ $id }}-', '{{ $id }}-content-'));
+      const icon = this.querySelector('.accordion-icon');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      
+      // Close all other accordion items in this group
+      const allTriggers = document.querySelectorAll(`#{{ $id }} [data-accordion-trigger]`);
+      allTriggers.forEach(otherTrigger => {
+        if (otherTrigger !== this) {
+          const otherTargetId = otherTrigger.getAttribute('data-accordion-trigger');
+          const otherContent = document.getElementById(otherTargetId.replace('{{ $id }}-', '{{ $id }}-content-'));
+          const otherIcon = otherTrigger.querySelector('.accordion-icon');
+          
+          otherTrigger.setAttribute('aria-expanded', 'false');
+          otherContent.classList.add('hidden');
+          otherIcon.style.transform = 'rotate(0deg)';
+        }
+      });
+      
+      // Toggle current item
+      if (isExpanded) {
+        this.setAttribute('aria-expanded', 'false');
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        this.setAttribute('aria-expanded', 'true');
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+});
+</script>

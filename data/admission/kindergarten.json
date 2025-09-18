@@ -1,0 +1,13 @@
+{
+  "title": "Детский сад",
+  "slug": "kindergarten",
+  "description": "Возраст 3-6 лет. Подготовительные программы и развивающие занятия.",
+  "age_group": "3-6 лет",
+  "cta_label": "Подать заявление в детский сад",
+  "cta_link": "/admissions/kindergarten/",
+  "contact_info": {
+    "phone": "77-01-42",
+    "email": "kindergarten@lik-uspeh.ru"
+  },
+  "weight": 1
+}

@@ -1,0 +1,50 @@
+{{/* 
+  Steps Component
+  Usage: {{ partial "steps.html" (dict "steps" $stepsData) }}
+*/}}
+{{ $steps := .steps }}
+
+<div class="steps-container">
+  <div class="relative">
+    <!-- Progress line -->
+    <div class="absolute left-6 top-8 bottom-0 w-0.5 bg-border"></div>
+    
+    <div class="space-y-8">
+      {{ range $index, $step := $steps }}
+      <div class="relative flex items-start">
+        <!-- Step number -->
+        <div class="flex-shrink-0 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-medium text-lg relative z-10">
+          {{ add $index 1 }}
+        </div>
+        
+        <!-- Step content -->
+        <div class="ml-6 flex-1">
+          <h3 class="font-semibold text-lg text-primary mb-2">{{ $step.title }}</h3>
+          <div class="text-text-secondary mb-4">{{ $step.description | markdownify }}</div>
+          
+          {{ if $step.details }}
+          <div class="bg-background-light p-4 rounded-lg">
+            <ul class="space-y-2 text-sm text-text-secondary">
+              {{ range $step.details }}
+              <li class="flex items-start">
+                <svg class="w-4 h-4 text-primary mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                {{ . }}
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
+          
+          {{ if $step.cta }}
+          <div class="mt-4">
+            <a href="{{ $step.cta.link }}" class="btn-primary">{{ $step.cta.text }}</a>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

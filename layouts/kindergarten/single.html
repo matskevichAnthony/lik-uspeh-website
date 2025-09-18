@@ -2,13 +2,13 @@
 <div class="min-h-screen bg-background">
   <!-- Hero Section -->
   {{ if .Params.hero }}
-  <section class="relative bg-gradient-to-br from-lik-primary to-lik-secondary text-white py-20">
+  <section class="relative bg-black text-white py-20">
     <div class="container-content">
       <div class="text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">{{ .Params.hero.title }}</h1>
         <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">{{ .Params.hero.subtitle }}</p>
         {{ if .Params.hero.cta }}
-        <a href="{{ .Params.hero.cta.url }}" class="btn bg-white text-lik-primary hover:bg-gray-100 text-lg px-8 py-4">
+        <a href="{{ .Params.hero.cta.url }}" class="btn bg-white text-black hover:bg-gray-100 text-lg px-8 py-4">
           {{ .Params.hero.cta.text }}
         </a>
         {{ end }}

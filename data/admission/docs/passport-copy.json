@@ -1,0 +1,7 @@
+{
+  "title": "Копия паспорта родителя",
+  "description": "Копия паспорта родителя (законного представителя) - страницы с фото и пропиской",
+  "applies_to": ["kindergarten", "school", "grade-10"],
+  "required": true,
+  "weight": 1
+}

@@ -1,0 +1,11 @@
+{
+  "document_type": "external",
+  "date": "2025-09-15T14:57:00.000+03:00",
+  "title": "test doc",
+  "description": "test doc",
+  "external_url": "https://gitea.radium.group/radium",
+  "category": "other",
+  "pages": [
+    "test"
+  ]
+}

@@ -1,0 +1,42 @@
+{{ $steps := .steps }}
+{{ $sectionTitle := .sectionTitle | default "Процесс поступления" }}
+{{ $sectionSubtitle := .sectionSubtitle | default "Простые шаги к качественному образованию" }}
+
+<section id="admission-process" class="py-16 bg-background-light">
+  <div class="container-content">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-primary mb-4">{{ $sectionTitle }}</h2>
+        <p class="text-lg text-text-secondary">{{ $sectionSubtitle }}</p>
+      </div>
+      
+      <div class="relative">
+        <!-- Progress line -->
+        <div class="absolute top-8 left-8 right-8 h-0.5 bg-border hidden md:block"></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-{{ len $steps }} gap-8">
+          {{ range $index, $step := $steps }}
+          <div class="relative">
+            <!-- Step circle -->
+            <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center font-bold text-lg mb-6 relative z-10 mx-auto md:mx-0">
+              {{ add $index 1 }}
+            </div>
+            
+            <!-- Step content -->
+            <div class="text-center md:text-left">
+              <h3 class="text-xl font-bold text-primary mb-3">{{ $step.title }}</h3>
+              <p class="text-text-secondary leading-relaxed">{{ $step.description }}</p>
+              
+              {{ if $step.cta }}
+              <div class="mt-4">
+                <a href="{{ $step.cta.link }}" class="btn-outline text-sm">{{ $step.cta.text }}</a>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+{{ $faqs := .faqs }}
+{{ $sectionTitle := .sectionTitle | default "Часто задаваемые вопросы" }}
+
+<section class="py-16 bg-background-light">
+  <div class="container-content">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-primary mb-4">{{ $sectionTitle }}</h2>
+        <p class="text-lg text-text-secondary">Ответы на наиболее популярные вопросы</p>
+      </div>
+      
+      <div class="space-y-4">
+        {{ range $index, $faq := $faqs }}
+        <div class="card">
+          <button class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between"
+                  onclick="toggleFaq({{ $index }})">
+            <h3 class="text-lg font-semibold text-primary pr-4">{{ $faq.question }}</h3>
+            <svg class="faq-icon w-5 h-5 text-primary transform transition-transform flex-shrink-0" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </button>
+          
+          <div class="faq-content hidden px-6 pb-6">
+            <div class="border-t border-border pt-4">
+              <p class="text-text-secondary leading-relaxed">{{ $faq.answer }}</p>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleFaq(index) {
+  const content = document.querySelectorAll('.faq-content')[index];
+  const icon = document.querySelectorAll('.faq-icon')[index];
+  
+  content.classList.toggle('hidden');
+  
+  // Change plus to minus and vice versa
+  const isOpen = !content.classList.contains('hidden');
+  icon.innerHTML = isOpen 
+    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6"></path>'
+    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>';
+}
+</script>

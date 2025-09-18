@@ -1,132 +1,122 @@
 ---
-title: "Гимназия «ЛИК-Успех»"
-description: "Гуманитарная гимназия в Москве, где языки, культура и критическое мышление становятся силой успеха. Высокие результаты ЕГЭ и поступление в топ-вузы."
-keywords: ["гуманитарная гимназия", "частная школа", "языки", "ЕГЭ", "Москва", "образование", "Cambridge ESOL"]
+title: "Гимназия «ЛИК-Успех» - Элитное образование в Ставрополе"
+description: "Частная гуманитарная гимназия в Ставрополе. Высокие результаты ЕГЭ, поступление в топ-вузы России, углубленное изучение языков. Воспитываем лидеров будущего с 1993 года."
+keywords: ["частная гимназия Ставрополь", "элитная школа", "ЛИК-Успех", "высокие результаты ЕГЭ", "поступление в МГУ", "гуманитарное образование", "изучение языков"]
 type: "homepage"
 layout: "index"
 hero:
-  title: "Гимназия, где гуманитарные науки становятся силой успеха"
-  subtitle: "Языки, культура, критическое мышление и уверенные результаты ЕГЭ"
+  title: "Путь к успеху начинается в «ЛИК-Успех»"
+  subtitle: "32 года воспитываем лидеров • Средний балл ЕГЭ 89,4 • 100% поступление в топ-вузы"
   cta_primary:
-    text: "Подать заявку"
-    url: "/admission/"
+    text: "Записаться на экскурсию"
+    url: "/admissions/"
   cta_secondary:
-    text: "Посмотреть кампус"
-    url: "#campus-life"
-  live_counter:
-    text: "Сегодня на уроках:"
-    students: 642
-    activities: 38
-age_navigation:
-  - age_range: "6–10"
-    title: "Любознательность в каждой игре"
-    description: "Читаем, пишем, считаем через сюжетные квесты"
-    url: "/kindergarten/"
-  - age_range: "11–14"
-    title: "Осваиваем мир слов и идей"
-    description: "Два языка, дебаты, проектные эссе"
-    url: "/education/middle-school/"
-  - age_range: "15–17"
-    title: "Портфолио для топ-вузов"
-    description: "Углублённая филология, история, обществознание, ЕГЭ 90+"
-    url: "/education/high-school/"
-advantages:
-  - title: "Сильный языковой блок"
-    description: "английский ежедневно + второй язык (немецкий / испанский / турецкий)"
+    text: "Узнать о поступлении"
+    url: "#admission-info"
+  announcement:
+    text: "🎓 Открыт набор на 2025-2026 учебный год"
+    link: "/admissions/"
+main_features:
+  - title: "Высокие академические результаты"
+    description: "Средний балл ЕГЭ по гуманитарным предметам - 89,4. Наши выпускники показывают результаты на 15 баллов выше региональной нормы."
+    icon: "academic"
+  - title: "Поступление в топ-вузы"
+    description: "100% наших выпускников поступают в ведущие университеты России: МГУ, СПбГУ, ВШЭ, МГИМО, РУДН."
+    icon: "university"
+  - title: "Углубленное изучение языков"
+    description: "Английский ежедневно + второй иностранный язык. Подготовка к Cambridge ESOL, международные сертификаты."
     icon: "languages"
-  - title: "Авторские гуманитарные курсы"
-    description: "медиаграмотность, культурология, ораторское мастерство"
-    icon: "courses"
-  - title: "Метод «погружения»"
-    description: "проекты, где литература, история и искусство переплетаются"
-    icon: "immersion"
-  - title: "ЕГЭ-результаты выше региона на 15 баллов"
-    description: "средний балл 2024 г.: 89,4"
-    icon: "results"
-  - title: "Индивидуальный наставник с 5-го класса"
-    description: "помогает формировать личный образовательный маршрут"
-    icon: "mentoring"
-  - title: "Гибкая цифровая среда"
-    description: "электронный дневник, онлайн-библиотека из 70 000 книг"
-    icon: "digital"
-statistics:
+  - title: "Индивидуальный подход"
+    description: "Малые классы (до 16 человек), персональные наставники, индивидуальные образовательные траектории."
+    icon: "individual"
+
+key_achievements:
   - number: "89.4"
-    description: "Средний балл ЕГЭ-2024 (лит-ра + русский + история)"
+    label: "средний балл ЕГЭ по профильным предметам"
   - number: "100%"
-    description: "Выпуск-2024 зачислен в вузы первой волны"
-  - number: "13"
-    description: "Призёров всероссийских олимпиад по обществознанию и истории"
-  - number: "4"
-    description: "Аккредитованных Cambridge ESOL экзаменационных сессии в год"
-projects:
-  - title: "Школьный подкаст \"Читаем и спорим\""
-    description: "Записи дискуссий о классике и современной литературе, размещаются в Spotify"
-    image: "/images/projects/podcast.jpg"
-  - title: "Исторический квест «Ставрополь — перекрёсток эпох»"
-    description: "Ученики 8-х классов разработали городской маршрут и AR-путеводитель"
-    image: "/images/projects/quest.jpg"
-  - title: "Кинокритика на английском"
-    description: "Старшеклассники анализируют европейское кино и публикуют рецензии в блоге школы"
-    image: "/images/projects/cinema.jpg"
-campus_life:
-  - image: "/images/campus/debate-club.jpg"
-    caption: "Дебат-клуб в актовом зале — «Стоицизм vs. Эпикуреизм»"
-  - image: "/images/campus/theater.jpg"
-    caption: "Репетиция школьного спектакля «Ревизор» — backstage"
-  - image: "/images/campus/calligraphy.jpg"
-    caption: "Мастер-класс по каллиграфии турецкого алфавита"
-  - image: "/images/campus/morning.jpg"
-    caption: "Утренняя зарядка на террасе с видом на парк"
-testimonials:
-  - quote: "Гимназия научила меня формулировать мысли и не бояться сцены. Сейчас выступаю на конференциях МГИМО"
-    author: "Мария Демина"
-    year: "выпуск 2021"
-    photo: "/images/testimonials/maria.jpg"
-  - quote: "Любовь к истории, привитая учителями ЛИК-Успеха, помогла мне выиграть грант на учёбу в Цюрихе"
-    author: "Никита Лось"
-    year: "выпуск 2020"
-    photo: "/images/testimonials/nikita.jpg"
-partners:
-  - name: "СПбГУ"
-    description: "совместная дистанционная площадка «Гуманитарные студии»"
-    logo: "/images/partners/spbgu.svg"
-  - name: "Cambridge Assessment"
-    description: "центр подготовки и приёма экзаменов B2/C1"
-    logo: "/images/partners/cambridge.svg"
-  - name: "Российская государственная библиотека"
-    description: "электронный доступ к фондам"
-    logo: "/images/partners/rsl.svg"
-  - name: "Театр драмы им. Лермонтова"
-    description: "стажировки и кулисы для театрального кружка"
-    logo: "/images/partners/theater.svg"
-news:
-  - date: "12.07.25"
-    title: "Летняя школа журналистики: первые публикации в местной газете"
-    category: "Образование"
-    url: "/news/summer-journalism/"
-  - date: "08.07.25"
-    title: "Ученики 9-Б организовали благотворительный книжный маркет"
-    category: "Жизнь школы"
-    url: "/news/book-market/"
-  - date: "02.07.25"
-    title: "Команда победила в Федеральном конкурсе эссе «Мой город — моя история»"
-    category: "Достижения"
-    url: "/news/essay-contest/"
-admission_steps:
-  - step: 1
-    title: "Заявка онлайн"
-    description: "до 5 минут"
-  - step: 2
-    title: "Экскурсия и собеседование"
-    description: "в школе или по видеосвязи"
-  - step: 3
-    title: "Диагностика уровня"
-    description: "русский / английский / математика"
-  - step: 4
-    title: "Офер и старт обучения"
-    description: "заключаем договор, подключаем к цифровой платформе"
-final_cta:
-  title: "Готовы открыть талант вашего ребёнка к языку, истории и искусству?"
-  button_text: "Стать учеником ЛИК-Успех"
-  button_url: "/admission/"
+    label: "выпускников поступили в топ-вузы в 2024 году"
+  - number: "32"
+    label: "года успешной работы в образовании"
+  - number: "15+"
+    label: "призеров всероссийских олимпиад за последние 3 года"
+
+university_admissions:
+  title: "Куда поступают наши выпускники"
+  description: "Престижные университеты России и мира"
+  universities:
+    - name: "МГУ им. Ломоносова"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Moscow_State_University_logo.svg/120px-Moscow_State_University_logo.svg.png"
+    - name: "СПбГУ"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/SPbU_logo.svg/120px-SPbU_logo.svg.png"
+    - name: "НИУ ВШЭ"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/HSE_University_logo.svg/120px-HSE_University_logo.svg.png"
+    - name: "МГИМО"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/MGIMO_logo.svg/120px-MGIMO_logo.svg.png"
+    - name: "DePaul University"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/DePaul_Blue_Demons_logo.svg/120px-DePaul_Blue_Demons_logo.svg.png"
+    - name: "UC3M Madrid"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Universidad_Carlos_III_de_Madrid_logo.svg/120px-Universidad_Carlos_III_de_Madrid_logo.svg.png"
+    - name: "Sciences Po"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Sciences_Po_logo.svg/120px-Sciences_Po_logo.svg.png"
+    - name: "University of Glasgow"
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/University_of_Glasgow_coat_of_arms.svg/120px-University_of_Glasgow_coat_of_arms.svg.png"
+
+education_programs:
+  title: "Образовательные программы"
+  description: "Полный спектр образования от детского сада до выпуска"
+  programs:
+    - level: "Детский сад"
+      ages: "3-6 лет"
+      features: ["Билингвальная среда", "Подготовка к школе", "Творческое развитие"]
+      description: "Мягкий переход к школьному обучению через игру и творчество"
+      url: "/kindergarten/"
+    
+    - level: "Начальная школа"
+      ages: "7-10 лет"
+      features: ["Малые классы", "Английский с 1 класса", "Проектная работа"]
+      description: "Фундаментальные знания с акцентом на гуманитарные предметы"
+      url: "/education/primary/"
+    
+    - level: "Основная школа"
+      ages: "11-15 лет"
+      features: ["Второй иностранный", "Углубленная литература", "Дебатный клуб"]
+      description: "Формирование критического мышления и ораторских навыков"
+      url: "/education/middle/"
+    
+    - level: "Старшая школа"
+      ages: "16-17 лет"
+      features: ["Профильное обучение", "Подготовка к ЕГЭ", "Вузовские курсы"]
+      description: "Целенаправленная подготовка к поступлению в ведущие вузы"
+      url: "/education/senior/"
+      
+    - level: "Ускоренное обучение"
+      ages: "15-16 лет"
+      features: ["Экстернат", "Индивидуальный план", "2 года за 1"]
+      description: "Интенсивная программа для одаренных учащихся"
+      url: "/education/accelerated/"
+
+admission_info:
+  title: "Поступление в гимназию"
+  description: "Мы ищем мотивированных учеников, готовых к серьезной учебе"
+  steps:
+    - number: "01"
+      title: "Подача заявки"
+      description: "Заполните онлайн-форму или позвоните нам"
+    - number: "02"
+      title: "Собеседование"
+      description: "Знакомство с семьей, беседа с ребенком"
+    - number: "03"
+      title: "Тестирование"
+      description: "Определение уровня знаний по ключевым предметам"
+    - number: "04"
+      title: "Зачисление"
+      description: "Заключение договора и начало обучения"
+  
+  requirements:
+    title: "Что мы ценим в будущих учениках:"
+    items:
+      - "Любознательность и стремление к знаниям"
+      - "Готовность к активному участию в школьной жизни"
+      - "Базовые навыки чтения и письма (для начальной школы)"
+      - "Мотивация к изучению языков"
 ---

@@ -1,0 +1,13 @@
+{
+  "title": "Школа 1-9 классы",
+  "slug": "school",
+  "description": "Начальное и основное общее образование. Возраст для 1 класса: 6,5-8 лет.",
+  "age_group": "6,5-15 лет",
+  "cta_label": "Подать заявление в школу",
+  "cta_link": "/admissions/school/",
+  "contact_info": {
+    "phone": "+7 (495) 123-45-67",
+    "email": "school@lik-uspeh.ru"
+  },
+  "weight": 2
+}

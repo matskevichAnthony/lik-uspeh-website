@@ -52,14 +52,14 @@ function initUtilityBar() {
 function initMobileMenu() {
     const navToggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.header__nav .nav');
-    
+
     if (navToggle && nav) {
         navToggle.addEventListener('click', function() {
             const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
-            
+
             navToggle.setAttribute('aria-expanded', !isOpen);
             nav.classList.toggle('nav--open');
-            
+
             // Блокируем скролл при открытом меню
             if (!isOpen) {
                 document.body.style.overflow = 'hidden';
@@ -92,15 +92,15 @@ function initMobileMenu() {
         dropdownItems.forEach(item => {
             const link = item.querySelector('.nav__link');
             const dropdown = item.querySelector('.nav__dropdown');
-            
+
             if (link && dropdown) {
                 link.addEventListener('click', function(e) {
                     if (window.innerWidth <= 767) {
                         e.preventDefault();
-                        
+
                         // Переключаем состояние выпадающего меню
                         const isOpen = item.classList.contains('nav__item--open');
-                        
+
                         // Закрываем все другие выпадающие меню
                         dropdownItems.forEach(otherItem => {
                             if (otherItem !== item) {
@@ -111,7 +111,7 @@ function initMobileMenu() {
                                 }
                             }
                         });
-                        
+
                         // Переключаем текущее меню
                         if (!isOpen) {
                             item.classList.add('nav__item--open');
@@ -562,8 +562,9 @@ function animateNumber(element) {
     }, frameTime);
 }
 
-// Престижные анимации при скролле
+// Престижные анимации при скролле (упрощенные)
 function initPrestigiousAnimations() {
+    // Убираем проблемные анимации, которые скрывают контент
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -10% 0px'
@@ -572,12 +573,12 @@ function initPrestigiousAnimations() {
     const animationObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.classList.add('in-viewport');
             }
         });
     }, observerOptions);
     
-    // Элементы для анимации
+    // Элементы для легких анимаций (без скрытия)
     const elementsToAnimate = document.querySelectorAll(`
         .age-nav-card,
         .advantage-card,
@@ -590,23 +591,10 @@ function initPrestigiousAnimations() {
     `);
     
     elementsToAnimate.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
-        element.style.transition = 'all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
-        element.style.transitionDelay = `${index * 0.1}s`;
-        
+        // Не скрываем элементы, только добавляем плавные переходы
+        element.style.transition = 'transform 0.3s ease';
         animationObserver.observe(element);
     });
-    
-    // Добавляем класс visible при появлении
-    const style = document.createElement('style');
-    style.textContent = `
-        .visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style);
 }
 
 // Живой счетчик обновления
@@ -655,8 +643,11 @@ function initTestimonialSlider() {
     }
 }
 
-// Премиум эффекты для элегантного дизайна
+// Премиум эффекты для элегантного дизайна (упрощенные, без анимаций появления)
 function initScrollRevealAnimations() {
+    // Убираем проблемные анимации появления
+    // Оставляем только базовые эффекты без скрытия контента
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -665,24 +656,14 @@ function initScrollRevealAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
+                entry.target.classList.add('in-view');
             }
         });
     }, observerOptions);
     
-    // Наблюдаем за элементами с классом scroll-reveal
-    document.querySelectorAll('.scroll-reveal').forEach(el => {
+    // Наблюдаем только за элементами с явным классом для анимации
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
-    });
-    
-    // Добавляем анимации к основным секциям
-    document.querySelectorAll('section').forEach((section, index) => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-        section.style.transitionDelay = `${index * 0.1}s`;
-        
-        observer.observe(section);
     });
 }
 
@@ -788,17 +769,21 @@ function animateCountUp(element) {
     }, frameTime);
 }
 
-// CSS стили для revealed состояния
+// CSS стили для простых анимаций без скрытия контента
 const revealStyles = document.createElement('style');
 revealStyles.textContent = `
-    section.revealed {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
+    .in-view {
+        transform: scale(1.02) !important;
     }
     
-    .scroll-reveal.revealed {
+    .in-viewport {
+        transform: translateY(-2px) !important;
+    }
+    
+    /* Убираем принудительные opacity стили */
+    section {
         opacity: 1 !important;
-        transform: translateY(0) !important;
+        transform: none !important;
     }
 `;
 document.head.appendChild(revealStyles);

@@ -51,8 +51,8 @@ export default defineConfig({
         grey: '#f7f7f7'
       },
       border: {
-        DEFAULT: '#e2e8f0',
-        light: '#edf2f7'
+        DEFAULT: '#f1f5f9',
+        light: '#f8fafc'
       }
     },
     font: {
@@ -87,36 +87,35 @@ export default defineConfig({
       '128': '32rem'
     },
     animation: {
-      'fade-in': 'fadeIn 0.5s ease-in-out',
-      'slide-up': 'slideUp 0.5s ease-out',
-      'scale-in': 'scaleIn 0.3s ease-out'
+      // Removed animations for cleaner look
     }
   },
   shortcuts: [
     // Кнопки
-    ['btn', 'inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2'],
-    ['btn-primary', 'btn bg-primary text-white hover:bg-primary-dark focus:ring-primary'],
-    ['btn-secondary', 'btn bg-secondary text-white hover:bg-secondary-dark focus:ring-secondary'],
-    ['btn-outline', 'btn border border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary'],
-    ['btn-ghost', 'btn text-text hover:bg-background-grey focus:ring-primary/20'],
+    ['btn', 'inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2'],
+    ['btn-primary', 'btn bg-primary text-white focus:ring-primary'],
+    ['btn-secondary', 'btn bg-secondary text-white focus:ring-secondary'],
+    ['btn-outline', 'btn border border-primary text-primary focus:ring-primary'],
+    ['btn-ghost', 'btn text-text focus:ring-primary/20'],
+    ['btn-sm', 'px-3 py-1.5 text-xs'],
     
     // Карточки
-    ['card', 'bg-white rounded-lg shadow-sm border border-border overflow-hidden transition-shadow duration-200 hover:shadow-md'],
+    ['card', 'bg-white rounded-lg shadow-sm border border-border/30 overflow-hidden'],
     ['card-header', 'px-6 py-4 border-b border-border bg-background-light'],
     ['card-body', 'px-6 py-4'],
     ['card-footer', 'px-6 py-4 border-t border-border bg-background-light'],
     
     // Навигация
-    ['nav-link', 'text-text-secondary hover:text-primary transition-colors duration-200 font-medium'],
+    ['nav-link', 'text-text-secondary font-medium'],
     ['nav-link-active', 'text-primary'],
     
     // Хлебные крошки
     ['breadcrumb', 'flex items-center space-x-2 text-sm text-text-light'],
-    ['breadcrumb-item', 'hover:text-primary transition-colors duration-200'],
+    ['breadcrumb-item', 'text-primary'],
     ['breadcrumb-separator', 'text-text-light mx-2'],
     
     // Блог посты
-    ['blog-post-card', 'card hover:shadow-lg transition-all duration-300'],
+    ['blog-post-card', 'card shadow-lg'],
     ['blog-post-meta', 'flex items-center space-x-4 text-sm text-text-light'],
     ['blog-post-date', 'flex items-center space-x-1'],
     ['blog-post-category', 'bg-accent/10 text-accent-dark px-2 py-1 rounded-full text-xs font-medium'],
@@ -140,6 +139,13 @@ export default defineConfig({
     ['legal-text', 'text-xs text-text-light leading-relaxed'],
     ['official-seal', 'w-16 h-16 object-contain'],
     
+    // Badge shortcuts
+    ['badge', 'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium'],
+    ['badge-blue', 'badge bg-blue-100 text-blue-800'],
+    ['badge-green', 'badge bg-green-100 text-green-800'],
+    ['badge-orange', 'badge bg-orange-100 text-orange-800'],
+    ['badge-purple', 'badge bg-purple-100 text-purple-800'],
+    
     // Таблицы с данными об организации
     ['data-table', 'w-full border-collapse border border-border'],
     ['data-table-th', 'bg-background-grey px-4 py-2 text-left font-medium border border-border'],
@@ -147,24 +153,27 @@ export default defineConfig({
     ['data-table-row-even', 'bg-background-light'],
   ],
   rules: [
-    // Кастомные анимации
-    ['fade-in', { animation: 'fadeIn 0.5s ease-in-out' }],
-    ['slide-up', { animation: 'slideUp 0.5s ease-out' }],
-    ['scale-in', { animation: 'scaleIn 0.3s ease-out' }],
-    
     // Кастомные утилиты
     ['text-balance', { 'text-wrap': 'balance' }],
     ['scroll-smooth', { 'scroll-behavior': 'smooth' }],
   ],
   safelist: [
     // Гарантируем, что основные классы всегда включены
-    'btn', 'btn-primary', 'btn-secondary', 'btn-outline', 'btn-ghost',
+    'btn', 'btn-primary', 'btn-secondary', 'btn-outline', 'btn-ghost', 'btn-sm',
     'card', 'card-header', 'card-body', 'card-footer',
     'nav-link', 'nav-link-active',
     'section-title', 'section-subtitle',
     'hero-title', 'hero-subtitle',
     'container-content', 'container-custom', 'container-narrow', 'container-text',
     'education-badge', 'legal-text', 'official-seal',
-    'data-table', 'data-table-th', 'data-table-td', 'data-table-row-even'
+    'data-table', 'data-table-th', 'data-table-td', 'data-table-row-even',
+    // Badge classes for admission pages
+    'badge', 'badge-blue', 'badge-green', 'badge-orange', 'badge-purple',
+    // Additional admission-specific classes
+    'prose', 'prose-lg', 'prose-sm', 'max-w-none',
+    // Accordion classes
+    'accordion-wrapper', 'accordion-item', 'accordion-trigger', 'accordion-content', 'accordion-icon',
+    // Step classes
+    'steps-container'
   ]
 })

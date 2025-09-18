@@ -1,0 +1,7 @@
+{
+  "title": "Медицинская карта",
+  "description": "Медицинская карта ребёнка с актуальными прививками и заключением врача",
+  "applies_to": ["kindergarten", "school"],
+  "required": true,
+  "weight": 3
+}

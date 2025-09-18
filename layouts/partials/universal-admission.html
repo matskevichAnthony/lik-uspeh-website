@@ -1,0 +1,407 @@
+{{ $admissionType := .type | default "school" }}
+{{ $title := .title }}
+{{ $description := .description }}
+{{ $benefits := .benefits | default slice }}
+{{ $processSteps := .process_steps | default slice }}
+{{ $requirements := .requirements | default slice }}
+{{ $documents := .documents | default slice }}
+{{ $timeline := .timeline | default slice }}
+{{ $faqs := .faqs | default slice }}
+{{ $ctaText := .cta_text | default "Подать заявление" }}
+{{ $ctaLink := .cta_link | default "/contacts/" }}
+{{ $contactInfo := .contact_info | default dict }}
+
+<div class="min-h-screen bg-background">
+  
+  <!-- Hero Section -->
+  <section class="bg-black text-white py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Хлебные крошки" class="mb-8">
+        <ol class="flex items-center space-x-2 text-sm text-white/70">
+          <li><a href="/" class="transition-colors duration-200 hover:text-white">Главная</a></li>
+          <li class="flex items-center space-x-2">
+            <span>/</span>
+            <a href="/admissions/" class="transition-colors duration-200 hover:text-white">Поступление</a>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span>/</span>
+            <span class="text-white" aria-current="page">{{ $title }}</span>
+          </li>
+        </ol>
+      </nav>
+      
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">{{ $title }}</h1>
+        <p class="text-xl text-white/90 max-w-3xl mx-auto mb-8">{{ $description }}</p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="{{ $ctaLink }}" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary font-semibold rounded-xl transition-all duration-200 hover:bg-white/90 hover:-translate-y-1">
+            {{ $ctaText }}
+          </a>
+          <a href="#process" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl transition-all duration-200 hover:bg-white/10">
+            Процесс поступления
+          </a>
+        </div>
+      </div>
+
+      {{ if $benefits }}
+      <!-- Benefits -->
+      <div class="grid grid-cols-1 md:grid-cols-{{ len $benefits | default 3 }} gap-8 mt-16">
+        {{ range $benefits }}
+        <div class="text-center">
+          <div class="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {{ partial "icons/admission-benefit.html" .icon }}
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-3">{{ .title }}</h3>
+          <p class="text-white/80">{{ .description }}</p>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+      
+      <!-- Main Content -->
+      <div class="lg:col-span-2 space-y-16">
+        
+        {{ if $processSteps }}
+        <!-- Process Steps -->
+        <section id="process">
+          <h2 class="text-3xl font-bold text-text mb-12">Процесс поступления</h2>
+          <div class="space-y-8">
+            {{ range $index, $step := $processSteps }}
+            <div class="flex gap-6">
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                  {{ add $index 1 }}
+                </div>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-text mb-3">{{ .title }}</h3>
+                <p class="text-text-secondary mb-4">{{ .description }}</p>
+                {{ if .details }}
+                <ul class="list-disc list-inside text-text-secondary space-y-1">
+                  {{ range .details }}
+                  <li>{{ . }}</li>
+                  {{ end }}
+                </ul>
+                {{ end }}
+                {{ if .cta }}
+                <div class="mt-4">
+                  <a href="{{ .cta.link }}" class="inline-flex items-center text-primary font-semibold transition-colors duration-200 hover:text-primary-dark">
+                    {{ .cta.text }}
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </a>
+                </div>
+                {{ end }}
+              </div>
+            </div>
+            {{ if ne (add $index 1) (len $processSteps) }}
+            <div class="flex justify-center">
+              <div class="w-px h-8 bg-gray-200"></div>
+            </div>
+            {{ end }}
+            {{ end }}
+          </div>
+        </section>
+        {{ end }}
+
+        {{ if $requirements }}
+        <!-- Special Requirements -->
+        <section>
+          <h2 class="text-3xl font-bold text-text mb-12">Требования</h2>
+          <div class="space-y-8">
+            {{ range $requirements }}
+            <div class="bg-background-light rounded-2xl p-8">
+              <h3 class="text-xl font-bold text-primary mb-6">{{ .title }}</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {{ range .sections }}
+                <div>
+                  <h4 class="font-semibold text-text mb-4">{{ .title }}</h4>
+                  <ul class="space-y-2">
+                    {{ range .items }}
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <span class="text-text-secondary">{{ . }}</span>
+                    </li>
+                    {{ end }}
+                  </ul>
+                </div>
+                {{ end }}
+              </div>
+              {{ if .note }}
+              <div class="mt-6 p-4 bg-primary/10 rounded-xl">
+                <p class="text-sm text-primary font-medium">{{ .note }}</p>
+              </div>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </section>
+        {{ end }}
+
+        {{ if $documents }}
+        <!-- Documents Accordion -->
+        <section>
+          <h2 class="text-3xl font-bold text-text mb-12">Необходимые документы</h2>
+          <div class="space-y-4">
+            {{ range $index, $docGroup := $documents }}
+            <div class="bg-background-light rounded-2xl overflow-hidden">
+              <button 
+                class="w-full px-8 py-6 text-left flex items-center justify-between transition-colors duration-200 hover:bg-gray-50"
+                onclick="toggleAccordion('docs-{{ $index }}')"
+                type="button">
+                <div>
+                  <h3 class="text-lg font-bold text-text">{{ .title }}</h3>
+                  {{ if .subtitle }}
+                  <p class="text-sm text-text-secondary mt-1">{{ .subtitle }}</p>
+                  {{ end }}
+                </div>
+                <svg class="w-5 h-5 text-text-secondary transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="docs-{{ $index }}-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div id="docs-{{ $index }}" class="hidden">
+                <div class="px-8 pb-6">
+                  <div class="space-y-4">
+                    {{ range .items }}
+                    <div class="flex items-start gap-4 p-4 bg-white rounded-xl">
+                      <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 class="font-semibold text-text">{{ .title }}</h4>
+                        <p class="text-sm text-text-secondary mt-1">{{ .description }}</p>
+                      </div>
+                    </div>
+                    {{ end }}
+                  </div>
+                  {{ if .note }}
+                  <div class="mt-6 p-4 bg-primary/10 rounded-xl">
+                    <p class="text-sm text-primary font-medium">{{ .note }}</p>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </section>
+        {{ end }}
+
+        {{ if $timeline }}
+        <!-- Timeline -->
+        <section>
+          <h2 class="text-3xl font-bold text-text mb-12">Календарь поступления</h2>
+          <div class="bg-background-light rounded-2xl p-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {{ range $timeline.deadlines }}
+              <div class="text-center">
+                <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-text mb-2">{{ .title }}</h3>
+                <p class="text-primary font-semibold text-lg mb-2">{{ .period }}</p>
+                <p class="text-sm text-text-secondary">{{ .description }}</p>
+              </div>
+              {{ end }}
+            </div>
+            {{ if $timeline.yearRound }}
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center">
+              <p class="text-text-secondary">
+                <svg class="w-5 h-5 text-primary inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                {{ $timeline.yearRound }}
+              </p>
+            </div>
+            {{ end }}
+          </div>
+        </section>
+        {{ end }}
+
+        {{ if $faqs }}
+        <!-- FAQ -->
+        <section>
+          <h2 class="text-3xl font-bold text-text mb-12">Часто задаваемые вопросы</h2>
+          <div class="space-y-4">
+            {{ range $index, $faq := $faqs }}
+            <div class="bg-background-light rounded-2xl overflow-hidden">
+              <button 
+                class="w-full px-8 py-6 text-left flex items-center justify-between transition-colors duration-200 hover:bg-gray-50"
+                onclick="toggleAccordion('faq-{{ $index }}')"
+                type="button">
+                <h3 class="text-lg font-semibold text-text pr-4">{{ .question }}</h3>
+                <svg class="w-5 h-5 text-text-secondary transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="faq-{{ $index }}-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div id="faq-{{ $index }}" class="hidden">
+                <div class="px-8 pb-6">
+                  <p class="text-text-secondary leading-relaxed">{{ .answer }}</p>
+                </div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </section>
+        {{ end }}
+
+        <!-- Final CTA -->
+        <section class="bg-black rounded-3xl p-12 text-center text-white">
+          <h2 class="text-3xl font-bold mb-4">Готовы начать?</h2>
+          <p class="text-xl text-white/90 mb-8">Присоединяйтесь к нашей образовательной семье</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ $ctaLink }}" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary font-semibold rounded-xl transition-all duration-200 hover:bg-white/90 hover:-translate-y-1">
+              {{ $ctaText }}
+            </a>
+            <a href="/contacts/" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl transition-all duration-200 hover:bg-white/10">
+              Записаться на экскурсию
+            </a>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-8 space-y-8">
+          
+          <!-- Contact Info -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm">
+            <h3 class="text-xl font-bold text-primary mb-6">Контакты для поступления</h3>
+            
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-text">Адрес</div>
+                  <div class="text-text-secondary">Фестивальный проспект, 19<br>Ставрополь</div>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-text">Телефон</div>
+                  <div class="text-text-secondary font-mono">{{ $contactInfo.phone | default "77-22-11" }}</div>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-text">Email</div>
+                  <div class="text-text-secondary">{{ $contactInfo.email | default "admissions@lik-uspeh.ru" }}</div>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-text">Режим работы</div>
+                  <div class="text-text-secondary">Пн-Пт: 9:00-18:00<br>Сб: 10:00-15:00</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-200">
+              <a href="{{ $ctaLink }}" class="block w-full text-center px-6 py-4 bg-primary text-white font-semibold rounded-xl transition-all duration-200 hover:bg-primary-dark">
+                {{ $ctaText }}
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Navigation -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm">
+            <h3 class="text-xl font-bold text-primary mb-6">Другие программы</h3>
+            <div class="space-y-3">
+              {{ if ne $admissionType "kindergarten" }}
+              <a href="/admissions/kindergarten/" class="flex items-center gap-3 p-3 rounded-xl transition-colors duration-200 hover:bg-background-light group">
+                <svg class="w-5 h-5 text-text-secondary group-hover:text-primary transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+                <span class="font-medium text-text group-hover:text-primary transition-colors duration-200">Детский сад</span>
+              </a>
+              {{ end }}
+              {{ if ne $admissionType "school" }}
+              <a href="/admissions/school/" class="flex items-center gap-3 p-3 rounded-xl transition-colors duration-200 hover:bg-background-light group">
+                <svg class="w-5 h-5 text-text-secondary group-hover:text-primary transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+                <span class="font-medium text-text group-hover:text-primary transition-colors duration-200">Школа (1-9 классы)</span>
+              </a>
+              {{ end }}
+              {{ if ne $admissionType "grade-10" }}
+              <a href="/admissions/grade-10/" class="flex items-center gap-3 p-3 rounded-xl transition-colors duration-200 hover:bg-background-light group">
+                <svg class="w-5 h-5 text-text-secondary group-hover:text-primary transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+                <span class="font-medium text-text group-hover:text-primary transition-colors duration-200">10 класс</span>
+              </a>
+              {{ end }}
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-gray-200">
+              <a href="/admissions/" class="flex items-center gap-3 p-3 rounded-xl transition-colors duration-200 hover:bg-background-light group">
+                <svg class="w-5 h-5 text-text-secondary group-hover:text-primary transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path>
+                </svg>
+                <span class="font-medium text-text group-hover:text-primary transition-colors duration-200">Все программы</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleAccordion(id) {
+  const content = document.getElementById(id);
+  const icon = document.getElementById(id + '-icon');
+  
+  if (content.classList.contains('hidden')) {
+    content.classList.remove('hidden');
+    icon.style.transform = 'rotate(180deg)';
+  } else {
+    content.classList.add('hidden');
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
+</script>

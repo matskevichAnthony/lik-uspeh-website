@@ -1,0 +1,172 @@
+{{ define "main" }}
+<div class="min-h-screen bg-background">
+  <!-- Hero Section -->
+  <section class="bg-black text-white py-16">
+    <div class="container-content">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Поступление в гимназию «ЛИК-Успех»</h1>
+        <p class="text-xl opacity-90 mb-8">Мы ищем учеников с высоким потенциалом и помогаем им полностью раскрыть свои способности для поступления в ведущие университеты России и мира.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#admission-tracks" class="btn-secondary">Выбрать программу</a>
+          <a href="#admission-process" class="btn-outline border-white text-white hover:bg-white hover:text-primary">Узнать процесс</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-content py-12">
+    <!-- Key Features -->
+    <section class="mb-16">
+      {{ $highlights := .Site.Data.admission.highlights.highlights }}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {{ range $highlights }}
+        <div class="text-center">
+          <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-3">{{ .title }}</h3>
+          <p class="text-text-secondary leading-relaxed">{{ .description }}</p>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+
+    <!-- Admission Tracks -->
+    <section id="admission-tracks" class="mb-16">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-primary mb-4">Программы обучения</h2>
+        <p class="text-lg text-text-secondary max-w-3xl mx-auto">Выберите подходящую образовательную программу для вашего ребёнка</p>
+      </div>
+
+      {{ $tracks := slice .Site.Data.admission.kindergarten .Site.Data.admission.school .Site.Data.admission.grade_10 }}
+      {{ $icons := slice "academic-cap" "book-open" "graduation-cap" }}
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {{ range $index, $track := $tracks }}
+        {{ if $track }}
+        <div class="card h-full">
+          <div class="p-8 h-full flex flex-col">
+            <!-- Icon -->
+            <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {{ if eq $index 0 }}
+                <!-- Kindergarten icon -->
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                {{ else if eq $index 1 }}
+                <!-- School icon -->
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                {{ else }}
+                <!-- Grade 10-11 icon -->
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                {{ end }}
+              </svg>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-primary mb-3">{{ $track.title }}</h3>
+              <p class="text-text-secondary mb-4 leading-relaxed">{{ $track.description }}</p>
+              
+              <!-- Details -->
+              <div class="space-y-3 mb-6">
+                <div class="flex items-center text-sm text-text-secondary">
+                  <svg class="w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="font-medium">Возраст:</span>
+                  <span class="ml-1">{{ $track.age_group }}</span>
+                </div>
+                {{ if $track.contact_info.phone }}
+                <div class="flex items-center text-sm text-text-secondary">
+                  <svg class="w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                  <span class="font-medium">Контакт:</span>
+                  <span class="ml-1">{{ $track.contact_info.phone }}</span>
+                </div>
+                {{ end }}
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <a href="{{ $track.cta_link }}" class="btn-primary w-full">
+              {{ $track.cta_label }}
+            </a>
+          </div>
+        </div>
+        {{ end }}
+        {{ end }}
+      </div>
+    </section>
+
+    <!-- Admission Process -->
+    <section id="admission-process" class="mb-16">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-primary mb-4">Процесс поступления</h2>
+          <p class="text-lg text-text-secondary">Простые шаги к качественному образованию</p>
+        </div>
+        
+        {{ $processSteps := slice 
+          (dict "title" "Подача документов" "description" "Соберите необходимые документы и подайте заявление онлайн или лично в приёмную комиссию.")
+          (dict "title" "Собеседование и диагностика" "description" "Пройдите индивидуальное собеседование для понимания целей и готовности к обучению.")
+          (dict "title" "Принятие решения" "description" "Получите решение приёмной комиссии и при положительном результате оформите зачисление.")
+        }}
+        
+        {{ partial "steps.html" (dict "steps" $processSteps) }}
+      </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="bg-background-light rounded-2xl p-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold text-primary mb-4">Приёмная комиссия</h2>
+          <p class="text-text-secondary">Мы готовы ответить на все ваши вопросы</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div>
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-primary mb-2">Адрес</h3>
+            <p class="text-sm text-text-secondary">Фестивальный проспект, 19<br>Ставрополь</p>
+          </div>
+          
+          <div>
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-primary mb-2">Телефон</h3>
+            <p class="text-sm text-text-secondary font-medium">77-22-11</p>
+          </div>
+          
+          <div>
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-primary mb-2">Режим работы</h3>
+            <p class="text-sm text-text-secondary">Пн-Пт: 9:00-18:00<br>Сб: 10:00-15:00</p>
+          </div>
+        </div>
+        
+        <div class="text-center mt-8">
+          <a href="/contacts/" class="btn-primary">Связаться с нами</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,31 @@
+{{ $title := .title | default "Готовы подать заявление?" }}
+{{ $description := .description | default "Начните путь к качественному образованию уже сегодня" }}
+{{ $ctaText := .ctaText | default "Заполнить заявление" }}
+{{ $ctaLink := .ctaLink | default "/contacts/" }}
+{{ $secondaryText := .secondaryText | default "Задать вопрос" }}
+{{ $secondaryLink := .secondaryLink | default "/contacts/" }}
+
+<section class="py-16">
+  <div class="container-content">
+    <div class="bg-black rounded-2xl p-12 text-center text-white">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl font-bold mb-4">{{ $title }}</h2>
+        <p class="text-xl opacity-90 mb-8">{{ $description }}</p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="{{ $ctaLink }}" class="btn-secondary">{{ $ctaText }}</a>
+          <a href="{{ $secondaryLink }}" class="btn-outline border-white text-white">{{ $secondaryText }}</a>
+        </div>
+        
+        <div class="mt-8 pt-8 border-t border-white/20">
+          <div class="flex items-center justify-center text-white/80">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+            </svg>
+            <span>Или позвоните нам: <strong class="text-white">+7 (8652) 77-22-11</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

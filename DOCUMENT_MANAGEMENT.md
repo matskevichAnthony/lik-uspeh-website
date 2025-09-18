@@ -1,16 +1,13 @@
-# Document Management System for Hugo + Decap CMS
+# Document Management System
 
 ## Overview
+Automated document creation and assignment system with bi-directional page-document relationships.
 
-This document management system provides a fast, efficient way to manage documents for a Hugo website. It allows content managers to upload documents via Decap CMS and display them on any page using a flexible shortcode system.
-
-## Implementation Summary
-
-✅ **Core Features:**
-- Decap CMS collection for document management
-- Hugo shortcode for flexible document display  
-- Directory structure for organized document storage
-- Support for document reuse across multiple pages
+## Document Creation
+- **Location**: `/admin/#/collections/documents`
+- **Auto-detection**: File size, file type, and sorting are automatic
+- **External links**: Optional, no manual input required
+- **Supported types**: PDF, DOC, DOCX, XLS, XLSX, PNG, JPG, etc.
 
 ## Directory Structure
 

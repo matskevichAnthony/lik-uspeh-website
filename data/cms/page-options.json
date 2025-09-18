@@ -1,0 +1,86 @@
+[
+  {
+    "label": "Поступление в гимназию",
+    "value": "admission"
+  },
+  {
+    "label": "Новости гимназии",
+    "value": "news"
+  },
+  {
+    "label": "Сведения об образовательной организации",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii"
+  },
+  {
+    "label": "Документы",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/dokumenty"
+  },
+  {
+    "label": "Доступная среда",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/dostupnaya-sreda"
+  },
+  {
+    "label": "Финансово-хозяйственная деятельность",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/finansovo-khozyaystvennaya-deyatelnost"
+  },
+  {
+    "label": "Материально-техническое обеспечение и оснащенность образовательного процесса",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/materialno-tekhnicheskoe-obespechenie"
+  },
+  {
+    "label": "Международное сотрудничество",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/mezhdunarodnoe-sotrudnichestvo"
+  },
+  {
+    "label": "Образование",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/obrazovanie"
+  },
+  {
+    "label": "Образовательные стандарты и требования",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/obrazovatelnye-standarty"
+  },
+  {
+    "label": "Основные сведения",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/osnovnye-svedeniya"
+  },
+  {
+    "label": "Платные образовательные услуги",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/platnye-obrazovatelnye-uslugi"
+  },
+  {
+    "label": "Рабочие программы",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/rabochiye-programmy"
+  },
+  {
+    "label": "Руководство. Педагогический (научно-педагогический) состав",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/rukovodstvo-pedagogicheskiy-sostav"
+  },
+  {
+    "label": "Стипендии и меры поддержки обучающихся",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/stipendii-i-mery-podderzhki"
+  },
+  {
+    "label": "Структура и органы управления образовательной организацией",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/struktura-i-organy-upravleniya"
+  },
+  {
+    "label": "Учебные планы",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/uchebnyye-plany"
+  },
+  {
+    "label": "Вакантные места для приёма (перевода) обучающихся",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/vakantnye-mesta"
+  },
+  {
+    "label": "ВПР 2026",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/vpr-2026"
+  },
+  {
+    "label": "Тестовая страница сведений",
+    "value": "test"
+  },
+  {
+    "label": "Тестовый раздел ",
+    "value": "svedeniya-ob-obrazovatelnoy-organizatsii/test"
+  }
+]

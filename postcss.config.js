@@ -1,7 +1,8 @@
-import UnoCSS from '@unocss/postcss'
+const UnoCSS = require('@unocss/postcss').default || require('@unocss/postcss');
 
-export default {
+module.exports = {
   plugins: [
     UnoCSS(),
+    require('autoprefixer'),
   ],
 }

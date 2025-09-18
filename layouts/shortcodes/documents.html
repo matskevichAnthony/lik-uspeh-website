@@ -6,11 +6,18 @@
   <h3 class="text-xl font-semibold mb-4 text-gray-800">{{ $title }}</h3>
   <div class="documents-list space-y-3">
     
-    <!-- Main documents from JSON data -->
-    {{ range $.Site.Data.documents }}
-      {{ $doc := . }}
+    <!-- Main documents from JSON data - auto-sorted by date -->
+    {{ $documents := $.Site.Data.documents }}
+    {{ $docsList := slice }}
+    {{ range $filename, $doc := $documents }}
+      {{ $docsList = $docsList | append (dict "filename" $filename "doc" $doc) }}
+    {{ end }}
+    {{ $sortedDocs := sort $docsList "doc.date" "desc" }}
+    {{ range $sortedDocs }}
+      {{ $filename := .filename }}
+      {{ $doc := .doc }}
       {{ $shouldShow := false }}
-        
+
         <!-- Check if document should appear on this page -->
         {{ if $page }}
           {{ range $doc.pages }}
@@ -18,20 +25,31 @@
               {{ $shouldShow = true }}
             {{ end }}
           {{ end }}
+        {{ end }}
+
+        <!-- Check if document is assigned to current page -->
+        {{ if $.Page.Params.assigned_documents }}
+          {{ range $.Page.Params.assigned_documents }}
+            {{ if eq . $filename }}
+              {{ $shouldShow = true }}
+            {{ end }}
           {{ end }}
-        
+        {{ end }}
+
+
+
         <!-- Check if document matches category filter -->
         {{ if $category }}
           {{ if eq $doc.category $category }}
             {{ $shouldShow = true }}
           {{ end }}
         {{ end }}
-        
+
         <!-- If no filters specified, show all -->
-        {{ if and (not $page) (not $category) }}
+        {{ if and (not $page) (not $category) (not $.Page.Params.assigned_documents) }}
           {{ $shouldShow = true }}
         {{ end }}
-        
+
         {{ if $shouldShow }}
           <div class="document-item border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
             <div class="flex items-start justify-between">
@@ -57,11 +75,41 @@
                   {{ if $doc.date }}
                     <span>{{ dateFormat "02.01.2006" $doc.date }}</span>
                   {{ end }}
-                  {{ if $doc.file_size }}
-                    <span>{{ $doc.file_size }}</span>
+
+                  <!-- Auto-detect file size for local files -->
+                  {{ if and (ne $doc.document_type "external") $doc.file }}
+                    {{ $filePath := printf "static%s" $doc.file }}
+                    {{ $fileResource := os.Stat $filePath }}
+                    {{ if $fileResource }}
+                      {{ $sizeBytes := $fileResource.Size }}
+                      {{ if lt $sizeBytes 1024 }}
+                        <span>{{ $sizeBytes }} Б</span>
+                      {{ else if lt $sizeBytes 1048576 }}
+                        <span>{{ div $sizeBytes 1024 }} КБ</span>
+                      {{ else }}
+                        <span>{{ div $sizeBytes 1048576 }} МБ</span>
+                      {{ end }}
+                    {{ end }}
                   {{ end }}
-                  {{ if $doc.file_type }}
-                    <span class="uppercase">{{ $doc.file_type }}</span>
+
+                  <!-- Auto-detect file type from extension -->
+                  {{ if and (ne $doc.document_type "external") $doc.file }}
+                    {{ $fileExt := path.Ext $doc.file }}
+                    {{ $fileType := "" }}
+                    {{ if eq $fileExt ".pdf" }}{{ $fileType = "PDF" }}{{ end }}
+                    {{ if eq $fileExt ".doc" }}{{ $fileType = "DOC" }}{{ end }}
+                    {{ if eq $fileExt ".docx" }}{{ $fileType = "DOCX" }}{{ end }}
+                    {{ if eq $fileExt ".xls" }}{{ $fileType = "XLS" }}{{ end }}
+                    {{ if eq $fileExt ".xlsx" }}{{ $fileType = "XLSX" }}{{ end }}
+                    {{ if eq $fileExt ".png" }}{{ $fileType = "PNG" }}{{ end }}
+                    {{ if eq $fileExt ".jpg" }}{{ $fileType = "JPG" }}{{ end }}
+                    {{ if eq $fileExt ".jpeg" }}{{ $fileType = "JPEG" }}{{ end }}
+                    {{ if eq $fileExt ".gif" }}{{ $fileType = "GIF" }}{{ end }}
+                    {{ if eq $fileExt ".txt" }}{{ $fileType = "TXT" }}{{ end }}
+                    {{ if eq $fileExt ".rtf" }}{{ $fileType = "RTF" }}{{ end }}
+                    {{ if $fileType }}
+                      <span class="uppercase">{{ $fileType }}</span>
+                    {{ end }}
                   {{ end }}
                   {{ if $doc.category }}
                     <span class="bg-gray-100 px-2 py-1 rounded text-xs">
