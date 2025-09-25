@@ -2,50 +2,51 @@
 {{ $script := resources.Get "js/main.js" | minify | fingerprint }}
 <script src="{{ $script.Permalink }}" integrity="{{ $script.Data.Integrity }}"></script>
 
-<!-- New Header Mobile menu functionality -->
+<!-- Advanced Header Mobile Menu JavaScript -->
 <script>
-// Header navigation toggle functionality
-document.addEventListener('click', (e) => {
-  const toggle = e.target.closest('[data-nav-toggle], .utility__menu');
-  if (!toggle) return;
+// Toggle mobile menu
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-  const nav = document.getElementById('primary-nav');
-  const expanded = toggle.getAttribute('aria-expanded') === 'true';
-  toggle.setAttribute('aria-expanded', String(!expanded));
-
-  // Simple reveal on small screens
-  if (window.matchMedia('(max-width: 720px)').matches) {
-    if (expanded) {
-      nav.classList.remove('mobile-visible');
-    } else {
-      nav.classList.add('mobile-visible');
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
     }
-  }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (mobileMenu && mobileMenuButton) {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+    });
+
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('nav');
+        if (nav) {
+            if (window.scrollY > 0) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        }
+    });
 });
 
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-  const nav = document.getElementById('primary-nav');
-  const toggle = e.target.closest('[data-nav-toggle], .utility__menu');
-  
-  if (!toggle && !nav.contains(e.target)) {
-    nav.classList.remove('mobile-visible');
-    document.querySelectorAll('[data-nav-toggle], .utility__menu').forEach(btn => {
-      btn.setAttribute('aria-expanded', 'false');
-    });
-  }
-});
+// Toggle mobile submenu
+function toggleMobileSubmenu(submenuId) {
+    const submenu = document.getElementById(submenuId);
+    const chevron = document.getElementById(submenuId.replace('-submenu', '-chevron'));
 
-// Close mobile menu on escape key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    const nav = document.getElementById('primary-nav');
-    nav.classList.remove('mobile-visible');
-    document.querySelectorAll('[data-nav-toggle], .utility__menu').forEach(btn => {
-      btn.setAttribute('aria-expanded', 'false');
-    });
-  }
-});
+    if (submenu && chevron) {
+        submenu.classList.toggle('hidden');
+        chevron.classList.toggle('rotate-180');
+    }
+}
 </script>
 
 <!-- Netlify Identity Widget Script -->

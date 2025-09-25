@@ -31,6 +31,58 @@
   {{ $style := resources.Get "css/main.css" | postCSS | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
 
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Header Styles -->
+  <style>
+    /* Custom animations */
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .animate-slideDown {
+        animation: slideDown 0.3s ease-out;
+    }
+
+    .animate-fadeIn {
+        animation: fadeIn 0.2s ease-out;
+    }
+
+    /* Smooth transitions */
+    .menu-item {
+        transition: all 0.3s ease;
+    }
+
+    /* Custom scrollbar for mega menu */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+  </style>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,8 +103,8 @@
       "email": "{{ .Site.Params.email }}",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Москва",
-        "addressRegion": "Москва",
+        "addressLocality": "Ставрополь",
+        "addressRegion": "Ставропольский край",
         "addressCountry": "RU",
         "streetAddress": "{{ .Site.Params.address }}"
       },
