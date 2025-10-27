@@ -24,9 +24,9 @@ export default defineConfig({
   theme: {
     colors: {
       primary: {
-        DEFAULT: '#1a2b47',
-        light: '#2d4a6b',
-        dark: '#0f1a2e'
+        DEFAULT: '#34af8f',
+        light: '#41c696',
+        dark: '#2a8d73'
       },
       secondary: {
         DEFAULT: '#8b0000',
@@ -40,6 +40,13 @@ export default defineConfig({
       },
       'lik-primary': '#667eea',
       'lik-secondary': '#764ba2',
+      green: {
+        50: '#f0fdf8',
+        100: '#d1fae5',
+        200: '#a7f3d0'
+      },
+      white: '#ffffff',
+      black: '#000000',
       text: {
         DEFAULT: '#1a1a1a',
         secondary: '#4a5568',
@@ -171,6 +178,10 @@ export default defineConfig({
     'badge', 'badge-blue', 'badge-green', 'badge-orange', 'badge-purple',
     // Additional admission-specific classes
     'prose', 'prose-lg', 'prose-sm', 'max-w-none',
+    // Color classes for header
+    'bg-primary', 'bg-primary-light', 'bg-primary-dark', 'text-primary', 'text-white',
+    'hover:bg-primary', 'hover:bg-primary-light', 'hover:text-primary', 'hover:text-green-200',
+    'bg-green-50', 'bg-green-100', 'bg-green-200', 'text-green-200',
     // Accordion classes
     'accordion-wrapper', 'accordion-item', 'accordion-trigger', 'accordion-content', 'accordion-icon',
     // Step classes

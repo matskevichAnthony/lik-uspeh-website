@@ -29,48 +29,123 @@ enableEmoji = true
   blog_pagination = 6
   posts_per_page = 10
 
-# Меню навигации - Концепция двухъярусной навигации
+# Меню навигации - Вариант A: Сбалансированный (5 пунктов + CTA)
 [menus]
-  # Основное меню (6 пунктов для родителей)
-  [[menus.main]]
-    identifier = "home"
-    name = "Главная"
-    url = "/"
-    weight = 1
-
+  # Основное меню
   [[menus.main]]
     identifier = "about"
-    name = "О гимназии"
+    name = "О нас"
     url = "/about/"
-    weight = 2
-
-  [[menus.main]]
-    identifier = "education"
-    name = "Образование"
-    url = "/education/"
-    weight = 3
+    weight = 1
     hasChildren = true
 
   [[menus.main]]
     identifier = "admissions"
     name = "Поступление"
     url = "/admissions/"
-    weight = 4
-
-  [[menus.main]]
-    identifier = "news"
-    name = "Новости"
-    url = "/news/"
-    weight = 5
+    weight = 2
     hasChildren = true
 
   [[menus.main]]
-    identifier = "contacts"
+    identifier = "education"
+    name = "Учёба"
+    url = "/education/"
+    weight = 3
+    hasChildren = true
+
+  [[menus.main]]
+    identifier = "life"
+    name = "Жизнь"
+    url = "/life/"
+    weight = 4
+    hasChildren = true
+
+  [[menus.main]]
+    identifier = "organization"
+    name = "Сведения"
+    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/"
+    weight = 5
+
+  # Подменю "О нас"
+  [[menus.main]]
+    identifier = "about-description"
+    name = "Описание"
+    url = "/about/"
+    parent = "about"
+    weight = 11
+
+  [[menus.main]]
+    identifier = "about-mission"
+    name = "Миссия"
+    url = "/about/mission/"
+    parent = "about"
+    weight = 12
+
+  [[menus.main]]
+    identifier = "about-awards"
+    name = "Награды"
+    url = "/about/awards/"
+    parent = "about"
+    weight = 13
+
+  [[menus.main]]
+    identifier = "about-history"
+    name = "История"
+    url = "/about/history/"
+    parent = "about"
+    weight = 14
+
+  [[menus.main]]
+    identifier = "about-symbols"
+    name = "Символика"
+    url = "/about/symbols/"
+    parent = "about"
+    weight = 15
+
+  [[menus.main]]
+    identifier = "about-contacts"
     name = "Контакты"
     url = "/contacts/"
-    weight = 6
+    parent = "about"
+    weight = 16
 
-  # Подменю "Образование"
+  # Подменю "Поступление"
+  [[menus.main]]
+    identifier = "admissions-kindergarten"
+    name = "Приём в детский сад"
+    url = "/admissions/kindergarten/"
+    parent = "admissions"
+    weight = 21
+
+  [[menus.main]]
+    identifier = "admissions-grade1"
+    name = "Приём в 1 класс"
+    url = "/admissions/grade-1/"
+    parent = "admissions"
+    weight = 22
+
+  [[menus.main]]
+    identifier = "admissions-grade10"
+    name = "Приём в 10 класс"
+    url = "/admissions/grade-10/"
+    parent = "admissions"
+    weight = 23
+
+  [[menus.main]]
+    identifier = "admissions-requirements"
+    name = "Условия и требования"
+    url = "/admissions/requirements/"
+    parent = "admissions"
+    weight = 24
+
+  [[menus.main]]
+    identifier = "admissions-cost"
+    name = "Стоимость"
+    url = "/admissions/cost/"
+    parent = "admissions"
+    weight = 25
+
+  # Подменю "Учёба"
   [[menus.main]]
     identifier = "kindergarten"
     name = "Детский сад"
@@ -79,47 +154,89 @@ enableEmoji = true
     weight = 31
 
   [[menus.main]]
-    identifier = "school-programs"
-    name = "Школьные программы"
+    identifier = "school"
+    name = "Школа"
     url = "/education/"
     parent = "education"
     weight = 32
 
+  [[menus.main]]
+    identifier = "diary"
+    name = "Электронный дневник"
+    url = "https://login.dnevnik.ru/"
+    parent = "education"
+    weight = 33
 
   [[menus.main]]
-    identifier = "staff"
-    name = "Педагоги"
-    url = "/staff/"
+    identifier = "distance-learning"
+    name = "Дистанционное обучение"
+    url = "/education/distance-learning/"
+    parent = "education"
+    weight = 34
+
+  [[menus.main]]
+    identifier = "exams"
+    name = "Экзамены"
+    url = "/education/exams/"
     parent = "education"
     weight = 35
 
-  # Подменю "Новости"
+  # Подменю "Жизнь"
   [[menus.main]]
-    identifier = "news-announcements"
+    identifier = "life-educational-work"
+    name = "Воспитательная работа"
+    url = "/life/educational-work/"
+    parent = "life"
+    weight = 41
+
+  [[menus.main]]
+    identifier = "life-safety"
+    name = "Безопасность"
+    url = "/life/safety/"
+    parent = "life"
+    weight = 42
+
+  [[menus.main]]
+    identifier = "life-sports"
+    name = "Спортивный клуб"
+    url = "/life/sports/"
+    parent = "life"
+    weight = 43
+
+  [[menus.main]]
+    identifier = "life-events"
+    name = "Мероприятия"
+    url = "/life/events/"
+    parent = "life"
+    weight = 44
+
+  [[menus.main]]
+    identifier = "life-union"
+    name = "Профсоюз"
+    url = "/life/union/"
+    parent = "life"
+    weight = 45
+
+  [[menus.main]]
+    identifier = "news"
     name = "Новости"
     url = "/news/"
-    parent = "news"
-    weight = 51
+    parent = "life"
+    weight = 46
 
   [[menus.main]]
     identifier = "blog"
     name = "Блог"
     url = "/blog/"
-    parent = "news"
-    weight = 52
+    parent = "life"
+    weight = 47
 
   # Utility-bar меню (верхняя полоса)
-  [[menus.utility]]
-    identifier = "organization"
-    name = "Сведения об организации"
-    url = "/svedeniya-ob-obrazovatelnoy-organizatsii/"
-    weight = 1
-
   [[menus.utility]]
     identifier = "diary"
     name = "Электронный дневник"
     url = "https://login.dnevnik.ru/"
-    weight = 2
+    weight = 1
     external = true
 
 

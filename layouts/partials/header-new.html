@@ -1,29 +1,29 @@
 <!-- Top Bar -->
-<div class="bg-blue-900 text-white py-2 px-4 text-sm">
+<div class="bg-primary-dark text-white py-2 px-4 text-sm">
     <div class="container mx-auto">
         <!-- Desktop Top Bar -->
         <div class="hidden md:flex justify-between items-center">
             <div class="flex items-center space-x-6">
-                <a href="#" class="hover:text-blue-200 transition-colors">
+                <a href="#" class="hover:text-green-200 transition-colors">
                     <i class="fas fa-universal-access mr-2"></i>Версия для слабовидящих
                 </a>
-                <a href="https://login.dnevnik.ru/" target="_blank" class="bg-blue-800 hover:bg-blue-700 px-3 py-1 rounded transition-colors">
+                <a href="https://login.dnevnik.ru/" target="_blank" class="bg-primary hover:bg-primary-light px-3 py-1 rounded transition-colors">
                     <i class="fas fa-book-open mr-2"></i>Электронный дневник
                 </a>
             </div>
             <div class="flex items-center space-x-5">
                 {{ with .Site.Params.phone }}
-                <a href="tel:{{ . }}" class="hover:text-blue-200 transition-colors">
+                <a href="tel:{{ . }}" class="hover:text-green-200 transition-colors">
                     <i class="fas fa-phone mr-2"></i>{{ . }}
                 </a>
                 {{ end }}
                 {{ with .Site.Params.email }}
-                <a href="mailto:{{ . }}" class="hover:text-blue-200 transition-colors">
+                <a href="mailto:{{ . }}" class="hover:text-green-200 transition-colors">
                     <i class="fas fa-envelope mr-2"></i>{{ . }}
                 </a>
                 {{ end }}
                 {{ with .Site.Params.address }}
-                <a href="https://yandex.ru/maps/?text={{ urlquery . }}" target="_blank" class="hover:text-blue-200 transition-colors">
+                <a href="https://yandex.ru/maps/?text={{ urlquery . }}" target="_blank" class="hover:text-green-200 transition-colors">
                     <i class="fas fa-map-marker-alt mr-2"></i>{{ . }}
                 </a>
                 {{ end }}
@@ -34,26 +34,26 @@
         <div class="md:hidden">
             <!-- First Row -->
             <div class="flex justify-between items-center mb-2">
-                <a href="#" class="hover:text-blue-200 transition-colors text-xs">
+                <a href="#" class="text-white hover:text-green-200 transition-colors text-xs">
                     <i class="fas fa-universal-access mr-1"></i>Для слабовидящих
                 </a>
-                <a href="https://login.dnevnik.ru/" target="_blank" class="bg-blue-800 hover:bg-blue-700 px-2 py-1 rounded transition-colors text-xs">
+                <a href="https://login.dnevnik.ru/" target="_blank" class="bg-primary text-white hover:bg-primary-light px-2 py-1 rounded transition-colors text-xs">
                     <i class="fas fa-book-open mr-1"></i>Эл. дневник
                 </a>
             </div>
             <!-- Second Row -->
             <div class="flex justify-between items-center text-xs">
                 {{ with .Site.Params.phone }}
-                <a href="tel:{{ . }}" class="hover:text-blue-200 transition-colors">
+                <a href="tel:{{ . }}" class="text-white hover:text-green-200 transition-colors">
                     <i class="fas fa-phone mr-1"></i>{{ . }}
                 </a>
                 {{ end }}
                 {{ with .Site.Params.email }}
-                <a href="mailto:{{ . }}" class="hover:text-blue-200 transition-colors">
+                <a href="mailto:{{ . }}" class="text-white hover:text-green-200 transition-colors">
                     <i class="fas fa-envelope mr-1"></i>{{ . }}
                 </a>
                 {{ end }}
-                <a href="https://yandex.ru/maps/?text={{ urlquery .Site.Params.address }}" target="_blank" class="hover:text-blue-200 transition-colors">
+                <a href="https://yandex.ru/maps/?text={{ urlquery .Site.Params.address }}" target="_blank" class="text-white hover:text-green-200 transition-colors">
                     <i class="fas fa-map-marker-alt mr-1"></i>Карта
                 </a>
             </div>
@@ -82,162 +82,149 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center space-x-1">
-                <!-- Menu Item: О гимназии -->
+                <!-- Menu Item: О нас -->
                 <div class="relative group">
-                    <button class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium flex items-center">
-                        О гимназии
+                    <button class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-green-50 hover:text-primary font-medium flex items-center">
+                        О нас
                         <i class="fas fa-chevron-down ml-2 text-xs transition-transform group-hover:rotate-180"></i>
                     </button>
                     <div class="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 animate-slideDown">
-                        <a href="/about/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-t-lg">
-                            <i class="fas fa-info-circle mr-2 text-blue-500"></i>Описание гимназии
+                        <a href="/about/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary rounded-t-lg">
+                            <i class="fas fa-info-circle mr-2 text-primary"></i>Описание
                         </a>
-                        <a href="/about/mission/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700">
-                            <i class="fas fa-bullseye mr-2 text-blue-500"></i>Миссия гимназии
+                        <a href="/about/mission/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-bullseye mr-2 text-primary"></i>Миссия
                         </a>
-                        <a href="/about/awards/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700">
-                            <i class="fas fa-trophy mr-2 text-blue-500"></i>Награды гимназии
+                        <a href="/about/awards/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-trophy mr-2 text-primary"></i>Награды
                         </a>
-                        <a href="/about/history/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700">
-                            <i class="fas fa-history mr-2 text-blue-500"></i>История гимназии
+                        <a href="/about/history/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-history mr-2 text-primary"></i>История
                         </a>
-                        <a href="/about/symbols/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-b-lg">
-                            <i class="fas fa-flag mr-2 text-blue-500"></i>Символика
+                        <a href="/about/symbols/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-flag mr-2 text-primary"></i>Символика
+                        </a>
+                        <a href="/contacts/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary rounded-b-lg">
+                            <i class="fas fa-map-marker-alt mr-2 text-primary"></i>Контакты
                         </a>
                     </div>
                 </div>
 
-                <!-- Menu Item: Образование -->
+                <!-- Menu Item: Поступление -->
                 <div class="relative group">
-                    <button class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium flex items-center">
-                        Образование
+                    <button class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-green-50 hover:text-primary font-medium flex items-center">
+                        Поступление
+                        <i class="fas fa-chevron-down ml-2 text-xs transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <div class="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 animate-slideDown">
+                        <a href="/admissions/kindergarten/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary rounded-t-lg">
+                            <i class="fas fa-child mr-2 text-primary"></i>Приём в детский сад
+                        </a>
+                        <a href="/admissions/grade-1/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-school mr-2 text-primary"></i>Приём в 1 класс
+                        </a>
+                        <a href="/admissions/grade-10/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-graduation-cap mr-2 text-primary"></i>Приём в 10 класс
+                        </a>
+                        <a href="/admissions/requirements/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-clipboard-list mr-2 text-primary"></i>Условия и требования
+                        </a>
+                        <a href="/admissions/cost/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary rounded-b-lg">
+                            <i class="fas fa-ruble-sign mr-2 text-primary"></i>Стоимость
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Menu Item: Учёба -->
+                <div class="relative group">
+                    <button class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-green-50 hover:text-primary font-medium flex items-center">
+                        Учёба
                         <i class="fas fa-chevron-down ml-2 text-xs transition-transform group-hover:rotate-180"></i>
                     </button>
                     <!-- Mega Menu -->
-                    <div class="absolute left-0 mt-2 w-[800px] bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 animate-slideDown">
-                        <div class="grid grid-cols-3 gap-6 p-6">
-                            <!-- Column 1: Детский сад -->
+                    <div class="absolute left-0 mt-2 w-[600px] bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 animate-slideDown">
+                        <div class="grid grid-cols-2 gap-6 p-6">
+                            <!-- Column 1 -->
                             <div>
-                                <h3 class="font-bold text-gray-800 mb-3 pb-2 border-b border-blue-100">
-                                    <i class="fas fa-child mr-2 text-blue-600"></i>Детский сад
-                                </h3>
-                                <a href="/admissions/kindergarten/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    Условия приема
+                                <a href="/kindergarten/" class="block py-2 text-gray-700 hover:text-primary hover:translate-x-1 transition-all font-medium">
+                                    <i class="fas fa-child mr-2 text-primary"></i>Детский сад
                                 </a>
-                                <a href="/kindergarten/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    О группах дошкольного отделения
+                                <a href="/education/" class="block py-2 text-gray-700 hover:text-primary hover:translate-x-1 transition-all font-medium">
+                                    <i class="fas fa-school mr-2 text-primary"></i>Школа
                                 </a>
-                                <a href="/kindergarten/schedule/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    Расписание и режим дня
-                                </a>
-                                <a href="/education/distance/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    Дистанционное образование
+                                <a href="https://login.dnevnik.ru/" target="_blank" class="block py-2 text-gray-700 hover:text-primary hover:translate-x-1 transition-all font-medium">
+                                    <i class="fas fa-book-open mr-2 text-primary"></i>Электронный дневник
                                 </a>
                             </div>
 
-                            <!-- Column 2: Школа -->
+                            <!-- Column 2 -->
                             <div>
-                                <h3 class="font-bold text-gray-800 mb-3 pb-2 border-b border-blue-100">
-                                    <i class="fas fa-school mr-2 text-blue-600"></i>Школа
+                                <a href="/education/distance-learning/" class="block py-2 text-gray-700 hover:text-primary hover:translate-x-1 transition-all font-medium">
+                                    <i class="fas fa-laptop mr-2 text-primary"></i>Дистанционное обучение
+                                </a>
+                                <h3 class="font-bold text-gray-800 mt-2 mb-2">
+                                    <i class="fas fa-graduation-cap mr-2 text-primary"></i>Экзамены
                                 </h3>
-                                <a href="/admissions/school/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    Прием в первый класс
-                                </a>
-                                <a href="/admissions/grade-10/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    Поступление в 10 класс
-                                </a>
-                                <a href="/admissions/requirements/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    Требования для поступления
-                                </a>
-                                <a href="https://login.dnevnik.ru/" target="_blank" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    Электронный дневник
-                                </a>
-                            </div>
-
-                            <!-- Column 3: Экзамены -->
-                            <div>
-                                <h3 class="font-bold text-gray-800 mb-3 pb-2 border-b border-blue-100">
-                                    <i class="fas fa-graduation-cap mr-2 text-blue-600"></i>Экзамены
-                                </h3>
-                                <a href="/education/gia/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
+                                <a href="/education/gia/" class="block py-1 pl-6 text-gray-600 hover:text-primary hover:translate-x-1 transition-all">
                                     ГИА-2025
                                 </a>
-                                <a href="/vpr/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    ВПР-2026
+                                <a href="/vpr/" class="block py-1 pl-6 text-gray-600 hover:text-primary hover:translate-x-1 transition-all">
+                                    ВПР
                                 </a>
-                                <a href="/vpr/archive/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
-                                    Архив ВПР
+                                <a href="/vpr/archive/" class="block py-1 pl-6 text-gray-600 hover:text-primary hover:translate-x-1 transition-all">
+                                    Архив
                                 </a>
-                                <a href="/education/olympiad/" class="block py-2 text-gray-600 hover:text-blue-700 hover:translate-x-1 transition-all">
+                                <a href="/education/olympiad/" class="block py-1 pl-6 text-gray-600 hover:text-primary hover:translate-x-1 transition-all">
                                     Олимпиады
                                 </a>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Bottom Section -->
-                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-b-lg">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="bg-white p-2 rounded-lg">
-                                        <i class="fas fa-laptop text-blue-600 text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold text-gray-800">Дистанционное обучение</p>
-                                        <p class="text-sm text-gray-600">Онлайн-платформа для учащихся</p>
-                                    </div>
-                                </div>
-                                <a href="/education/distance/" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                                    Перейти <i class="fas fa-arrow-right ml-2"></i>
-                                </a>
-                            </div>
+                <!-- Menu Item: Жизнь -->
+                <div class="relative group">
+                    <button class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-green-50 hover:text-primary font-medium flex items-center">
+                        Жизнь
+                        <i class="fas fa-chevron-down ml-2 text-xs transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <div class="absolute left-0 mt-2 w-72 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 animate-slideDown">
+                        <a href="/life/educational-work/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary rounded-t-lg">
+                            <i class="fas fa-users mr-2 text-primary"></i>Воспитательная работа
+                        </a>
+                        <a href="/life/safety/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-shield-alt mr-2 text-primary"></i>Безопасность
+                        </a>
+                        <a href="/life/sports/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-running mr-2 text-primary"></i>Спортивный клуб
+                        </a>
+                        <a href="/life/events/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-calendar-alt mr-2 text-primary"></i>Мероприятия
+                        </a>
+                        <a href="/life/union/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                            <i class="fas fa-hands-helping mr-2 text-primary"></i>Профсоюз
+                        </a>
+                        <div class="border-t border-gray-200 mt-2 pt-2">
+                            <a href="/news/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                                <i class="fas fa-newspaper mr-2 text-primary"></i>Новости
+                            </a>
+                            <a href="/blog/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary">
+                                <i class="fas fa-blog mr-2 text-primary"></i>Блог
+                            </a>
+                            <a href="/gallery/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary rounded-b-lg">
+                                <i class="fas fa-images mr-2 text-primary"></i>Галерея
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Menu Item: Деятельность -->
-                <div class="relative group">
-                    <button class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium flex items-center">
-                        Деятельность
-                        <i class="fas fa-chevron-down ml-2 text-xs transition-transform group-hover:rotate-180"></i>
-                    </button>
-                    <div class="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 animate-slideDown">
-                        <a href="/activities/educational/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-t-lg">
-                            <i class="fas fa-users mr-2 text-blue-500"></i>Воспитательная работа
-                        </a>
-                        <a href="/activities/safety/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700">
-                            <i class="fas fa-shield-alt mr-2 text-blue-500"></i>Безопасность
-                        </a>
-                        <a href="/activities/sports/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700">
-                            <i class="fas fa-running mr-2 text-blue-500"></i>Спортивный клуб
-                        </a>
-                        <a href="/activities/events/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700">
-                            <i class="fas fa-calendar-alt mr-2 text-blue-500"></i>Мероприятия
-                        </a>
-                        <a href="/activities/union/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-b-lg">
-                            <i class="fas fa-hands-helping mr-2 text-blue-500"></i>Профсоюз
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Simple Links -->
-                <a href="/svedeniya-ob-obrazovatelnoy-organizatsii/" class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                <!-- Simple Link: Сведения -->
+                <a href="/svedeniya-ob-obrazovatelnoy-organizatsii/" class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-green-50 hover:text-primary font-medium">
                     Сведения
-                </a>
-                <a href="/news/" class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                    Новости
-                </a>
-                <a href="/blog/" class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                    Блог
-                </a>
-                <a href="/gallery/" class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                    Галерея
-                </a>
-                <a href="/contacts/" class="menu-item px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                    Контакты
                 </a>
 
                 <!-- CTA Button -->
-                <a href="/admissions/" class="ml-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-105 font-medium">
+                <a href="/admissions/" class="ml-4 bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-2 rounded-lg hover:from-primary-light hover:to-primary-dark transition-all transform hover:scale-105 font-medium">
                     Поступить
                 </a>
             </div>
@@ -245,12 +232,12 @@
             <!-- Social Links -->
             <div class="hidden lg:flex items-center space-x-3 ml-6">
                 {{ with .Site.Params.telegram }}
-                <a href="{{ . }}" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+                <a href="{{ . }}" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
                     <i class="fab fa-telegram"></i>
                 </a>
                 {{ end }}
                 {{ with .Site.Params.vk }}
-                <a href="{{ . }}" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+                <a href="{{ . }}" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
                     <i class="fab fa-vk"></i>
                 </a>
                 {{ end }}
@@ -268,55 +255,84 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="lg:hidden hidden bg-white border-t">
         <div class="container mx-auto px-4 py-4 space-y-2 custom-scrollbar max-h-[calc(100vh-80px)] overflow-y-auto">
-            <!-- Mobile Menu Item with Submenu -->
+            <!-- О нас -->
             <div class="mobile-menu-item">
-                <button class="w-full flex justify-between items-center px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg" onclick="toggleMobileSubmenu('about-submenu')">
-                    <span>О гимназии</span>
+                <button class="w-full flex justify-between items-center px-4 py-3 text-gray-700 hover:bg-green-50 rounded-lg" onclick="toggleMobileSubmenu('about-submenu')">
+                    <span>О нас</span>
                     <i class="fas fa-chevron-down transition-transform" id="about-chevron"></i>
                 </button>
                 <div id="about-submenu" class="hidden pl-4 space-y-2 mt-2">
-                    <a href="/about/" class="block px-4 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Описание гимназии</a>
-                    <a href="/about/mission/" class="block px-4 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Миссия гимназии</a>
-                    <a href="/about/awards/" class="block px-4 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Награды гимназии</a>
-                    <a href="/about/history/" class="block px-4 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">История гимназии</a>
-                    <a href="/about/symbols/" class="block px-4 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Символика</a>
+                    <a href="/about/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Описание</a>
+                    <a href="/about/mission/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Миссия</a>
+                    <a href="/about/awards/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Награды</a>
+                    <a href="/about/history/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">История</a>
+                    <a href="/about/symbols/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Символика</a>
+                    <a href="/contacts/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Контакты</a>
                 </div>
             </div>
 
-            <!-- Mobile Menu Item with Submenu -->
+            <!-- Поступление -->
             <div class="mobile-menu-item">
-                <button class="w-full flex justify-between items-center px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg" onclick="toggleMobileSubmenu('education-submenu')">
-                    <span>Образование</span>
+                <button class="w-full flex justify-between items-center px-4 py-3 text-gray-700 hover:bg-green-50 rounded-lg" onclick="toggleMobileSubmenu('admissions-submenu')">
+                    <span>Поступление</span>
+                    <i class="fas fa-chevron-down transition-transform" id="admissions-chevron"></i>
+                </button>
+                <div id="admissions-submenu" class="hidden pl-4 space-y-2 mt-2">
+                    <a href="/admissions/kindergarten/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Приём в детский сад</a>
+                    <a href="/admissions/grade-1/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Приём в 1 класс</a>
+                    <a href="/admissions/grade-10/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Приём в 10 класс</a>
+                    <a href="/admissions/requirements/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Условия и требования</a>
+                    <a href="/admissions/cost/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Стоимость</a>
+                </div>
+            </div>
+
+            <!-- Учёба -->
+            <div class="mobile-menu-item">
+                <button class="w-full flex justify-between items-center px-4 py-3 text-gray-700 hover:bg-green-50 rounded-lg" onclick="toggleMobileSubmenu('education-submenu')">
+                    <span>Учёба</span>
                     <i class="fas fa-chevron-down transition-transform" id="education-chevron"></i>
                 </button>
                 <div id="education-submenu" class="hidden pl-4 space-y-2 mt-2">
-                    <div class="font-semibold text-gray-700 px-4 py-2">Детский сад</div>
-                    <a href="/admissions/kindergarten/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Условия приема</a>
-                    <a href="/kindergarten/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">О группах</a>
-                    <a href="/kindergarten/schedule/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Расписание</a>
-
-                    <div class="font-semibold text-gray-700 px-4 py-2 mt-3">Школа</div>
-                    <a href="/admissions/school/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Прием в 1 класс</a>
-                    <a href="/admissions/grade-10/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Прием в 10 класс</a>
-                    <a href="/admissions/requirements/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Требования</a>
+                    <a href="/kindergarten/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Детский сад</a>
+                    <a href="/education/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Школа</a>
+                    <a href="https://login.dnevnik.ru/" target="_blank" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Электронный дневник</a>
+                    <a href="/education/distance-learning/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Дистанционное обучение</a>
 
                     <div class="font-semibold text-gray-700 px-4 py-2 mt-3">Экзамены</div>
-                    <a href="/education/gia/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">ГИА-2025</a>
-                    <a href="/vpr/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">ВПР-2026</a>
-                    <a href="/education/olympiad/" class="block px-8 py-2 text-gray-600 hover:bg-blue-50 rounded-lg">Олимпиады</a>
+                    <a href="/education/gia/" class="block px-8 py-2 text-gray-600 hover:bg-green-50 rounded-lg">ГИА-2025</a>
+                    <a href="/vpr/" class="block px-8 py-2 text-gray-600 hover:bg-green-50 rounded-lg">ВПР</a>
+                    <a href="/vpr/archive/" class="block px-8 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Архив</a>
+                    <a href="/education/olympiad/" class="block px-8 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Олимпиады</a>
                 </div>
             </div>
 
-            <!-- Simple Mobile Links -->
-            <a href="/svedeniya-ob-obrazovatelnoy-organizatsii/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg">Сведения об организации</a>
-            <a href="/news/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg">Новости</a>
-            <a href="/blog/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg">Блог</a>
-            <a href="/gallery/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg">Галерея</a>
-            <a href="/contacts/" class="block px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg">Контакты</a>
+            <!-- Жизнь -->
+            <div class="mobile-menu-item">
+                <button class="w-full flex justify-between items-center px-4 py-3 text-gray-700 hover:bg-green-50 rounded-lg" onclick="toggleMobileSubmenu('life-submenu')">
+                    <span>Жизнь</span>
+                    <i class="fas fa-chevron-down transition-transform" id="life-chevron"></i>
+                </button>
+                <div id="life-submenu" class="hidden pl-4 space-y-2 mt-2">
+                    <a href="/life/educational-work/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Воспитательная работа</a>
+                    <a href="/life/safety/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Безопасность</a>
+                    <a href="/life/sports/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Спортивный клуб</a>
+                    <a href="/life/events/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Мероприятия</a>
+                    <a href="/life/union/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Профсоюз</a>
+
+                    <div class="border-t border-gray-200 mt-2 pt-2">
+                        <a href="/news/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Новости</a>
+                        <a href="/blog/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Блог</a>
+                        <a href="/gallery/" class="block px-4 py-2 text-gray-600 hover:bg-green-50 rounded-lg">Галерея</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сведения -->
+            <a href="/svedeniya-ob-obrazovatelnoy-organizatsii/" class="block px-4 py-3 text-gray-700 hover:bg-green-50 rounded-lg">Сведения</a>
 
             <!-- Mobile CTA -->
             <div class="pt-4 pb-2">
-                <a href="/admissions/" class="block w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center py-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all font-medium">
+                <a href="/admissions/" class="block w-full bg-gradient-to-r from-primary to-primary-dark text-white text-center py-3 rounded-lg hover:from-primary-light hover:to-primary-dark transition-all font-medium">
                     Поступить в гимназию
                 </a>
             </div>
@@ -324,12 +340,12 @@
             <!-- Mobile Social Links -->
             <div class="flex justify-center space-x-3 pt-2">
                 {{ with .Site.Params.telegram }}
-                <a href="{{ . }}" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+                <a href="{{ . }}" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
                     <i class="fab fa-telegram"></i>
                 </a>
                 {{ end }}
                 {{ with .Site.Params.vk }}
-                <a href="{{ . }}" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+                <a href="{{ . }}" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
                     <i class="fab fa-vk"></i>
                 </a>
                 {{ end }}

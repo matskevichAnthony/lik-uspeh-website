@@ -210,8 +210,8 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
       {{ $news := where site.RegularPages "Section" "news" | first 4 }}
       {{ range $news }}
-      <article class="news-card">
-        <a href="{{ .Permalink }}" class="block p-4 bg-gray-50 rounded-lg transition-colors hover:bg-gray-100">
+      <article class="news-card h-[280px] flex flex-col">
+        <a href="{{ .Permalink }}" class="block p-4 bg-gray-50 rounded-lg transition-colors hover:bg-gray-100 h-full flex flex-col">
           {{ $imageUrl := "" }}
           {{ if .Params.featured_image }}
             {{ $imageUrl = .Params.featured_image }}
@@ -221,17 +221,17 @@
             {{ $hash := md5 .Title }}
             {{ $imageUrl = printf "https://source.unsplash.com/400x200/?school,education,news&sig=%s" $hash }}
           {{ end }}
-          <div class="w-full h-32 bg-gray-200 rounded mb-3 overflow-hidden">
+          <div class="w-full h-24 bg-gray-200 rounded mb-2 overflow-hidden flex-shrink-0">
             <img src="{{ $imageUrl }}" alt="{{ .Title }}" class="w-full h-full object-cover" loading="lazy">
           </div>
-          <div class="flex items-center gap-2 mb-2">
+          <div class="flex items-center gap-2 mb-2 flex-shrink-0">
             <time class="text-xs text-text-light bg-white px-2 py-1 rounded">{{ .Date.Format "2 Jan" }}</time>
             {{ with .Params.tags }}
             <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">{{ index . 0 }}</span>
             {{ end }}
           </div>
-          <h3 class="text-sm font-semibold text-gray-900 mb-2 line-clamp-2">{{ .Title }}</h3>
-          <p class="text-text-secondary text-xs line-clamp-2">{{ .Summary }}</p>
+          <h3 class="text-sm font-semibold text-gray-900 mb-1 line-clamp-2 flex-shrink-0">{{ .Title }}</h3>
+          <p class="text-text-secondary text-xs line-clamp-3 flex-grow overflow-hidden">{{ .Plain | truncate 120 }}</p>
         </a>
       </article>
       {{ end }}
@@ -388,7 +388,7 @@
 </section>
 
 <!-- Final CTA -->
-<section class="py-20 bg-gradient-to-r from-primary via-primary-dark to-secondary text-white">
+<section class="py-20 text-white" style="background: linear-gradient(to right, #34af8f, #2a8d73, #8b0000);">
   <div class="container-custom text-center">
     <div class="max-w-4xl mx-auto space-y-8">
       <h2 class="text-3xl md:text-4xl font-bold font-heading">
